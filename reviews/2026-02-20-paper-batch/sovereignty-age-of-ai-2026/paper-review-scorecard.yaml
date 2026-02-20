@@ -1,0 +1,15 @@
+version: '0.1'
+paper:
+  title: 'Sovereignty in the Age of AI: Strategic Choices, Structural Dependencies
+    and the Long Game Ahead'
+  year: 2026
+scores:
+  tiering_completeness: 2
+  accountability_plumbing: 1
+  data_governance: 2
+  redress: 1
+  sovereignty: 5
+notes:
+- Scores are 0–5 (5=strong, implementable).
+- 'This scorecard reflects DPI AI Governance Lab methodology: abstractions → risk
+  surfaces → tier binding → accountability → conformance.'
