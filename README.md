@@ -1,72 +1,151 @@
-# DPI–AI Governance Lab
+# DPI AI Governance Lab
 
-A structured doctrine and tooling repository for analyzing and operationalizing AI within Digital Public Infrastructure (DPI) ecosystems.
+The DPI AI Governance Lab is a structured, repeatable methodology for
+transforming AI and DPI policy papers into enforceable governance
+artifacts.
 
-This repository transforms vision papers into enforceable governance artifacts by binding institutional risk to workflow class, accountability roles, and escalation pathways.
+This repository is not a narrative archive. It is a lab environment.
+Every paper review must produce comparable, machine-checkable outputs
+that can be validated, versioned, and improved over time.
 
----
+------------------------------------------------------------------------
 
-## Current Focus
+## Purpose
 
-### DPI–AI Framework (CDPI, 2026)
-Original paper:
-https://digitalpublicinfrastructure.ai/wp-content/uploads/2026/01/Vision_Paper_-DPI-AI-Framework_2026_CDPI.pdf
+Most AI governance papers are directionally correct but operationally
+vague.\
+The Lab applies a deterministic review workflow to:
 
-Artifacts include:
-- DPI–AI Risk Scoring Matrix
-- Risk-to-Tier-to-Governance Binding Model
-- Agentic Control Surface Mapping
-- Public-Agent Identity Accountability Model
+-   Extract architectural primitives
+-   Surface institutional risk structures
+-   Bind risks to workflow tiers
+-   Define accountability and escalation models
+-   Translate insights into reusable governance artifacts
 
----
+The goal is operational clarity, not commentary.
 
----
+------------------------------------------------------------------------
 
-## Additional Packs
+## Repository Structure
 
+    artifacts/     Reusable governance artifacts (control mappings, tier models, templates)
+    reviews/       Per-paper structured reviews
+    papers/        Source documents or paper packs
+    docs/          Methodology and reference documentation
+    data/          Control IDs, taxonomies, shared reference tables
+    schemas/       Machine-readable structures
+    tools/         Validators and generators
 
-### Sovereignty in the Age of AI (TBI, 2026) — Extension Pack
-Artifacts include:
-- Sovereignty Assurance Model (SAM): posture → proof controls
-- Sovereign AI Readiness Index (SARI): measurable scoring + backlog conversion
-- DPI as AI sovereignty control plane: reference architecture + checklist
-- Exit Leverage Protocol (ELP): interoperability as strategic exit power
-- Runtime AI Governance Framework (RAGF): logging, evaluation, redress, incidents
-- AI infrastructure resilience playbook: energy–compute stress tests
-- Sovereignty maturity model: Access → Adapt → Embed → Influence sequencing
+### Conceptual Separation
 
-Location:
-- `papers/sovereignty-age-of-ai-2026/`
-- `schemas/sovereignty-age-of-ai-2026/`
-- `templates/sari-assessment-template.yaml`
-- `templates/interoperability-conformance-checklist.md`
+-   `artifacts/` = normative governance building blocks
+-   `reviews/` = instantiations of the methodology applied to specific
+    papers
+-   `data/` and `schemas/` = shared validation and taxonomy backbone
+-   `tools/` = validation and reproducibility layer
 
-## Repository Layers
+------------------------------------------------------------------------
 
-1. Analytical Artifacts (risk matrices, mappings)
-2. Governance Binding Models
-3. Conformance Profiles
-4. Reusable Templates for future paper evaluations
+## How to Review Any Paper (Lab Workflow)
 
----
+A paper review is treated as a build process with fixed inputs and fixed
+outputs.
 
-## Version
-v0.3 – Sovereignty Pack + Schemas Layer
+### Step 1 --- Extract Architectural Primitives
 
----
+Identify rails, actors, control surfaces, interfaces, decision rights.
 
-## License
-Creative Commons Attribution 4.0 International (CC BY 4.0)
+### Step 2 --- Identify Institutional Risk Surfaces
 
----
+Surface failure modes, incentive distortions, accountability gaps.
 
-## New structure (Artifacts + Reviews)
+### Step 3 --- Bind Risk to Workflow Tiers
 
-New work should prefer:
+Map risks to operational tiers (who can act, under what constraints).
 
-- `artifacts/` — normative, reusable governance artifacts (tiering, dossiers, accountability, redress)
-- `reviews/` — paper-by-paper outputs produced using the artifacts (comparable and CI-validatable)
-- `tools/` — validators and scaffolding helpers
-- `data/` — shared control IDs, taxonomies, and mappings
+### Step 4 --- Define Accountability + Escalation
 
-Legacy packs remain under `papers/`, `templates/`, `schemas/`, and `profiles/` for backward compatibility.
+Specify decision rights, auditability mechanisms, and redress pathways.
+
+### Step 5 --- Convert to Governance Artifacts
+
+Translate insights into structured outputs suitable for conformance and
+reuse.
+
+Full method reference: `docs/methodology.md`
+
+------------------------------------------------------------------------
+
+## Creating a New Review
+
+1.  Create a directory:
+
+        reviews/<batch-or-year>/<paper-slug>/
+
+2.  Copy the required templates:
+
+    -   `templates/paper-analysis-template.md` → `paper-analysis.md`
+    -   `reviews/templates/paper-review-report-template.md` →
+        `paper-review-report.md`
+    -   `reviews/templates/paper-review-metadata-template.yaml` →
+        `paper-review-metadata.yaml`
+    -   `reviews/templates/paper-review-scorecard-template.yaml` →
+        `paper-review-scorecard.yaml`
+
+3.  Populate all four files using the 5-step methodology.
+
+4.  Run validators (or rely on CI):
+
+    -   `tools/validators/validate_scorecard.py`
+    -   `tools/validators/validate_dossier.py`
+
+------------------------------------------------------------------------
+
+## Required Outputs (Contract)
+
+Every review MUST produce:
+
+-   `paper-analysis.md`
+-   `paper-review-report.md`
+-   `paper-review-metadata.yaml`
+-   `paper-review-scorecard.yaml`
+
+These files ensure cross-paper comparability and enable structured
+scoring.
+
+------------------------------------------------------------------------
+
+## Review Batches and Evolution
+
+The repository may contain both:
+
+-   `reviews/2026/...` (legacy structure)
+-   `reviews/<date>-paper-batch/...` (current structure)
+
+Future reviews should follow the batch-first structure for consistency.
+
+------------------------------------------------------------------------
+
+## Validation and CI
+
+The Lab is designed to be verifiable.
+
+Validators in `tools/validators/` enforce:
+
+-   Scorecard integrity
+-   Schema conformance
+-   Structural completeness
+
+CI workflows ensure that new reviews meet the structural contract.
+
+------------------------------------------------------------------------
+
+## Design Philosophy
+
+Governance must be operational.
+
+Narratives persuade.\
+Artifacts enforce.
+
+The DPI AI Governance Lab prioritizes enforceable structure over
+rhetorical positioning.
