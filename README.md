@@ -20,6 +20,27 @@ Artifacts include:
 
 ---
 
+---
+
+## Additional Packs
+
+
+### Sovereignty in the Age of AI (TBI, 2026) — Extension Pack
+Artifacts include:
+- Sovereignty Assurance Model (SAM): posture → proof controls
+- Sovereign AI Readiness Index (SARI): measurable scoring + backlog conversion
+- DPI as AI sovereignty control plane: reference architecture + checklist
+- Exit Leverage Protocol (ELP): interoperability as strategic exit power
+- Runtime AI Governance Framework (RAGF): logging, evaluation, redress, incidents
+- AI infrastructure resilience playbook: energy–compute stress tests
+- Sovereignty maturity model: Access → Adapt → Embed → Influence sequencing
+
+Location:
+- `papers/sovereignty-age-of-ai-2026/`
+- `schemas/sovereignty-age-of-ai-2026/`
+- `templates/sari-assessment-template.yaml`
+- `templates/interoperability-conformance-checklist.md`
+
 ## Repository Layers
 
 1. Analytical Artifacts (risk matrices, mappings)
@@ -30,7 +51,7 @@ Artifacts include:
 ---
 
 ## Version
-v0.2 – Structured Governance Toolkit Layer
+v0.3 – Sovereignty Pack + Schemas Layer
 
 ---
 

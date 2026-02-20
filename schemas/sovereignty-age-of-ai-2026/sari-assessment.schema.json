@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpi-ai-governance-lab.example/schemas/sovereignty-age-of-ai-2026/sari-assessment.schema.json",
+  "title": "Sovereign AI Readiness Index (SARI) Assessment",
+  "type": "object",
+  "required": [
+    "metadata",
+    "country_or_program",
+    "as_of_date",
+    "scores"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "created_by",
+        "created_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "1.0.0"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "country_or_program": {
+      "type": "string"
+    },
+    "as_of_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scores": {
+      "type": "object",
+      "required": [
+        "compute",
+        "energy",
+        "data",
+        "models",
+        "applications",
+        "talent_and_skills",
+        "governance"
+      ],
+      "properties": {
+        "compute": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "energy": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "data": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "models": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "applications": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "talent_and_skills": {
+          "$ref": "#/$defs/layerScores"
+        },
+        "governance": {
+          "$ref": "#/$defs/layerScores"
+        }
+      },
+      "additionalProperties": false
+    },
+    "overall_notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "layerScores": {
+      "type": "object",
+      "required": [
+        "fallback_capacity",
+        "negotiated_interdependence",
+        "runtime_auditability",
+        "representation_adequacy",
+        "energy_compute_resilience",
+        "absorption_capacity"
+      ],
+      "properties": {
+        "fallback_capacity": {
+          "$ref": "#/$defs/score"
+        },
+        "negotiated_interdependence": {
+          "$ref": "#/$defs/score"
+        },
+        "runtime_auditability": {
+          "$ref": "#/$defs/score"
+        },
+        "representation_adequacy": {
+          "$ref": "#/$defs/score"
+        },
+        "energy_compute_resilience": {
+          "$ref": "#/$defs/score"
+        },
+        "absorption_capacity": {
+          "$ref": "#/$defs/score"
+        },
+        "evidence_links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "score": {
+      "type": "object",
+      "required": [
+        "value",
+        "justification"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 10
+        },
+        "gap_statement": {
+          "type": "string"
+        },
+        "backlog_items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

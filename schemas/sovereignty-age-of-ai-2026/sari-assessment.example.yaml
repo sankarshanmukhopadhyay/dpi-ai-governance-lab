@@ -1,0 +1,59 @@
+# Example SARI assessment (YAML)
+metadata:
+  schema_version: "1.0.0"
+  created_by: "DPI–AI Governance Lab"
+  created_at: "2026-02-20T04:00:43Z"
+  notes: "Example only."
+country_or_program: "ExampleLand — Public Service AI Program"
+as_of_date: "2026-02-20"
+scores:
+  compute:
+    fallback_capacity: { value: 3, justification: "Domestic inference exists for Tier-4 workloads; failover is tested annually." }
+    negotiated_interdependence: { value: 4, justification: "Multi-year access agreements include audit rights and exit clauses." }
+    runtime_auditability: { value: 3, justification: "Placement logs and SLA telemetry are collected; gaps remain in trace unification." }
+    representation_adequacy: { value: 2, justification: "Not applicable at compute layer; scored for completeness with weak linkage to workload representativeness." }
+    energy_compute_resilience: { value: 3, justification: "Compute is mapped to energy zones; peak stress tests are annual." }
+    absorption_capacity: { value: 2, justification: "Ops team is small; limited rotations and runbook coverage." }
+  energy:
+    fallback_capacity: { value: 2, justification: "Limited firm capacity reserves for AI zones." }
+    negotiated_interdependence: { value: 3, justification: "PPAs exist; import dependency remains." }
+    runtime_auditability: { value: 3, justification: "Energy reporting exists for major clusters; vendor reporting quality varies." }
+    representation_adequacy: { value: 0, justification: "Not applicable." }
+    energy_compute_resilience: { value: 3, justification: "Grid planning includes AI demand forecasts; upgrades underway." }
+    absorption_capacity: { value: 2, justification: "Limited joint planning capacity across ministries." }
+  data:
+    fallback_capacity: { value: 3, justification: "Data trust exists for priority domains; portability drills are partial." }
+    negotiated_interdependence: { value: 3, justification: "Sharing agreements include extraction rights; enforcement capacity is moderate." }
+    runtime_auditability: { value: 4, justification: "Lineage and access logs are institutionalized." }
+    representation_adequacy: { value: 3, justification: "National language datasets exist, but coverage is uneven across regions." }
+    energy_compute_resilience: { value: 0, justification: "Not applicable." }
+    absorption_capacity: { value: 3, justification: "Data stewards exist in core agencies; capacity gaps in sub-national units." }
+  models:
+    fallback_capacity: { value: 3, justification: "Fallback open-weight models exist for limited tasks; broader coverage needed." }
+    negotiated_interdependence: { value: 4, justification: "Provider agreements include notice clauses and emergency access provisions." }
+    runtime_auditability: { value: 3, justification: "Evaluation pipelines exist; drift monitoring is inconsistent." }
+    representation_adequacy: { value: 3, justification: "Fine-tuning exists for priority languages; domain coverage remains uneven." }
+    energy_compute_resilience: { value: 2, justification: "Inference scaling plans exist; energy constraints could cap growth." }
+    absorption_capacity: { value: 2, justification: "Limited MLOps headcount; reliance on vendors." }
+  applications:
+    fallback_capacity: { value: 3, justification: "Degraded-mode operation exists for critical services." }
+    negotiated_interdependence: { value: 3, justification: "Contracts include exit clauses; portability test coverage incomplete." }
+    runtime_auditability: { value: 4, justification: "Decision trace is implemented for Tier-4 workflows." }
+    representation_adequacy: { value: 3, justification: "Some services localized; user feedback loops are present." }
+    energy_compute_resilience: { value: 2, justification: "Peak workload planning is early-stage." }
+    absorption_capacity: { value: 3, justification: "Delivery teams trained; uneven adoption across agencies." }
+  talent_and_skills:
+    fallback_capacity: { value: 2, justification: "Key-person risk remains; limited succession plans." }
+    negotiated_interdependence: { value: 2, justification: "Secondments exist but are not scaled." }
+    runtime_auditability: { value: 2, justification: "Capability coverage dashboards are partial." }
+    representation_adequacy: { value: 0, justification: "Not applicable." }
+    energy_compute_resilience: { value: 0, justification: "Not applicable." }
+    absorption_capacity: { value: 3, justification: "Baseline training exists; advanced tracks are limited." }
+  governance:
+    fallback_capacity: { value: 3, justification: "Inventory and incident response exist; redress staffing is thin." }
+    negotiated_interdependence: { value: 3, justification: "Regulatory and procurement leverage is moderate." }
+    runtime_auditability: { value: 4, justification: "Incident logging and RCA discipline exists." }
+    representation_adequacy: { value: 0, justification: "Not applicable." }
+    energy_compute_resilience: { value: 0, justification: "Not applicable." }
+    absorption_capacity: { value: 3, justification: "Central function exists; sub-national alignment is partial." }
+overall_notes: "Use this assessment to drive a sovereignty backlog mapped to SAM control IDs."
