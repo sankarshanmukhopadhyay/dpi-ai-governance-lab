@@ -1,20 +1,18 @@
 # DPI–AI Governance Lab
 
-A working laboratory of structured critiques, governance models, risk matrices, and assurance artifacts built around AI, Digital Public Infrastructure (DPI), and agentic systems.
+A structured doctrine and tooling repository for analyzing and operationalizing AI within Digital Public Infrastructure (DPI) ecosystems.
 
-This repository stores reproducible markdown annexes, workflow tiers, control mappings, accountability models, and governance blueprints derived from public vision papers and policy frameworks.
+This repository transforms vision papers into enforceable governance artifacts by binding institutional risk to workflow class, accountability roles, and escalation pathways.
 
 ---
 
 ## Current Focus
 
 ### DPI–AI Framework (CDPI, 2026)
-
 Original paper:
 https://digitalpublicinfrastructure.ai/wp-content/uploads/2026/01/Vision_Paper_-DPI-AI-Framework_2026_CDPI.pdf
 
-This repository contains structured governance extensions including:
-
+Artifacts include:
 - DPI–AI Risk Scoring Matrix
 - Risk-to-Tier-to-Governance Binding Model
 - Agentic Control Surface Mapping
@@ -22,18 +20,19 @@ This repository contains structured governance extensions including:
 
 ---
 
-## Methodology
+## Repository Layers
 
-All artifacts follow a structured evaluation process:
+1. Analytical Artifacts (risk matrices, mappings)
+2. Governance Binding Models
+3. Conformance Profiles
+4. Reusable Templates for future paper evaluations
 
-1. Extract architectural primitives from the source paper
-2. Identify institutional risk surfaces
-3. Apply likelihood × impact scoring
-4. Bind risk priority to workflow tiering
-5. Map governance roles and accountability boundaries
+---
+
+## Version
+v0.2 – Structured Governance Toolkit Layer
 
 ---
 
 ## License
-
-Content in this repository is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+Creative Commons Attribution 4.0 International (CC BY 4.0)

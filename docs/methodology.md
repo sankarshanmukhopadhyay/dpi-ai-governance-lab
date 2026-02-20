@@ -1,13 +1,11 @@
 # Methodology
 
-This repository applies structured institutional pressure-testing to AI and DPI vision papers.
+This lab applies structured institutional pressure-testing:
 
-Core principles:
+1. Extract architectural abstractions
+2. Score institutional risks
+3. Bind risk priority to workflow tiers
+4. Define accountability and escalation
+5. Translate into reusable conformance profiles
 
-- Separate architecture from governance.
-- Score institutional risks explicitly.
-- Bind risk priority to operational workflow tiers.
-- Define accountability boundaries across actors.
-- Make governance composable, not rhetorical.
-
-Artifacts are version-controlled to allow iterative refinement.
+The goal is composable legitimacy, not narrative critique.
