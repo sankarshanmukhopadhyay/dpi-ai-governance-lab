@@ -1,0 +1,17 @@
+version: 0.1
+system:
+  name: ""
+  context: ""
+tier:
+  proposed: ""
+  justification: ""
+scoring:
+  impact_severity: 0
+  scale: 0
+  reversibility: 0
+  opacity: 0
+  adversarial_pressure: 0
+controls:
+  required_profile: ""
+  mandatory_artifacts: []
+gaps: []

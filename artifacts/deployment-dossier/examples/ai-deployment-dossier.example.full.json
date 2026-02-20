@@ -1,0 +1,72 @@
+{
+  "version": "0.1",
+  "system": {
+    "name": "Example DPI AI System",
+    "context": "Example program",
+    "owner": "Department X"
+  },
+  "tier": {
+    "level": 2,
+    "justification": "Influences eligibility recommendations"
+  },
+  "data": {
+    "sources": [
+      "Program registry"
+    ],
+    "lawful_basis": "Program rules",
+    "retention": "90 days"
+  },
+  "model": {
+    "type": "Gradient boosted trees",
+    "limitations": [
+      "Requires periodic retraining"
+    ]
+  },
+  "evaluation": {
+    "metrics": [
+      "AUC",
+      "FPR/FNR"
+    ],
+    "subgroup_tests": [
+      "Language subgroup parity"
+    ]
+  },
+  "monitoring": {
+    "logs": [
+      "decision_record_id",
+      "model_version"
+    ],
+    "drift_triggers": [
+      "Error rate +20%"
+    ]
+  },
+  "escalation": {
+    "triggers": [
+      "Complaint surge"
+    ],
+    "kill_switch_owner": "System Owner"
+  },
+  "redress": {
+    "channels": [
+      "Portal",
+      "Call center"
+    ],
+    "sla": "7 days",
+    "remedies": [
+      "Correction",
+      "Override"
+    ]
+  },
+  "compute": {
+    "providers": [
+      "Cloud A"
+    ],
+    "jurisdictional_exposure": "India"
+  },
+  "rollback": {
+    "steps": [
+      "Disable model"
+    ],
+    "tests": "Quarterly"
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Deployment Dossier",
+  "type": "object",
+  "required": [
+    "version",
+    "system",
+    "tier",
+    "data",
+    "model",
+    "evaluation",
+    "monitoring",
+    "escalation",
+    "redress"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "system": {
+      "type": "object",
+      "required": [
+        "name",
+        "context"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        }
+      }
+    },
+    "tier": {
+      "type": "object",
+      "required": [
+        "level",
+        "justification"
+      ],
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "justification": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lawful_basis": {
+          "type": "string"
+        },
+        "retention": {
+          "type": "string"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subgroup_tests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "drift_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "escalation": {
+      "type": "object",
+      "properties": {
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kill_switch_owner": {
+          "type": "string"
+        }
+      }
+    },
+    "redress": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sla": {
+          "type": "string"
+        },
+        "remedies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "compute": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jurisdictional_exposure": {
+          "type": "string"
+        }
+      }
+    },
+    "sustainability": {
+      "type": "object",
+      "properties": {
+        "measurement": {
+          "type": "string"
+        },
+        "plan": {
+          "type": "string"
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tests": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

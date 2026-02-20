@@ -1,0 +1,12 @@
+name: Bug report
+description: Report an error in schemas/templates/tools.
+title: "[Bug] <summary>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What happened, where, and expected behavior.
+    validations:
+      required: true

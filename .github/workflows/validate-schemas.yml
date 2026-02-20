@@ -1,0 +1,15 @@
+name: Validate Schemas
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate example dossier
+        run: |
+          python tools/validators/validate_dossier.py artifacts/deployment-dossier/examples/ai-deployment-dossier.example.min.json

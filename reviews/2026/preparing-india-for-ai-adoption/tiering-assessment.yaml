@@ -1,0 +1,23 @@
+version: 0.1
+system:
+  name: "Preparing India for AI Adoption (paper-level assessment)"
+  context: "Policy / adoption roadmap"
+tier:
+  proposed: "N/A (paper spans multiple tiers)"
+  justification: "Paper addresses adoption enablers; does not specify deployment tiers"
+scoring:
+  impact_severity: 4
+  scale: 5
+  reversibility: 3
+  opacity: 3
+  adversarial_pressure: 4
+controls:
+  required_profile: "Decision Support (Tier 2) baseline framing for DPI public services"
+  mandatory_artifacts:
+    - "AI Deployment Dossier (Tier 2–3)"
+    - "Incident escalation runbook"
+    - "Redress SLAs and remedy taxonomy"
+gaps:
+  - "No tiering model; governance is not risk-class aware"
+  - "No explicit escalation triggers / kill switch authority model"
+  - "Data exchange stewardship not operationalized (approvals/logging/revocation)"

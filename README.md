@@ -57,3 +57,16 @@ v0.3 – Sovereignty Pack + Schemas Layer
 
 ## License
 Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+---
+
+## New structure (Artifacts + Reviews)
+
+New work should prefer:
+
+- `artifacts/` — normative, reusable governance artifacts (tiering, dossiers, accountability, redress)
+- `reviews/` — paper-by-paper outputs produced using the artifacts (comparable and CI-validatable)
+- `tools/` — validators and scaffolding helpers
+- `data/` — shared control IDs, taxonomies, and mappings
+
+Legacy packs remain under `papers/`, `templates/`, `schemas/`, and `profiles/` for backward compatibility.

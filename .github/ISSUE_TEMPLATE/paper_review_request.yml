@@ -1,0 +1,24 @@
+name: Paper review request
+description: Request a DPI AI Governance Lab review for a paper/report.
+title: "[Review] <paper title>"
+labels: ["review"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Paper title
+      placeholder: "Preparing India for AI Adoption"
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source / link / attachment notes
+      placeholder: "Provide URL or describe attachment"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and intended audience
+      placeholder: "Policy team, implementers, auditors..."

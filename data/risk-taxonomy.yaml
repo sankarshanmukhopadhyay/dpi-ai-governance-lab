@@ -1,0 +1,10 @@
+version: 0.1
+risks:
+  - id: RISK-DRIFT
+    name: Model drift
+  - id: RISK-BIAS
+    name: Subgroup disparity / bias
+  - id: RISK-ABUSE
+    name: Abuse / adversarial manipulation
+  - id: RISK-INFERENCE
+    name: Inference / re-identification

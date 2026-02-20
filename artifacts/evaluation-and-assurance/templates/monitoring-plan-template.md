@@ -1,0 +1,3 @@
+# Monitoring plan (template)
+
+(placeholder)

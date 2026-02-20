@@ -1,0 +1,7 @@
+control_id,domain,name
+TIER-01,TIER,Tier classification
+DATA-01,DATA,Data access approval
+EVAL-01,EVAL,Evaluation minimums
+OBS-01,OBS,Monitoring and drift
+RED-01,RED,Redress SLAs
+SUP-01,SUP,Supply chain exposure
