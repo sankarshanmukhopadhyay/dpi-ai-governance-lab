@@ -105,6 +105,14 @@ reviews/2026-xx-paper-batch/my-paper/
 dpi-lab validate reviews/2026-xx-paper-batch/my-paper
 ```
 
+
+### 4) Follow a guided walkthrough (recommended)
+
+- Walkthrough: `docs/walkthrough.md`
+- Example outputs: `reviews/examples-batch/` (offline, deterministic, onboarding-focused)
+
+The walkthrough uses the example directories to explain the full lifecycle: extraction → scaffolding → generation → validation, plus how the manifest and hashes support audit and replay.
+
 ---
 
 ## How to Review Any Paper (Method)

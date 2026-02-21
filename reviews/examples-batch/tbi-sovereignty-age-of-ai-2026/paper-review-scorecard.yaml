@@ -1,0 +1,14 @@
+version: 0.1
+paper:
+  title: '--- PAGE 1 ---'
+  year: 2026
+scores:
+  tiering_completeness: 0
+  accountability_plumbing: 0
+  data_governance: 0
+  redress: 0
+  sovereignty: 0
+notes:
+- Local deterministic engine does not infer evidence-backed scores.
+- Replace 0s with rubric-justified scores after completing sections 1-9 of the review
+  report.

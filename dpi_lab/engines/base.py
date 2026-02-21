@@ -17,6 +17,13 @@ class EngineConfig:
 
     model: str
     seed: int
+
+    # Prefer token budgets when available (model engines can be token-aware).
+    # If these are None, engines may fall back to character budgets.
+    max_input_tokens: Optional[int] = None
+    chunk_max_tokens: Optional[int] = None
+    max_output_tokens: int = 2048
+    repair_retries: int = 1
     max_input_chars: int = 180_000
     # Chunking controls for long inputs (engines may ignore).
     # If the canonicalized paper text exceeds max_input_chars, engines SHOULD

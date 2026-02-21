@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "engine": "local",
+  "model": "gpt-5",
+  "seed": 1501693490,
+  "chunking": {
+    "max_input_chars": 180000,
+    "chunk_max_chars": 60000,
+    "chunk_max_count": 12,
+    "max_input_tokens": null,
+    "chunk_max_tokens": null
+  },
+  "engine_params": {
+    "max_output_tokens": 2048,
+    "repair_retries": 1,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "inputs": {
+    "pdf": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/paper.pdf",
+    "pdf_sha256": "5982063280f965fe7dea31715f3453b7fca2a43f77b462450dcff2beb3200733",
+    "text_sha256": "fc4b2183c0ab92b9349cd9449bacaa0f2da3dbb703f807f030598aced4560180",
+    "pages_sha256": "1297e5867be8a305cd320df6e1b3ac8edfd6e40be59611051d117903e42d2cb4"
+  },
+  "outputs": {
+    "review_dir": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026",
+    "metadata": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/paper-review-metadata.yaml",
+    "scorecard": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/paper-review-scorecard.yaml",
+    "analysis": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/paper-analysis.md",
+    "report": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/paper-review-report.md",
+    "prompts_dir": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/run/prompts",
+    "responses_dir": "/mnt/data/workbench_v4/dpi-ai-governance-lab-main/reviews/examples-batch/tbi-sovereignty-age-of-ai-2026/run/responses"
+  }
+}
