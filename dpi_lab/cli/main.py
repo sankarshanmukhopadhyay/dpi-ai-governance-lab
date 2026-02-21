@@ -8,9 +8,10 @@ Goal: make the repo usable as a local workbench:
 - validate: enforce the review contract and schemas
 - lint: basic markdown hygiene checks
 
-This intentionally starts with a *local* deterministic engine to keep the
-workflow runnable without external services. Engines that call model APIs
-can be added later without changing the review contract.
+This includes:
+- a *local* deterministic engine to keep the workflow runnable without external services
+- an optional model-backed engine (OpenAI) that generates JSON-first outputs and renders
+  deterministic markdown/yaml artifacts from schema-valid JSON.
 """
 
 from __future__ import annotations
@@ -50,8 +51,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_review.add_argument(
         "--engine",
         default="local",
-        choices=["local"],
-        help="Generation engine. 'local' creates a deterministic baseline without external services.",
+        choices=["local", "openai"],
+        help="Generation engine. 'local' is scaffold-only; 'openai' uses the OpenAI API (requires OPENAI_API_KEY).",
+    )
+    p_review.add_argument(
+        "--model",
+        default=None,
+        help="Model name for model-backed engines (e.g., gpt-5). Ignored by local engine.",
     )
 
     p_validate = sub.add_parser("validate", help="Validate a review directory")
@@ -84,7 +90,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "review":
         base = _p(args.out)
         base.mkdir(parents=True, exist_ok=True)
-        review_dir = run_review(pdf_path=_p(args.pdf), base_dir=base, slug=args.slug, engine=args.engine)
+        review_dir = run_review(
+            pdf_path=_p(args.pdf),
+            base_dir=base,
+            slug=args.slug,
+            engine=args.engine,
+            model=args.model,
+        )
         print(str(review_dir))
         return 0
 

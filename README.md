@@ -61,6 +61,17 @@ This creates a **structurally correct**, deterministic baseline review using the
 dpi-lab review --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
 ```
 
+### Optional: model-backed deterministic review (OpenAI)
+
+This engine generates **schema-valid JSON** and then renders deterministic YAML/Markdown artifacts.
+It also saves the **exact prompts** and **raw response payload** for audit and replay.
+
+```bash
+export OPENAI_API_KEY="..."
+dpi-lab review --engine openai --model gpt-5 \
+  --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
+```
+
 Outputs land in:
 
 ```

@@ -102,4 +102,16 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
         except Exception as ex:
             errors.append(f"manifest.json is not valid JSON: {ex}")
 
+    # Light-weight markdown sanity (SHOULD) to keep legacy reviews compatible.
+    analysis_md = review_dir / "paper-analysis.md"
+    if analysis_md.exists():
+        txt = analysis_md.read_text(encoding="utf-8", errors="replace")
+        if "## Executive" not in txt:
+            warnings.append("paper-analysis.md missing expected heading '## Executive summary' (recommended)")
+    report_md = review_dir / "paper-review-report.md"
+    if report_md.exists():
+        txt = report_md.read_text(encoding="utf-8", errors="replace")
+        if "## Executive thesis" not in txt:
+            warnings.append("paper-review-report.md missing expected heading '## Executive thesis' (recommended)")
+
     return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
