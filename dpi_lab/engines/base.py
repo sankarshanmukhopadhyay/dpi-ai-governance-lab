@@ -59,3 +59,23 @@ class ReviewEngine:
         pages: Optional[list[Dict[str, Any]]] = None,
     ) -> EngineResult:
         raise NotImplementedError
+
+    def semantic_validate(
+        self,
+        *,
+        paper_text: str,
+        artifacts: Dict[str, Any],
+        pdf_sha256: str,
+        config: EngineConfig,
+        pages: Optional[list[Dict[str, Any]]] = None,
+    ) -> Dict[str, Any]:
+        """Optional semantic validation.
+
+        Contract/schema validation is engine-agnostic and runs offline.
+        Semantic validation is *optional* and may call a model provider.
+
+        Engines that do not support semantic validation SHOULD raise
+        NotImplementedError.
+        """
+
+        raise NotImplementedError

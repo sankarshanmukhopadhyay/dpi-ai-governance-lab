@@ -94,7 +94,36 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p_validate = sub.add_parser("validate", help="Validate a review directory")
-    p_validate.add_argument("review_dir", help="Path to a single review directory")
+    p_validate.add_argument("path", help="Path to a review directory or a tree containing review directories")
+    p_validate.add_argument(
+        "--level",
+        default="schema",
+        choices=["contract", "schema", "policy", "semantic"],
+        help="Validation level. 'semantic' performs optional engine-backed checks in addition to schema/policy.",
+    )
+    p_validate.add_argument(
+        "--engine",
+        default=None,
+        choices=["local", "openai"],
+        help="Engine to use for semantic validation (ignored unless --level semantic). Defaults to manifest engine.",
+    )
+    p_validate.add_argument(
+        "--model",
+        default=None,
+        help="Model name for semantic validation (ignored unless --level semantic).",
+    )
+    p_validate.add_argument(
+        "--max-input-chars",
+        type=int,
+        default=180_000,
+        help="Maximum characters passed to semantic validator (best-effort bound).",
+    )
+    p_validate.add_argument(
+        "--max-input-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens passed to semantic validator (best-effort bound; engine dependent).",
+    )
 
     p_lint = sub.add_parser("lint", help="Lint markdown files for basic hygiene")
     p_lint.add_argument("paths", nargs="+", help="Files or directories")
@@ -139,7 +168,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "validate":
-        result = validate_tree(_p(args.review_dir))
+        result = validate_tree(
+            _p(args.path),
+            level=args.level,
+            semantic_engine=args.engine,
+            model=args.model,
+            max_input_chars=args.max_input_chars,
+            max_input_tokens=args.max_input_tokens,
+        )
         if result.ok:
             print("OK")
             if result.warnings:

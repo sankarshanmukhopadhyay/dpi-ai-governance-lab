@@ -152,3 +152,14 @@ class LocalEngineAdapter(ReviewEngine):
         }
 
         return EngineResult(metadata=metadata, scorecard=scorecard, analysis=analysis, report=report, raw={"engine": "local"})
+
+    def semantic_validate(
+        self,
+        *,
+        paper_text: str,
+        artifacts: Dict[str, Any],
+        pdf_sha256: str,
+        config: EngineConfig,
+        pages=None,
+    ) -> Dict[str, Any]:
+        raise NotImplementedError("Local engine does not support semantic validation")

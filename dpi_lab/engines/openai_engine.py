@@ -373,3 +373,59 @@ class OpenAIEngine(ReviewEngine):
             report=report["data"],
             raw=raw,
         )
+
+    def semantic_validate(
+        self,
+        *,
+        paper_text: str,
+        artifacts: Dict[str, Any],
+        pdf_sha256: str,
+        config: EngineConfig,
+        pages=None,
+    ) -> Dict[str, Any]:
+        """Optional semantic validation using the OpenAI API.
+
+        This is an *additional* tier beyond contract/schema validation.
+        It is meant to catch internal inconsistencies and evidence gaps.
+        """
+
+        if not pages:
+            pages = [{"page": 1, "text": paper_text}]
+
+        schema = load_schema("schemas/reviews/semantic-validation.schema.json")
+
+        # Deterministic bounded excerpt (token-aware when possible).
+        total_tokens = self._count_tokens(paper_text, config.model)
+        if config.max_input_tokens is not None:
+            target = max(1, int(config.max_input_tokens * 4))
+            excerpt = paper_text[:target]
+            while self._count_tokens(excerpt, config.model) > config.max_input_tokens and len(excerpt) > 1000:
+                excerpt = excerpt[: int(len(excerpt) * 0.9)]
+        else:
+            excerpt = paper_text[: config.max_input_chars]
+
+        common_header = (
+            "You are a strict reviewer validating a DPI AI Governance Lab review output. "
+            "Your task is to identify inconsistencies, missing evidence, rubric drift, and gaps against the Lab methodology. "
+            "Be conservative and operational. Return ONLY JSON matching the supplied schema."\
+        )
+
+        prompt = (
+            f"{common_header}\n\n"
+            "Task: Perform semantic validation of the provided review artifacts against the paper excerpt.\n"
+            "Rules:\n"
+            "- Do not rewrite the artifacts. Only return validation findings and minimal fix suggestions.\n"
+            "- If an artifact makes claims not supported by the excerpt, flag them as evidence_gap.\n"
+            "- Validate scorecard justification: scores must align with strengths/gaps and must be 0..5 integers.\n\n"
+            f"Paper provenance: sha256={pdf_sha256}; total_tokens_est={total_tokens}\n"
+            "-----BEGIN PAPER EXCERPT-----\n"
+            f"{excerpt}\n"
+            "-----END PAPER EXCERPT-----\n\n"
+            "-----BEGIN REVIEW ARTIFACTS JSON-----\n"
+            f"{json.dumps(artifacts, ensure_ascii=False, indent=2)}\n"
+            "-----END REVIEW ARTIFACTS JSON-----\n"
+        )
+
+        out = self._call(prompt=prompt, schema_name="semantic_validation", schema=schema, config=config)
+        # Attach minimal raw for audit
+        return {"data": out["data"], "raw": out["raw"], "prompts": {"semantic_validate": prompt}}

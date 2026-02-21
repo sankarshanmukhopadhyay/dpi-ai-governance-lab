@@ -36,7 +36,15 @@ def _validate_schema(instance: Any, schema: Dict[str, Any], label: str) -> list[
     return out
 
 
-def validate_review_dir(review_dir: Path) -> ValidationResult:
+def validate_review_dir(
+    review_dir: Path,
+    *,
+    level: str = "schema",
+    semantic_engine: str | None = None,
+    model: str | None = None,
+    max_input_chars: int = 180_000,
+    max_input_tokens: int | None = None,
+) -> ValidationResult:
     """Validate a single review directory.
 
     The Lab has two layers:
@@ -50,6 +58,8 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
     review_dir = review_dir.resolve()
     errors: List[str] = []
     warnings: List[str] = []
+
+    level = (level or "schema").strip().lower()
 
     # Contract artifacts (MUST)
     contract = [
@@ -71,6 +81,9 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
     for rel in should_have:
         if not (review_dir / rel).exists():
             warnings.append(f"Missing recommended deterministic run artifact: {rel}")
+
+    if level in {"contract"}:
+        return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
 
     # Load schemas (from packaged resources in pip installs; fallback to repo paths in editable installs)
     meta_schema = load_schema("schemas/reviews/paper-review-metadata.schema.json")
@@ -101,6 +114,9 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
         except Exception as ex:
             errors.append(f"manifest.json is not valid JSON: {ex}")
 
+    if level in {"schema"}:
+        return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
+
     # Light-weight markdown sanity (SHOULD) to keep legacy reviews compatible.
     analysis_md = review_dir / "paper-analysis.md"
     if analysis_md.exists():
@@ -113,10 +129,41 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
         if "## Executive thesis" not in txt:
             warnings.append("paper-review-report.md missing expected heading '## Executive thesis' (recommended)")
 
+    if level in {"policy"}:
+        return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
+
+    if level != "semantic":
+        errors.append(f"Unknown validation level: {level}")
+        return ValidationResult(ok=False, errors=errors, warnings=warnings)
+
+    # Semantic validation (optional, engine-backed)
+    try:
+        from dpi_lab.core.semantic_validate import semantic_validate
+
+        sem = semantic_validate(
+            review_dir=review_dir,
+            engine=semantic_engine,
+            model=model,
+            max_input_chars=max_input_chars,
+            max_input_tokens=max_input_tokens,
+        )
+        warnings.extend(sem.warnings)
+        errors.extend(sem.errors)
+    except Exception as ex:
+        errors.append(f"Semantic validation failed: {ex}")
+
     return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
 
 
-def validate_tree(root: Path) -> ValidationResult:
+def validate_tree(
+    root: Path,
+    *,
+    level: str = "schema",
+    semantic_engine: str | None = None,
+    model: str | None = None,
+    max_input_chars: int = 180_000,
+    max_input_tokens: int | None = None,
+) -> ValidationResult:
     """Validate a review directory or a tree of review directories.
 
     If root looks like a single review directory (contains a scorecard or metadata),
@@ -126,7 +173,14 @@ def validate_tree(root: Path) -> ValidationResult:
     root = root.resolve()
     marker_files = ["paper-review-scorecard.yaml", "paper-review-metadata.yaml"]
     if any((root / m).exists() for m in marker_files):
-        return validate_review_dir(root)
+        return validate_review_dir(
+            root,
+            level=level,
+            semantic_engine=semantic_engine,
+            model=model,
+            max_input_chars=max_input_chars,
+            max_input_tokens=max_input_tokens,
+        )
 
     errors: List[str] = []
     warnings: List[str] = []
@@ -134,7 +188,14 @@ def validate_tree(root: Path) -> ValidationResult:
     for p in root.rglob("paper-review-scorecard.yaml"):
         review_dir = p.parent
         found += 1
-        res = validate_review_dir(review_dir)
+        res = validate_review_dir(
+            review_dir,
+            level=level,
+            semantic_engine=semantic_engine,
+            model=model,
+            max_input_chars=max_input_chars,
+            max_input_tokens=max_input_tokens,
+        )
         if not res.ok:
             errors.append(f"{review_dir}: " + "; ".join(res.errors))
         warnings.extend([f"{review_dir}: {w}" for w in res.warnings])

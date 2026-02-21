@@ -109,6 +109,22 @@ reviews/2026-xx-paper-batch/my-paper/
 dpi-lab validate reviews/2026-xx-paper-batch/my-paper
 ```
 
+Validation levels:
+
+```bash
+# Contract-only (required files exist)
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level contract
+
+# Contract + schema (default)
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level schema
+
+# Contract + schema + light policy checks (recommended)
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level policy
+
+# Optional semantic validation (engine-backed; requires API key for model engines)
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-5
+```
+
 
 ### 4) Follow a guided walkthrough (recommended)
 
