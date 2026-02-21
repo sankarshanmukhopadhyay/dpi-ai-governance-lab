@@ -99,6 +99,11 @@ Full method reference: `docs/methodology.md`
     -   `tools/validators/validate_scorecard.py`
     -   `tools/validators/validate_dossier.py`
 
+    Example:
+
+        python3 tools/validators/validate_scorecard.py reviews/<batch>/<paper-slug>/paper-review-scorecard.yaml
+        python3 tools/validators/validate_dossier.py  artifacts/<some-dossier>.json
+
 ------------------------------------------------------------------------
 
 ## Required Outputs (Contract)
@@ -135,6 +140,8 @@ Validators in `tools/validators/` enforce:
 -   Scorecard integrity
 -   Schema conformance
 -   Structural completeness
+
+Scorecards use integer scores on a **0..5** scale (inclusive).
 
 CI workflows ensure that new reviews meet the structural contract.
 
