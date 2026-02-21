@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Semantic validation result (DPI AI Governance Lab)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ok", "issues"],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "description": "True if no error-severity issues were found."
+    },
+    "issues": {
+      "type": "array",
+      "description": "List of findings. Errors indicate semantic invalidity; warnings indicate recommended fixes.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "code", "message"],
+        "properties": {
+          "severity": {"type": "string", "enum": ["error", "warning"]},
+          "code": {
+            "type": "string",
+            "description": "Stable machine-friendly code (e.g., evidence_gap, rubric_drift, inconsistency)."
+          },
+          "artifact": {
+            "type": "string",
+            "enum": ["metadata", "scorecard", "analysis", "report", "manifest", "unknown"],
+            "default": "unknown"
+          },
+          "message": {"type": "string"},
+          "evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Short cues/quotes/paraphrases from the paper excerpt supporting the finding."
+          },
+          "suggested_fix": {
+            "type": "string",
+            "description": "Smallest viable change that preserves intent."
+          }
+        }
+      },
+      "default": []
+    },
+    "summary": {
+      "type": "string",
+      "description": "Optional one-paragraph summary of the most important issues."
+    }
+  }
+}

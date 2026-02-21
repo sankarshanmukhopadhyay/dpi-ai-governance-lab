@@ -8,7 +8,8 @@ version = "0.4.1"
 description = "DPI AI Governance Lab Workbench: deterministic paper review scaffolding, extraction, validation"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {file = "LICENSE"}
+license = "CC-BY-4.0"
+license-files = ["LICENSE"]
 authors = [{name = "DPI AI Governance Lab contributors"}]
 
 dependencies = [
@@ -25,6 +26,25 @@ dpi-lab = "dpi_lab.cli.main:main"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+# The repo uses a flat layout with many top-level directories (reviews/, schemas/, templates/, etc.).
+# Restrict package discovery to the Python package namespace to keep `pip install .` deterministic.
+include = ["dpi_lab*"]
+exclude = [
+  "artifacts*",
+  "annexes*",
+  "data*",
+  "docs*",
+  "papers*",
+  "profiles*",
+  "reviews*",
+  "schemas*",
+  "templates*",
+  "tools*",
+  "scripts*",
+  "tests*",
+]
 
 [tool.setuptools.package-data]
 # Include schemas and templates needed at runtime

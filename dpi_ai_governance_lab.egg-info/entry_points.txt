@@ -1,0 +1,2 @@
+[console_scripts]
+dpi-lab = dpi_lab.cli.main:main

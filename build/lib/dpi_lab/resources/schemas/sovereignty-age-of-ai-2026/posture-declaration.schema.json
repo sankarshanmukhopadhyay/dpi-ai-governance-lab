@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpi-ai-governance-lab.example/schemas/sovereignty-age-of-ai-2026/posture-declaration.schema.json",
+  "title": "Sovereign AI Posture Declaration (CSD)",
+  "type": "object",
+  "required": [
+    "metadata",
+    "country_or_program",
+    "as_of_date",
+    "ai_stack_postures"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "created_by",
+        "created_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "1.0.0"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_paper": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "country_or_program": {
+      "type": "string"
+    },
+    "as_of_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "ai_stack_postures": {
+      "type": "object",
+      "required": [
+        "compute",
+        "energy",
+        "data",
+        "models",
+        "applications",
+        "talent_and_skills",
+        "governance"
+      ],
+      "properties": {
+        "compute": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "energy": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "data": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "models": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "applications": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "talent_and_skills": {
+          "$ref": "#/$defs/stackLayer"
+        },
+        "governance": {
+          "$ref": "#/$defs/stackLayer"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stackLayer": {
+      "type": "object",
+      "required": [
+        "posture",
+        "rationale",
+        "evidence"
+      ],
+      "properties": {
+        "posture": {
+          "type": "string",
+          "enum": [
+            "CONTROL",
+            "STEER",
+            "DEPEND"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10
+        },
+        "risk_tier_scope": {
+          "type": "string",
+          "description": "Optional: which risk tiers/workflows this posture applies to."
+        },
+        "evidence": {
+          "type": "object",
+          "required": [
+            "institutional_artifacts",
+            "runtime_proofs",
+            "tests"
+          ],
+          "properties": {
+            "institutional_artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "runtime_proofs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "tests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "role",
+              "org"
+            ],
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "org": {
+                "type": "string"
+              },
+              "contact": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

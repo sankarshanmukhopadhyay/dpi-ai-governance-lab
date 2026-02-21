@@ -1,0 +1,211 @@
+#!/usr/bin/env python3
+"""CLI entrypoint for DPI AI Governance Lab workbench.
+
+Goal: make the repo usable as a local workbench:
+- extract: PDF -> canonicalized text + hashes
+- scaffold: create a review directory with the contract files
+- review: extract + generate a deterministic baseline review (local engine)
+- validate: enforce the review contract and schemas
+- lint: basic markdown hygiene checks
+
+This includes:
+- a *local* deterministic engine to keep the workflow runnable without external services
+- an optional model-backed engine (OpenAI) that generates JSON-first outputs and renders
+  deterministic markdown/yaml artifacts from schema-valid JSON.
+"""
+
+from __future__ import annotations
+
+import argparse
+
+from dpi_lab import __version__
+import sys
+from pathlib import Path
+
+from dpi_lab.core.extract import extract_pdf
+from dpi_lab.core.review import run_review
+from dpi_lab.core.scaffold import scaffold_review
+from dpi_lab.core.validate import validate_tree, validate_review_dir
+from dpi_lab.core.lint import lint_markdown_paths
+
+
+def _p(s: str) -> Path:
+    return Path(s).expanduser().resolve()
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="dpi-lab", description="DPI AI Governance Lab workbench")
+    p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    p_extract = sub.add_parser("extract", help="Extract and canonicalize text from a PDF")
+    p_extract.add_argument("--pdf", required=True, help="Path to PDF")
+    p_extract.add_argument("--out", required=True, help="Output directory")
+
+    p_scaffold = sub.add_parser("scaffold", help="Create a new review directory scaffold")
+    p_scaffold.add_argument("--slug", required=True, help="Review slug")
+    p_scaffold.add_argument("--out", required=True, help="Base output directory (batch folder)")
+    p_scaffold.add_argument("--pdf", help="Optional PDF to copy into review dir")
+
+    p_review = sub.add_parser("review", help="Run end-to-end review pipeline")
+    p_review.add_argument("--pdf", required=True, help="Path to PDF")
+    p_review.add_argument("--slug", required=True, help="Review slug")
+    p_review.add_argument("--out", required=True, help="Base output directory (batch folder)")
+    p_review.add_argument(
+        "--engine",
+        default="local",
+        choices=["local", "openai"],
+        help="Generation engine. 'local' is scaffold-only; 'openai' uses the OpenAI API (requires OPENAI_API_KEY).",
+    )
+    p_review.add_argument(
+        "--model",
+        default=None,
+        help="Model name for model-backed engines (e.g., gpt-5). Ignored by local engine.",
+    )
+    p_review.add_argument(
+        "--max-input-chars",
+        type=int,
+        default=180_000,
+        help="Maximum characters to send in a single-pass call. If exceeded, chunking is used (engine-dependent).",
+    )
+    p_review.add_argument(
+        "--max-input-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens for a single-pass call (OpenAI engine uses tokenizer when available). Overrides --max-input-chars when set.",
+    )
+    p_review.add_argument(
+        "--chunk-max-chars",
+        type=int,
+        default=60_000,
+        help="Target maximum characters per chunk when chunking is enabled.",
+    )
+    p_review.add_argument(
+        "--chunk-max-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens per chunk when chunking is enabled (OpenAI engine uses tokenizer when available).",
+    )
+    p_review.add_argument(
+        "--chunk-max-count",
+        type=int,
+        default=12,
+        help="Maximum number of chunks to process (prevents runaway costs).",
+    )
+
+    p_validate = sub.add_parser("validate", help="Validate a review directory")
+    p_validate.add_argument("path", help="Path to a review directory or a tree containing review directories")
+    p_validate.add_argument(
+        "--level",
+        default="schema",
+        choices=["contract", "schema", "policy", "semantic"],
+        help="Validation level. 'semantic' performs optional engine-backed checks in addition to schema/policy.",
+    )
+    p_validate.add_argument(
+        "--engine",
+        default=None,
+        choices=["local", "openai"],
+        help="Engine to use for semantic validation (ignored unless --level semantic). Defaults to manifest engine.",
+    )
+    p_validate.add_argument(
+        "--model",
+        default=None,
+        help="Model name for semantic validation (ignored unless --level semantic).",
+    )
+    p_validate.add_argument(
+        "--max-input-chars",
+        type=int,
+        default=180_000,
+        help="Maximum characters passed to semantic validator (best-effort bound).",
+    )
+    p_validate.add_argument(
+        "--max-input-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens passed to semantic validator (best-effort bound; engine dependent).",
+    )
+
+    p_lint = sub.add_parser("lint", help="Lint markdown files for basic hygiene")
+    p_lint.add_argument("paths", nargs="+", help="Files or directories")
+
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    argv = argv or sys.argv[1:]
+    args = build_parser().parse_args(argv)
+
+    if args.cmd == "extract":
+        out = _p(args.out)
+        out.mkdir(parents=True, exist_ok=True)
+        res = extract_pdf(pdf_path=_p(args.pdf), out_dir=out)
+        print(res["message"])
+        return 0
+
+    if args.cmd == "scaffold":
+        base = _p(args.out)
+        base.mkdir(parents=True, exist_ok=True)
+        review_dir = scaffold_review(base_dir=base, slug=args.slug, pdf_path=_p(args.pdf) if args.pdf else None)
+        print(str(review_dir))
+        return 0
+
+    if args.cmd == "review":
+        base = _p(args.out)
+        base.mkdir(parents=True, exist_ok=True)
+        review_dir = run_review(
+            pdf_path=_p(args.pdf),
+            base_dir=base,
+            slug=args.slug,
+            engine=args.engine,
+            model=args.model,
+            max_input_chars=args.max_input_chars,
+            chunk_max_chars=args.chunk_max_chars,
+            chunk_max_count=args.chunk_max_count,
+            max_input_tokens=args.max_input_tokens,
+            chunk_max_tokens=args.chunk_max_tokens,
+        )
+        print(str(review_dir))
+        return 0
+
+    if args.cmd == "validate":
+        result = validate_tree(
+            _p(args.path),
+            level=args.level,
+            semantic_engine=args.engine,
+            model=args.model,
+            max_input_chars=args.max_input_chars,
+            max_input_tokens=args.max_input_tokens,
+        )
+        if result.ok:
+            print("OK")
+            if result.warnings:
+                print("Warnings:")
+                for w in result.warnings:
+                    print(f"- {w}")
+            return 0
+
+        print("FAILED")
+        for e in result.errors:
+            print(f"- {e}")
+        if result.warnings:
+            print("Warnings:")
+            for w in result.warnings:
+                print(f"- {w}")
+        return 1
+
+    if args.cmd == "lint":
+        paths = [_p(x) for x in args.paths]
+        res = lint_markdown_paths(paths)
+        if res.ok:
+            print("OK")
+            if res.warnings:
+                print("Warnings:")
+                for w in res.warnings:
+                    print(f"- {w}")
+            return 0
+        print("FAILED")
+        for e in res.errors:
+            print(f"- {e}")
+        return 1
+
+    return 2

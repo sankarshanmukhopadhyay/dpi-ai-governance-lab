@@ -1,0 +1,66 @@
+# SARI assessment template (YAML)
+metadata:
+  schema_version: "1.0.0"
+  created_by: ""
+  created_at: ""
+  notes: ""
+country_or_program: ""
+as_of_date: ""
+scores:
+  compute:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  energy:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  data:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  models:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  applications:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  talent_and_skills:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+  governance:
+    fallback_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    negotiated_interdependence: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    runtime_auditability: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    representation_adequacy: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    energy_compute_resilience: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    absorption_capacity: { value: 0, justification: "", gap_statement: "", backlog_items: [] }
+    evidence_links: []
+overall_notes: ""

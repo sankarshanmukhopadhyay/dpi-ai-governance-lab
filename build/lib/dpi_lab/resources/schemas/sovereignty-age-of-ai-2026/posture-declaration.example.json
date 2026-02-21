@@ -1,0 +1,145 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "created_by": "DPI\u2013AI Governance Lab",
+    "created_at": "2026-02-20T03:59:37Z",
+    "source_paper": "Sovereignty in the Age of AI (TBI, Jan 2026)",
+    "notes": "Example only."
+  },
+  "country_or_program": "ExampleLand \u2014 Public Service AI Program",
+  "as_of_date": "2026-02-20",
+  "ai_stack_postures": {
+    "compute": {
+      "posture": "STEER",
+      "risk_tier_scope": "All Tier-3/Tier-4 public services; sovereign inference for Tier-4 only",
+      "rationale": "Frontier training is outsourced; domestic inference is reserved for mission-critical workloads. Procurement enforces portability and audit rights.",
+      "evidence": {
+        "institutional_artifacts": [
+          "Sovereign compute policy v1.2",
+          "Procurement clauses: portability + audit rights",
+          "Exit plan and annual drill schedule"
+        ],
+        "runtime_proofs": [
+          "Workload placement logs (quarterly)",
+          "Failover traces for Tier-4 inference",
+          "Provider SLA telemetry export"
+        ],
+        "tests": [
+          "Semi-annual portability test",
+          "Annual exit drill for Tier-4 workload",
+          "Quarterly capacity audit"
+        ]
+      },
+      "owners": [
+        {
+          "role": "National AI Platform Owner",
+          "org": "Ministry of Digital Services"
+        }
+      ]
+    },
+    "energy": {
+      "posture": "STEER",
+      "rationale": "Compute is co-located in AI energy zones; energy reporting is mandatory for major AI projects.",
+      "evidence": {
+        "institutional_artifacts": [
+          "AI energy zones policy",
+          "Green compute reporting standard"
+        ],
+        "runtime_proofs": [
+          "Energy intensity reports for inference clusters",
+          "Grid reliability telemetry for AI zones"
+        ],
+        "tests": [
+          "Annual peak-load simulation"
+        ]
+      }
+    },
+    "data": {
+      "posture": "CONTROL",
+      "rationale": "Sensitive public datasets are governed under domestic jurisdiction via a data trust; provenance and access are audited.",
+      "evidence": {
+        "institutional_artifacts": [
+          "Health data trust charter",
+          "Consent/legal basis registry",
+          "Data access policy"
+        ],
+        "runtime_proofs": [
+          "Access logs with purpose binding",
+          "Dataset lineage records"
+        ],
+        "tests": [
+          "Annual privacy + lineage audit"
+        ]
+      }
+    },
+    "models": {
+      "posture": "DEPEND",
+      "rationale": "Frontier models are accessed via negotiated agreements; open-weight local models provide fallback for critical tasks.",
+      "evidence": {
+        "institutional_artifacts": [
+          "Frontier access agreement with non-interruption clause",
+          "Model fallback policy"
+        ],
+        "runtime_proofs": [
+          "Latency/SLA monitoring",
+          "Model version change notices archived"
+        ],
+        "tests": [
+          "Quarterly evaluation + drift suite",
+          "Vendor policy-change tabletop"
+        ]
+      }
+    },
+    "applications": {
+      "posture": "CONTROL",
+      "rationale": "Citizen-impacting services are integrated with DPI rails (identity, consent) and must support trace + redress.",
+      "evidence": {
+        "institutional_artifacts": [
+          "DPI\u2013AI reference architecture",
+          "Redress SOPs for Tier-4 services"
+        ],
+        "runtime_proofs": [
+          "Decision trace records",
+          "Redress case logs (privacy-protected)"
+        ],
+        "tests": [
+          "Incident + rollback drill (annual)"
+        ]
+      }
+    },
+    "talent_and_skills": {
+      "posture": "STEER",
+      "rationale": "Public-sector capability is built via career tracks and mandatory training, supplemented by secondments.",
+      "evidence": {
+        "institutional_artifacts": [
+          "AI skills framework",
+          "Technical career track policy"
+        ],
+        "runtime_proofs": [
+          "Training completion metrics",
+          "Role coverage dashboard"
+        ],
+        "tests": [
+          "Annual capability audit"
+        ]
+      }
+    },
+    "governance": {
+      "posture": "CONTROL",
+      "rationale": "A central governance office maintains inventory, tiering, incident response and oversight.",
+      "evidence": {
+        "institutional_artifacts": [
+          "AI system inventory policy",
+          "Incident taxonomy + reporting SLAs"
+        ],
+        "runtime_proofs": [
+          "Inventory updates",
+          "Incident tickets + RCA archive"
+        ],
+        "tests": [
+          "Quarterly governance review"
+        ]
+      }
+    }
+  }
+}
