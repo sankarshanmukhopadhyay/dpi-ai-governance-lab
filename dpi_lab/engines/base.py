@@ -18,6 +18,11 @@ class EngineConfig:
     model: str
     seed: int
     max_input_chars: int = 180_000
+    # Chunking controls for long inputs (engines may ignore).
+    # If the canonicalized paper text exceeds max_input_chars, engines SHOULD
+    # switch to deterministic chunking and multi-pass summarization.
+    chunk_max_chars: int = 60_000
+    chunk_max_count: int = 12
     # Where applicable; engines may ignore unsupported params.
     temperature: float = 0.0
     top_p: float = 1.0
@@ -38,5 +43,12 @@ class EngineResult:
 class ReviewEngine:
     name: str
 
-    def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig) -> EngineResult:
+    def generate(
+        self,
+        *,
+        text: str,
+        pdf_sha256: str,
+        config: EngineConfig,
+        pages: Optional[list[Dict[str, Any]]] = None,
+    ) -> EngineResult:
         raise NotImplementedError

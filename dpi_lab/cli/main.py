@@ -59,6 +59,24 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Model name for model-backed engines (e.g., gpt-5). Ignored by local engine.",
     )
+    p_review.add_argument(
+        "--max-input-chars",
+        type=int,
+        default=180_000,
+        help="Maximum characters to send in a single-pass call. If exceeded, chunking is used (engine-dependent).",
+    )
+    p_review.add_argument(
+        "--chunk-max-chars",
+        type=int,
+        default=60_000,
+        help="Target maximum characters per chunk when chunking is enabled.",
+    )
+    p_review.add_argument(
+        "--chunk-max-count",
+        type=int,
+        default=12,
+        help="Maximum number of chunks to process (prevents runaway costs).",
+    )
 
     p_validate = sub.add_parser("validate", help="Validate a review directory")
     p_validate.add_argument("review_dir", help="Path to a single review directory")
@@ -96,6 +114,9 @@ def main(argv: list[str] | None = None) -> int:
             slug=args.slug,
             engine=args.engine,
             model=args.model,
+            max_input_chars=args.max_input_chars,
+            chunk_max_chars=args.chunk_max_chars,
+            chunk_max_count=args.chunk_max_count,
         )
         print(str(review_dir))
         return 0

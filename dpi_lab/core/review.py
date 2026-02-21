@@ -19,6 +19,9 @@ def run_review(
     slug: str,
     engine: str = "local",
     model: str | None = None,
+    max_input_chars: int = 180_000,
+    chunk_max_chars: int = 60_000,
+    chunk_max_count: int = 12,
 ) -> Path:
     """End-to-end review pipeline.
 
@@ -40,10 +43,23 @@ def run_review(
 
     # Engine (local or model-backed)
     paper_text = (extracted_dir / "paper.text.v1.txt").read_text(encoding="utf-8")
+    pages = None
+    pages_path = extracted_dir / "paper.pages.v1.json"
+    if pages_path.exists():
+        try:
+            pages = json.loads(pages_path.read_text(encoding="utf-8")).get("pages")
+        except Exception:
+            pages = None
     eng = get_engine(engine)
     seed = int(res["pdf_sha256"][:8], 16)
-    cfg = EngineConfig(model=model or "gpt-5", seed=seed)
-    result = eng.generate(text=paper_text, pdf_sha256=res["pdf_sha256"], config=cfg)
+    cfg = EngineConfig(
+        model=model or "gpt-5",
+        seed=seed,
+        max_input_chars=max_input_chars,
+        chunk_max_chars=chunk_max_chars,
+        chunk_max_count=chunk_max_count,
+    )
+    result = eng.generate(text=paper_text, pdf_sha256=res["pdf_sha256"], config=cfg, pages=pages)
 
     # Populate metadata.yaml
     metadata_path = review_dir / "paper-review-metadata.yaml"
@@ -80,10 +96,16 @@ def run_review(
         "engine": engine,
         "model": cfg.model,
         "seed": cfg.seed,
+        "chunking": {
+            "max_input_chars": cfg.max_input_chars,
+            "chunk_max_chars": cfg.chunk_max_chars,
+            "chunk_max_count": cfg.chunk_max_count,
+        },
         "inputs": {
             "pdf": str((review_dir / "paper.pdf").resolve()),
             "pdf_sha256": res["pdf_sha256"],
             "text_sha256": res["text_sha256"],
+            "pages_sha256": res.get("pages_sha256"),
         },
         "outputs": {
             "review_dir": str(review_dir.resolve()),

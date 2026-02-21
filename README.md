@@ -66,6 +66,10 @@ dpi-lab review --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-pa
 This engine generates **schema-valid JSON** and then renders deterministic YAML/Markdown artifacts.
 It also saves the **exact prompts** and **raw response payload** for audit and replay.
 
+For long papers, the OpenAI engine automatically switches to **deterministic chunking + multi-pass summarization**
+(map: per-chunk digests → reduce: final artifacts). This prevents truncation while keeping runs replayable.
+You can tune limits via `--max-input-chars`, `--chunk-max-chars`, and `--chunk-max-count`.
+
 ```bash
 export OPENAI_API_KEY="..."
 dpi-lab review --engine openai --model gpt-5 \

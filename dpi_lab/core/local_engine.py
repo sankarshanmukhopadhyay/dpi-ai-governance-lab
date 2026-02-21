@@ -57,7 +57,7 @@ class LocalEngineAdapter(ReviewEngine):
 
     name = "local"
 
-    def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig) -> EngineResult:
+    def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig, pages=None) -> EngineResult:
         # Reuse heuristics
         title, year = guess_title_and_year(text)
 

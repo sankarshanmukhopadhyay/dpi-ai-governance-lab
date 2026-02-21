@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import json
 from pathlib import Path
 
 from pypdf import PdfReader
@@ -27,6 +28,8 @@ def extract_pdf(pdf_path: Path, out_dir: Path) -> dict:
       - paper.pdf.sha256
       - paper.text.v1.txt (canonicalized, page-delimited)
       - paper.text.v1.sha256
+      - paper.pages.v1.json (canonical per-page text)
+      - paper.pages.v1.sha256
     """
     pdf_path = pdf_path.resolve()
     out_dir = out_dir.resolve()
@@ -43,17 +46,33 @@ def extract_pdf(pdf_path: Path, out_dir: Path) -> dict:
     combined = "".join(pages_text)
     canon = canonicalize_text(combined)
 
+    # Build a canonical per-page structure for deterministic downstream chunking.
+    pages = []
+    for i, raw in enumerate(reader.pages, start=1):
+        # We re-extract in the loop above; reuse pages_text by stripping the marker.
+        # pages_text[i-1] begins with PAGE_MARKER_FMT and then the page text.
+        page_block = pages_text[i - 1]
+        page_txt = page_block.split(PAGE_MARKER_FMT.format(n=i), 1)[-1]
+        page_txt = canonicalize_text(page_txt)
+        pages.append({"page": i, "text": page_txt})
+
     pdf_hash = sha256_file(pdf_path)
     text_hash = sha256_bytes(canon.encode('utf-8'))
+
+    pages_json = json.dumps({"version": 1, "pages": pages}, ensure_ascii=False, indent=2) + "\n"
+    pages_hash = sha256_bytes(pages_json.encode("utf-8"))
 
     safe_write_text(out_dir / "paper.pdf.sha256", pdf_hash + "\n")
     safe_write_text(out_dir / "paper.text.v1.txt", canon)
     safe_write_text(out_dir / "paper.text.v1.sha256", text_hash + "\n")
+    safe_write_text(out_dir / "paper.pages.v1.json", pages_json)
+    safe_write_text(out_dir / "paper.pages.v1.sha256", pages_hash + "\n")
 
     return {
         "pdf": str(pdf_path),
         "out": str(out_dir),
         "pdf_sha256": pdf_hash,
         "text_sha256": text_hash,
+        "pages_sha256": pages_hash,
         "message": f"Extracted {len(reader.pages)} pages -> {out_dir / 'paper.text.v1.txt'}",
     }

@@ -6,6 +6,7 @@ from typing import Any, Dict
 
 from jsonschema import validate as js_validate
 
+from dpi_lab.core.chunking import make_chunks
 from dpi_lab.core.schemas import load_schema
 from dpi_lab.engines.base import EngineConfig, EngineResult, ReviewEngine
 
@@ -85,8 +86,20 @@ class OpenAIEngine(ReviewEngine):
         js_validate(instance=data, schema=schema)
         return {"data": data, "raw": getattr(payload, "model_dump", lambda: payload)()}
 
-    def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig) -> EngineResult:
-        # Truncate deterministically to protect token budgets while keeping replay stable.
+    def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig, pages=None) -> EngineResult:
+        """Generate a review using JSON-first structured outputs.
+
+        For long papers, we switch to deterministic chunking + multi-pass summarization:
+        - Map pass: chunk -> chunk_digest JSON
+        - Reduce pass: aggregate digests -> final artifacts JSON
+        """
+
+        # If pages are not provided, fall back to a single-page representation.
+        if not pages:
+            pages = [{"page": 1, "text": text}]
+
+        # Decide strategy based on input length.
+        use_chunking = len(text) > config.max_input_chars
         clipped = text[: config.max_input_chars]
 
         # Load schemas
@@ -101,6 +114,34 @@ class OpenAIEngine(ReviewEngine):
             "Be specific, operational, and map claims to concrete gaps and risks. "
             "Return ONLY JSON matching the supplied schema."\
         )
+
+        # Intermediate schema for chunk digests (kept minimal and stable).
+        chunk_digest_schema: Dict[str, Any] = {
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["chunk_id", "start_page", "end_page", "key_points", "evidence_cues", "governance_signals"],
+            "properties": {
+                "chunk_id": {"type": "string"},
+                "start_page": {"type": "integer"},
+                "end_page": {"type": "integer"},
+                "key_points": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                "evidence_cues": {"type": "array", "items": {"type": "string"}},
+                "governance_signals": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["accountability", "data_governance", "redress", "sovereignty", "risk_tiering"],
+                    "properties": {
+                        "accountability": {"type": "array", "items": {"type": "string"}},
+                        "data_governance": {"type": "array", "items": {"type": "string"}},
+                        "redress": {"type": "array", "items": {"type": "string"}},
+                        "sovereignty": {"type": "array", "items": {"type": "string"}},
+                        "risk_tiering": {"type": "array", "items": {"type": "string"}},
+                    },
+                },
+            },
+        }
+
+        # Context for single-pass mode.
         context = (
             f"Paper content (canonicalized excerpt; sha256={pdf_sha256}):\n"  # stable provenance
             "-----BEGIN PAPER TEXT-----\n"
@@ -108,13 +149,52 @@ class OpenAIEngine(ReviewEngine):
             "-----END PAPER TEXT-----\n"
         )
 
+        chunk_digests = []
+        chunk_prompts: Dict[str, str] = {}
+
+        if use_chunking:
+            # Deterministic page-group chunking.
+            chunks = make_chunks(pages=pages, max_chars=config.chunk_max_chars, max_count=config.chunk_max_count)
+
+            for ch in chunks:
+                digest_prompt = (
+                    f"{common_header}\n\n"
+                    "Task: Produce a chunk_digest JSON capturing evidence-bearing points from this chunk. "
+                    "Be terse, specific, and avoid restating boilerplate. "
+                    "Evidence cues should be short quotes or paraphrases that can be found in the chunk.\n\n"
+                    f"Chunk provenance: chunk_id={ch.chunk_id}; pages={ch.start_page}-{ch.end_page}; chunk_sha256={ch.sha256}; paper_sha256={pdf_sha256}\n"
+                    "-----BEGIN CHUNK TEXT-----\n"
+                    f"{ch.text}\n"
+                    "-----END CHUNK TEXT-----\n"
+                )
+                chunk_prompts[ch.chunk_id] = digest_prompt
+                digest = self._call(
+                    prompt=digest_prompt,
+                    schema_name="chunk_digest",
+                    schema=chunk_digest_schema,
+                    config=config,
+                )
+                chunk_digests.append(digest["data"])
+
+            # Reduce context uses only digests (keeps token usage bounded deterministically).
+            digests_blob = json.dumps({"paper_sha256": pdf_sha256, "digests": chunk_digests}, ensure_ascii=False, indent=2)
+            context = (
+                f"Paper digests (map-pass summaries; sha256={pdf_sha256}):\n"
+                "-----BEGIN DIGESTS JSON-----\n"
+                f"{digests_blob}\n"
+                "-----END DIGESTS JSON-----\n"
+            )
+
         # 1) Metadata
         meta_prompt = (
             f"{common_header}\n\n"
             "Task: Produce paper-review-metadata JSON.\n"
             "Guidance: title should be the paper title if inferable; published_year should be an integer year if inferable else 0; "
             "authors may be empty if unclear; tags should be short, lower_snake_case.\n\n"
-            + context
+            + (context if not use_chunking else (
+                # For metadata, include only the first chunk text to help infer title/authors.
+                f"Paper lead excerpt (sha256={pdf_sha256}):\n-----BEGIN PAPER TEXT-----\n{clipped}\n-----END PAPER TEXT-----\n\n" + context
+            ))
         )
         meta = self._call(prompt=meta_prompt, schema_name="paper_review_metadata", schema=meta_schema, config=config)
 
@@ -151,11 +231,20 @@ class OpenAIEngine(ReviewEngine):
             "scorecard": score["raw"],
             "analysis": analysis["raw"],
             "report": report["raw"],
+            "chunking": {
+                "enabled": use_chunking,
+                "max_input_chars": config.max_input_chars,
+                "chunk_max_chars": config.chunk_max_chars,
+                "chunk_max_count": config.chunk_max_count,
+                "digests_count": len(chunk_digests),
+            },
+            "chunk_digests": chunk_digests,
             "prompts": {
                 "metadata": meta_prompt,
                 "scorecard": score_prompt,
                 "analysis": analysis_prompt,
                 "report": report_prompt,
+                "chunk_digests": chunk_prompts,
             },
         }
 
