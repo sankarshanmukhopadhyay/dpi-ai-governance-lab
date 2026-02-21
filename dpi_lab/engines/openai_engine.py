@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from typing import Any, Dict
 
 from jsonschema import validate as js_validate
@@ -46,8 +47,80 @@ class OpenAIEngine(ReviewEngine):
         else:
             self.client = OpenAI(api_key=api_key)
 
+        # Optional tokenizer for token-aware chunking and budgets.
+        self._tokenizer = None
+        try:  # pragma: no cover
+            import tiktoken  # type: ignore
+
+            self._tiktoken = tiktoken
+        except Exception:  # pragma: no cover
+            self._tiktoken = None
+
+    def _count_tokens(self, text: str, model: str) -> int:
+        """Best-effort token counter.
+
+        Uses tiktoken when available; otherwise falls back to a conservative
+        character heuristic.
+        """
+
+        if self._tiktoken is None:
+            # Rough heuristic: ~4 chars per token for English-ish text.
+            return max(1, len(text) // 4)
+
+        try:
+            enc = self._tiktoken.encoding_for_model(model)
+        except Exception:
+            enc = self._tiktoken.get_encoding("o200k_base")
+        return len(enc.encode(text))
+
+    def _extract_output_text(self, payload: Any) -> str:
+        """Extract output text from an OpenAI Responses payload robustly."""
+
+        # Preferred path: SDK convenience
+        out_text = getattr(payload, "output_text", None)
+        if callable(out_text):
+            try:
+                s = out_text()
+                if s:
+                    return s
+            except Exception:
+                pass
+        elif isinstance(out_text, str) and out_text:
+            return out_text
+
+        # Fallback: walk model_dump output structure
+        dump = getattr(payload, "model_dump", None)
+        if callable(dump):
+            try:
+                obj = dump()
+            except Exception:
+                obj = None
+        else:
+            obj = None
+
+        def walk(x: Any) -> list[str]:
+            found: list[str] = []
+            if isinstance(x, dict):
+                # Typical Responses structure: output -> content -> {type: output_text, text: ...}
+                if x.get("type") in {"output_text", "text"} and isinstance(x.get("text"), str):
+                    found.append(x["text"])
+                for v in x.values():
+                    found.extend(walk(v))
+            elif isinstance(x, list):
+                for it in x:
+                    found.extend(walk(it))
+            return found
+
+        if obj is not None:
+            texts = walk(obj)
+            joined = "\n".join(t for t in texts if t.strip())
+            if joined.strip():
+                return joined
+
+        return ""
+
     def _call(self, *, prompt: str, schema_name: str, schema: Dict[str, Any], config: EngineConfig) -> Dict[str, Any]:
-        """Single deterministic schema-constrained call."""
+        """Deterministic schema-constrained call with bounded repair retries."""
 
         response_format = {
             "type": "json_schema",
@@ -61,30 +134,44 @@ class OpenAIEngine(ReviewEngine):
 
         # Responses API input can be a string or message list.
         # We keep it as a single instruction-rich user message to reduce variability.
-        payload = self.client.responses.create(
-            model=config.model,
-            input=prompt,
-            temperature=config.temperature,
-            top_p=config.top_p,
-            seed=config.seed,
-            response_format=response_format,
-        )
+        last_err: str | None = None
+        last_payload: Any = None
 
-        # The SDK returns a structured object; extract a JSON string.
-        # The Responses API exposes output items; the SDK also offers output_text convenience.
-        out_text = getattr(payload, "output_text", None)
-        if callable(out_text):
-            out = out_text()
-        else:
-            out = getattr(payload, "output_text", "")
+        for attempt in range(config.repair_retries + 1):
+            effective_prompt = prompt
+            if attempt > 0:
+                effective_prompt = (
+                    "The previous response failed to parse or validate against the required JSON schema. "
+                    "Return ONLY valid JSON that matches the schema exactly. "
+                    f"Validation error: {last_err[:600] if last_err else 'unknown'}\n\n" + prompt
+                )
 
-        if not out:
-            # Fallback: attempt to serialize payload and hunt for text
-            out = json.dumps(getattr(payload, "model_dump", lambda: payload)(), ensure_ascii=False)
+            payload = self.client.responses.create(
+                model=config.model,
+                input=effective_prompt,
+                temperature=config.temperature,
+                top_p=config.top_p,
+                seed=config.seed,
+                max_output_tokens=config.max_output_tokens,
+                response_format=response_format,
+            )
+            last_payload = payload
 
-        data = json.loads(out)
-        js_validate(instance=data, schema=schema)
-        return {"data": data, "raw": getattr(payload, "model_dump", lambda: payload)()}
+            out = self._extract_output_text(payload)
+            try:
+                if not out.strip():
+                    raise ValueError("Empty output_text")
+                data = json.loads(out)
+                js_validate(instance=data, schema=schema)
+                return {"data": data, "raw": getattr(payload, "model_dump", lambda: payload)()}
+            except Exception as e:
+                last_err = str(e)
+                # Small backoff to avoid provider throttling on repair.
+                time.sleep(0.2)
+                continue
+
+        # If we get here, all attempts failed.
+        raise RuntimeError(f"OpenAI structured call failed for {schema_name}: {last_err}")
 
     def generate(self, *, text: str, pdf_sha256: str, config: EngineConfig, pages=None) -> EngineResult:
         """Generate a review using JSON-first structured outputs.
@@ -98,9 +185,24 @@ class OpenAIEngine(ReviewEngine):
         if not pages:
             pages = [{"page": 1, "text": text}]
 
-        # Decide strategy based on input length.
-        use_chunking = len(text) > config.max_input_chars
-        clipped = text[: config.max_input_chars]
+        # Decide strategy based on input length (token-aware when possible).
+        total_tokens = self._count_tokens(text, config.model)
+        use_chunking = False
+        if config.max_input_tokens is not None:
+            use_chunking = total_tokens > config.max_input_tokens
+        else:
+            use_chunking = len(text) > config.max_input_chars
+
+        clipped = text
+        if config.max_input_tokens is not None:
+            # Token-aware clipping: keep a deterministic prefix under budget.
+            # We clip by chars first using heuristic, then shrink until within token budget.
+            target = max(1, int(config.max_input_tokens * 4))
+            clipped = text[:target]
+            while self._count_tokens(clipped, config.model) > config.max_input_tokens and len(clipped) > 1000:
+                clipped = clipped[: int(len(clipped) * 0.9)]
+        else:
+            clipped = text[: config.max_input_chars]
 
         # Load schemas
         meta_schema = load_schema("schemas/reviews/paper-review-metadata.schema.json")
@@ -154,7 +256,20 @@ class OpenAIEngine(ReviewEngine):
 
         if use_chunking:
             # Deterministic page-group chunking.
-            chunks = make_chunks(pages=pages, max_chars=config.chunk_max_chars, max_count=config.chunk_max_count)
+            # Prefer token-aware chunking when configured.
+            token_counter = None
+            max_tokens = None
+            if config.chunk_max_tokens is not None:
+                token_counter = lambda s: self._count_tokens(s, config.model)
+                max_tokens = config.chunk_max_tokens
+
+            chunks = make_chunks(
+                pages=pages,
+                max_chars=config.chunk_max_chars,
+                max_count=config.chunk_max_count,
+                max_tokens=max_tokens,
+                token_counter=token_counter,
+            )
 
             for ch in chunks:
                 digest_prompt = (
@@ -234,9 +349,12 @@ class OpenAIEngine(ReviewEngine):
             "chunking": {
                 "enabled": use_chunking,
                 "max_input_chars": config.max_input_chars,
+                "max_input_tokens": config.max_input_tokens,
                 "chunk_max_chars": config.chunk_max_chars,
+                "chunk_max_tokens": config.chunk_max_tokens,
                 "chunk_max_count": config.chunk_max_count,
                 "digests_count": len(chunk_digests),
+                "total_tokens_est": total_tokens,
             },
             "chunk_digests": chunk_digests,
             "prompts": {

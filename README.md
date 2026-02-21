@@ -70,6 +70,12 @@ For long papers, the OpenAI engine automatically switches to **deterministic chu
 (map: per-chunk digests → reduce: final artifacts). This prevents truncation while keeping runs replayable.
 You can tune limits via `--max-input-chars`, `--chunk-max-chars`, and `--chunk-max-count`.
 
+For better control, the OpenAI engine also supports **token-aware budgets** (uses `tiktoken` when available):
+`--max-input-tokens` and `--chunk-max-tokens`. If set, token budgets take precedence over character budgets.
+
+If a schema-constrained call still fails (rare, but possible in the real world), the engine performs a **bounded repair retry**
+and persists the raw payload for debugging.
+
 ```bash
 export OPENAI_API_KEY="..."
 dpi-lab review --engine openai --model gpt-5 \

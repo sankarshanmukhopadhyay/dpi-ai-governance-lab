@@ -22,6 +22,8 @@ def run_review(
     max_input_chars: int = 180_000,
     chunk_max_chars: int = 60_000,
     chunk_max_count: int = 12,
+    max_input_tokens: int | None = None,
+    chunk_max_tokens: int | None = None,
 ) -> Path:
     """End-to-end review pipeline.
 
@@ -58,6 +60,8 @@ def run_review(
         max_input_chars=max_input_chars,
         chunk_max_chars=chunk_max_chars,
         chunk_max_count=chunk_max_count,
+        max_input_tokens=max_input_tokens,
+        chunk_max_tokens=chunk_max_tokens,
     )
     result = eng.generate(text=paper_text, pdf_sha256=res["pdf_sha256"], config=cfg, pages=pages)
 
@@ -100,6 +104,14 @@ def run_review(
             "max_input_chars": cfg.max_input_chars,
             "chunk_max_chars": cfg.chunk_max_chars,
             "chunk_max_count": cfg.chunk_max_count,
+            "max_input_tokens": cfg.max_input_tokens,
+            "chunk_max_tokens": cfg.chunk_max_tokens,
+        },
+        "engine_params": {
+            "max_output_tokens": cfg.max_output_tokens,
+            "repair_retries": cfg.repair_retries,
+            "temperature": cfg.temperature,
+            "top_p": cfg.top_p,
         },
         "inputs": {
             "pdf": str((review_dir / "paper.pdf").resolve()),

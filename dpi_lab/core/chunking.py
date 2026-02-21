@@ -12,7 +12,7 @@ Design goals:
 
 import hashlib
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List, Optional
 
 
 @dataclass(frozen=True)
@@ -33,8 +33,10 @@ def make_chunks(
     pages: List[Dict[str, Any]],
     max_chars: int,
     max_count: int,
+    max_tokens: Optional[int] = None,
+    token_counter: Optional[Callable[[str], int]] = None,
 ) -> List[Chunk]:
-    """Group pages into contiguous chunks under max_chars.
+    """Group pages into contiguous chunks under a character and/or token budget.
 
     - Pages are expected to be in the format: {"page": int, "text": str}
     - Chunk text is the concatenation of page texts with stable separators.
@@ -44,6 +46,11 @@ def make_chunks(
         raise ValueError("max_chars must be > 0")
     if max_count <= 0:
         raise ValueError("max_count must be > 0")
+    if max_tokens is not None:
+        if max_tokens <= 0:
+            raise ValueError("max_tokens must be > 0")
+        if token_counter is None:
+            raise ValueError("token_counter must be provided when max_tokens is set")
 
     chunks: List[Chunk] = []
     buf: List[str] = []
@@ -61,6 +68,7 @@ def make_chunks(
         start_page = None
 
     current_len = 0
+    current_tokens = 0
     last_page = None
     for p in pages:
         pg = int(p.get("page"))
@@ -70,17 +78,27 @@ def make_chunks(
         if start_page is None:
             start_page = pg
             current_len = 0
+            current_tokens = 0
+
+        add_tokens = token_counter(page_block) if (max_tokens is not None and token_counter is not None) else 0
 
         # If adding this page exceeds budget, flush current chunk first.
-        if buf and (current_len + len(page_block) > max_chars):
+        over_chars = buf and (current_len + len(page_block) > max_chars)
+        over_tokens = False
+        if max_tokens is not None:
+            over_tokens = buf and (current_tokens + add_tokens > max_tokens)
+
+        if over_chars or over_tokens:
             flush(last_page if last_page is not None else pg)
             if len(chunks) >= max_count:
                 break
             start_page = pg
             current_len = 0
+            current_tokens = 0
 
         buf.append(page_block)
         current_len += len(page_block)
+        current_tokens += add_tokens
         last_page = pg
 
     if len(chunks) < max_count and buf and last_page is not None:

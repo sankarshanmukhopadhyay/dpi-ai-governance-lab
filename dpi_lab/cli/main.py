@@ -66,10 +66,22 @@ def build_parser() -> argparse.ArgumentParser:
         help="Maximum characters to send in a single-pass call. If exceeded, chunking is used (engine-dependent).",
     )
     p_review.add_argument(
+        "--max-input-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens for a single-pass call (OpenAI engine uses tokenizer when available). Overrides --max-input-chars when set.",
+    )
+    p_review.add_argument(
         "--chunk-max-chars",
         type=int,
         default=60_000,
         help="Target maximum characters per chunk when chunking is enabled.",
+    )
+    p_review.add_argument(
+        "--chunk-max-tokens",
+        type=int,
+        default=None,
+        help="Preferred maximum tokens per chunk when chunking is enabled (OpenAI engine uses tokenizer when available).",
     )
     p_review.add_argument(
         "--chunk-max-count",
@@ -117,6 +129,8 @@ def main(argv: list[str] | None = None) -> int:
             max_input_chars=args.max_input_chars,
             chunk_max_chars=args.chunk_max_chars,
             chunk_max_count=args.chunk_max_count,
+            max_input_tokens=args.max_input_tokens,
+            chunk_max_tokens=args.chunk_max_tokens,
         )
         print(str(review_dir))
         return 0
