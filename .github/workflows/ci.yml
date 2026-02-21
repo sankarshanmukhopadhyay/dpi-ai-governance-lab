@@ -10,6 +10,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Basic repo check
+      - name: Install deps
         run: |
-          python -c "import sys; print('ok')"
+          pip install -r requirements.txt
+      - name: CLI smoke test
+        run: |
+          python -m dpi_lab --help

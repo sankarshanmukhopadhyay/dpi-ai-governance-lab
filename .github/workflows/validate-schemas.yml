@@ -1,4 +1,4 @@
-name: Validate Schemas
+name: Validate Review Artifacts
 on:
   push:
   pull_request:
@@ -10,6 +10,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install deps
+        run: |
+          pip install -r requirements.txt
       - name: Validate example dossier
         run: |
           python tools/validators/validate_dossier.py artifacts/deployment-dossier/examples/ai-deployment-dossier.example.min.json
+      - name: Validate all review directories
+        run: |
+          # Validate every review directory that contains a paper-review-scorecard.yaml
+          set -e
+          for d in $(find reviews -type f -name paper-review-scorecard.yaml ! -path "reviews/templates/*" -print0 | xargs -0 -n1 dirname); do
+            echo "Validating $d"
+            python -m dpi_lab validate "$d"
+          done

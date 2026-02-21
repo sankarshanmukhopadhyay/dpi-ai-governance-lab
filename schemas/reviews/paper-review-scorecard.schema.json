@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/dpi-ai-governance-lab/schemas/reviews/paper-review-scorecard.schema.json",
+  "title": "Paper Review Scorecard",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "paper", "scores", "notes"],
+  "properties": {
+    "version": {"type": ["number", "string"]},
+    "paper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "year"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "year": {"type": "integer", "minimum": 0, "maximum": 2100}
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tiering_completeness",
+        "accountability_plumbing",
+        "data_governance",
+        "redress",
+        "sovereignty"
+      ],
+      "properties": {
+        "tiering_completeness": {"type": "integer", "minimum": 0, "maximum": 5},
+        "accountability_plumbing": {"type": "integer", "minimum": 0, "maximum": 5},
+        "data_governance": {"type": "integer", "minimum": 0, "maximum": 5},
+        "redress": {"type": "integer", "minimum": 0, "maximum": 5},
+        "sovereignty": {"type": "integer", "minimum": 0, "maximum": 5}
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {"type": ["string", "object"]}
+    }
+  }
+}

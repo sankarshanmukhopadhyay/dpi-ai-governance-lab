@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dpi-ai-governance-lab"
+version = "0.1.0"
+description = "DPI AI Governance Lab Workbench: deterministic paper review scaffolding, extraction, validation"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [{name = "DPI AI Governance Lab contributors"}]
+
+dependencies = [
+  "PyYAML>=6.0",
+  "jsonschema>=4.19",
+  "pypdf>=4.0",
+]
+
+[project.scripts]
+dpi-lab = "dpi_lab.cli.main:main"
