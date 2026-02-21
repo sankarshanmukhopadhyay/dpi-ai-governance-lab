@@ -8,6 +8,8 @@ from typing import Any, Dict, List
 import yaml
 from jsonschema import Draft202012Validator
 
+from dpi_lab.core.schemas import load_schema
+
 
 @dataclass
 class ValidationResult:
@@ -15,9 +17,6 @@ class ValidationResult:
     errors: List[str]
     warnings: List[str]
 
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parents[2]
 
 
 def _load_json(p: Path) -> Any:
@@ -73,26 +72,26 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
         if not (review_dir / rel).exists():
             warnings.append(f"Missing recommended deterministic run artifact: {rel}")
 
-    repo = _repo_root()
-    meta_schema_p = repo / "schemas" / "reviews" / "paper-review-metadata.schema.json"
-    score_schema_p = repo / "schemas" / "reviews" / "paper-review-scorecard.schema.json"
+    # Load schemas (from packaged resources in pip installs; fallback to repo paths in editable installs)
+    meta_schema = load_schema("schemas/reviews/paper-review-metadata.schema.json")
+    score_schema = load_schema("schemas/reviews/paper-review-scorecard.schema.json")
 
     # Schema checks
     meta_p = review_dir / "paper-review-metadata.yaml"
-    if meta_schema_p.exists() and meta_p.exists():
-        schema = _load_json(meta_schema_p)
+    if meta_p.exists():
+        schema = meta_schema
         inst = _load_yaml(meta_p)
         errors.extend(_validate_schema(inst, schema, "metadata"))
     else:
-        warnings.append("Metadata schema not found or metadata missing; skipping schema validation")
+        warnings.append("Metadata missing; skipping schema validation")
 
     score_p = review_dir / "paper-review-scorecard.yaml"
-    if score_schema_p.exists() and score_p.exists():
-        schema = _load_json(score_schema_p)
+    if score_p.exists():
+        schema = score_schema
         inst = _load_yaml(score_p)
         errors.extend(_validate_schema(inst, schema, "scorecard"))
     else:
-        warnings.append("Scorecard schema not found or scorecard missing; skipping schema validation")
+        warnings.append("Scorecard missing; skipping schema validation")
 
     # Manifest JSON parses (if present)
     man = review_dir / "run" / "manifest.json"
@@ -115,3 +114,32 @@ def validate_review_dir(review_dir: Path) -> ValidationResult:
             warnings.append("paper-review-report.md missing expected heading '## Executive thesis' (recommended)")
 
     return ValidationResult(ok=(len(errors) == 0), errors=errors, warnings=warnings)
+
+
+def validate_tree(root: Path) -> ValidationResult:
+    """Validate a review directory or a tree of review directories.
+
+    If root looks like a single review directory (contains a scorecard or metadata),
+    validate it. Otherwise, recursively validate each subdirectory that contains a
+    scorecard file, aggregating results.
+    """
+    root = root.resolve()
+    marker_files = ["paper-review-scorecard.yaml", "paper-review-metadata.yaml"]
+    if any((root / m).exists() for m in marker_files):
+        return validate_review_dir(root)
+
+    errors: List[str] = []
+    warnings: List[str] = []
+    found = 0
+    for p in root.rglob("paper-review-scorecard.yaml"):
+        review_dir = p.parent
+        found += 1
+        res = validate_review_dir(review_dir)
+        if not res.ok:
+            errors.append(f"{review_dir}: " + "; ".join(res.errors))
+        warnings.extend([f"{review_dir}: {w}" for w in res.warnings])
+
+    if found == 0:
+        errors.append(f"No review directories found under: {root}")
+
+    return ValidationResult(ok=len(errors) == 0, errors=errors, warnings=warnings)

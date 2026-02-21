@@ -17,13 +17,15 @@ This includes:
 from __future__ import annotations
 
 import argparse
+
+from dpi_lab import __version__
 import sys
 from pathlib import Path
 
 from dpi_lab.core.extract import extract_pdf
 from dpi_lab.core.review import run_review
 from dpi_lab.core.scaffold import scaffold_review
-from dpi_lab.core.validate import validate_review_dir
+from dpi_lab.core.validate import validate_tree, validate_review_dir
 from dpi_lab.core.lint import lint_markdown_paths
 
 
@@ -33,6 +35,7 @@ def _p(s: str) -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="dpi-lab", description="DPI AI Governance Lab workbench")
+    p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p_extract = sub.add_parser("extract", help="Extract and canonicalize text from a PDF")
@@ -136,7 +139,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "validate":
-        result = validate_review_dir(_p(args.review_dir))
+        result = validate_tree(_p(args.review_dir))
         if result.ok:
             print("OK")
             if result.warnings:

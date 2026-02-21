@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Paper Analysis (structured)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "executive_summary",
+    "scope_and_claims",
+    "methods_and_evidence",
+    "assumptions",
+    "key_terms",
+    "notable_quotes"
+  ],
+  "properties": {
+    "executive_summary": { "type": "string", "minLength": 50 },
+    "scope_and_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 10 },
+      "minItems": 3
+    },
+    "methods_and_evidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 10 },
+      "minItems": 3
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 10 },
+      "minItems": 3
+    },
+    "key_terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "definition"],
+        "properties": {
+          "term": { "type": "string", "minLength": 1 },
+          "definition": { "type": "string", "minLength": 10 }
+        }
+      },
+      "minItems": 3
+    },
+    "notable_quotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["quote", "why_it_matters"],
+        "properties": {
+          "quote": { "type": "string", "minLength": 10 },
+          "why_it_matters": { "type": "string", "minLength": 10 }
+        }
+      },
+      "minItems": 2
+    }
+  }
+}

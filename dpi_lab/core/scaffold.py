@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 
 from dpi_lab.core.utils import safe_write_text
+from dpi_lab.core.resources import read_text as read_resource_text
 
 
 REQUIRED_FILES = {
@@ -15,7 +16,7 @@ REQUIRED_FILES = {
 
 
 def _repo_root() -> Path:
-    # dpi_lab/core/scaffold.py -> repo root
+    # Back-compat for editable installs; not relied on for packaged installs.
     return Path(__file__).resolve().parents[2]
 
 
@@ -24,12 +25,17 @@ def scaffold_review(base_dir: Path, slug: str, pdf_path: Path | None = None) -> 
     repo = _repo_root()
     review_dir = (base_dir / slug).resolve()
     review_dir.mkdir(parents=True, exist_ok=True)
-
-    # Copy templates
+    # Write templates (packaged resources for pip installs; fallback to repo paths for editable dev)
     for out_name, (src_rel,) in REQUIRED_FILES.items():
-        src = repo / src_rel
         dst = review_dir / out_name
-        if not dst.exists():
+        if dst.exists():
+            continue
+        try:
+            content = read_resource_text(src_rel)
+            safe_write_text(dst, content)
+        except FileNotFoundError:
+            # Fallback: repo-relative (editable installs)
+            src = repo / src_rel
             shutil.copyfile(src, dst)
 
     # Make standard subfolders for deterministic runs

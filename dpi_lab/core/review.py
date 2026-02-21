@@ -11,6 +11,7 @@ from dpi_lab.core.render import render_analysis_md, render_report_md
 from dpi_lab.core.scaffold import scaffold_review
 from dpi_lab.core.utils import safe_write_text
 from dpi_lab.engines.base import EngineConfig
+from dpi_lab import __version__
 
 
 def run_review(
@@ -97,6 +98,7 @@ def run_review(
     manifest_path = review_dir / "run" / "manifest.json"
     manifest = {
         "version": 1,
+        "workbench_version": __version__,
         "engine": engine,
         "model": cfg.model,
         "seed": cfg.seed,

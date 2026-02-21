@@ -12,7 +12,17 @@ jobs:
           python-version: '3.11'
       - name: Install deps
         run: |
-          pip install -r requirements.txt
+          pip install .
       - name: CLI smoke test
         run: |
-          python -m dpi_lab --help
+          dpi-lab --help
+          dpi-lab review --help
+          dpi-lab validate --help
+- name: Offline smoke review + validate
+  run: |
+    mkdir -p /tmp/dpi-lab-ci
+    dpi-lab review --engine local --pdf reviews/examples-batch/cdpi-dpi-ai-framework-2026/paper.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
+    dpi-lab validate /tmp/dpi-lab-ci/ci-smoke
+- name: Validate bundled examples
+  run: |
+    dpi-lab validate reviews/examples-batch

@@ -45,13 +45,17 @@ tools/         Validators, generators, linters
 
 ## Quickstart
 
-### 1) Install
+### 1) Install (pip)
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install .
+dpi-lab --version
 ```
+
+> `pip install -r requirements.txt` is still supported for development, but releases are expected to be installable via `pip install .`.
+
 
 ### 2) Run a deterministic review from a PDF
 

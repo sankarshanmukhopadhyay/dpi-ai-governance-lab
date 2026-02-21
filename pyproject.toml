@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dpi-ai-governance-lab"
-version = "0.1.0"
+version = "0.4.0"
 description = "DPI AI Governance Lab Workbench: deterministic paper review scaffolding, extraction, validation"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -21,3 +21,17 @@ dependencies = [
 
 [project.scripts]
 dpi-lab = "dpi_lab.cli.main:main"
+
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+# Include schemas and templates needed at runtime
+"dpi_lab" = [
+  "resources/**/*.json",
+  "resources/**/*.yaml",
+  "resources/**/*.yml",
+  "resources/**/*.md",
+  "resources/**/*.txt",
+]

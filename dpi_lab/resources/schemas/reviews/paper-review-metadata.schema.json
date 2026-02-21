@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/dpi-ai-governance-lab/schemas/reviews/paper-review-metadata.schema.json",
+  "title": "Paper Review Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "authors", "published_year", "source", "tags"],
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "authors": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "published_year": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2100
+    },
+    "source": {"type": "string"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}
