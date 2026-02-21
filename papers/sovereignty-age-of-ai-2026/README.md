@@ -17,20 +17,20 @@ The Lab extension pack converts this narrative into **proof-carrying governance*
 ## Contents
 
 ### 1) Posture → Proof
-- `sovereignty-assurance-model.md` — control artifacts + runtime proofs per layer  
-- `../schemas/sovereignty-age-of-ai-2026/posture-declaration.schema.json` — machine-readable posture declaration schema  
+- `sovereignty-assurance-model.md` — control artifacts + runtime proofs per layer
+- `../schemas/sovereignty-age-of-ai-2026/posture-declaration.schema.json` — machine-readable posture declaration schema
 - `../schemas/sovereignty-age-of-ai-2026/posture-declaration.example.json` — example declaration
 
 ### 2) Quantification
-- `sovereignty-readiness-index.md` — DPI-linked Sovereign AI Readiness Index (SARI)  
-- `../schemas/sovereignty-age-of-ai-2026/sari-assessment.schema.json` — machine-readable SARI schema  
+- `sovereignty-readiness-index.md` — DPI-linked Sovereign AI Readiness Index (SARI)
+- `../schemas/sovereignty-age-of-ai-2026/sari-assessment.schema.json` — machine-readable SARI schema
 - `../schemas/sovereignty-age-of-ai-2026/sari-assessment.example.yaml` — example assessment
 
 ### 3) DPI as the Sovereignty Control Plane
 - `dpi-ai-sovereignty-architecture.md` — reference architecture + minimum viable integration checklist
 
 ### 4) Interoperability = Exit Leverage
-- `interoperability-exit-leverage-protocol.md` — Exit Leverage Protocol (ELP) and procurement clauses  
+- `interoperability-exit-leverage-protocol.md` — Exit Leverage Protocol (ELP) and procurement clauses
 - `../templates/interoperability-conformance-checklist.md` — conformance checklist template
 
 ### 5) Runtime Governance
