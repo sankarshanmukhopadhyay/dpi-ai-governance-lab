@@ -1,0 +1,24 @@
+version: 0.1
+system:
+  name: "UKRI AI R&I Strategic Framework (paper-level assessment)"
+  context: "National R&I strategy with downstream influence on regulated deployments"
+tier:
+  proposed: "N/A (strategy spans multiple tiers; includes explicit ambition for Tier 3-like regulated-sector validation)"
+  justification: "Framework is not a deployment spec, but it commits to validated/assured systems in regulated sectors by 2031 and references assurance toolchains."
+scoring:
+  impact_severity: 4
+  scale: 5
+  reversibility: 3
+  opacity: 3
+  adversarial_pressure: 4
+controls:
+  required_profile: "Regulated deployment (Tier 3) governance baseline for any UKRI-funded real-world testbeds"
+  mandatory_artifacts:
+    - "AI Deployment Dossier (Tier 2–3)"
+    - "Assurance Toolchain Reference Architecture"
+    - "Incident escalation & redress runbooks"
+    - "Data/TRE governance charter (access, audit, revocation)"
+gaps:
+  - "No explicit risk-tiering model to translate 'assured' into enforceable requirements"
+  - "Delivery plan deferred; ownership/metrics/milestones not yet specified"
+  - "Assurance toolchain concept is named but not operationally defined"

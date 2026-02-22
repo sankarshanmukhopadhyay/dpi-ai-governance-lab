@@ -1,6 +1,6 @@
 # DPI AI Governance Lab
 
-![License](https://img.shields.io/badge/license-CC--BY--4.0-blue)
+![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-blue)
 ![Version](https://img.shields.io/badge/version-v0.4.1-green)
 ![Type](https://img.shields.io/badge/type-methodology%20workbench-orange)
 
@@ -206,3 +206,12 @@ Narratives persuade.
 Artifacts enforce.
 
 The DPI AI Governance Lab prioritizes enforceable structure over rhetorical positioning.
+
+## Citation & Attribution
+
+If you reuse or adapt this work, please attribute as follows:
+
+Sankarshan Mukhopadhyay (2026). *DPI AI Governance Lab* (methodology, templates, and review artifacts). Licensed under **CC BY-SA 4.0**.
+
+If you cite this repository in academic or policy work, also see `CITATION.cff`.
+
