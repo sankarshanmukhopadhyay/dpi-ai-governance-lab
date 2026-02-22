@@ -1,0 +1,12 @@
+version: 0.1
+paper:
+  title: "UKRI AI Research and Innovation Strategic Framework"
+  year: 2026
+scores:
+  tiering_completeness: 2
+  accountability_plumbing: 2
+  data_governance: 3
+  redress: 2
+  sovereignty: 4
+notes:
+  - "Strong portfolio framing and national advantage posture; lacks concrete risk-tier binding, evidence artifacts, and delivery-plan accountability."
