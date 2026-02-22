@@ -213,5 +213,7 @@ If you reuse or adapt this work, please attribute as follows:
 
 Sankarshan Mukhopadhyay (2026). *DPI AI Governance Lab* (methodology, templates, and review artifacts). Licensed under **CC BY-SA 4.0**.
 
+Contact: sankarshan@qbfconsulting.digital
+
 If you cite this repository in academic or policy work, also see `CITATION.cff`.
 
