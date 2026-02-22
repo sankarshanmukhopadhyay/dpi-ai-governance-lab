@@ -19,4 +19,3 @@
 - Deterministic PDF extraction + hashing + manifests.
 - Schema-based validation and offline smoke-test workflows.
 - Examples batch and guided walkthrough for onboarding.
-- Linked operational artifacts repository and clarified cross-repo alignment.

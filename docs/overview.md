@@ -21,9 +21,3 @@ The **DPI AI Governance Lab** is a repo of **governance artifacts** used to revi
 
 Earlier work remains available under `/papers`, `/templates`, `/schemas`, and `/profiles`.
 New work should prefer `/artifacts` + `/reviews`.
-
-
-## Operational artifacts
-
-This methodology has a sister repository of operational packs and reusable governance building blocks:
-- https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-artifacts

@@ -1,10 +1,5 @@
 # DPI AI Governance Lab
 
-![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-blue)
-![Version](https://img.shields.io/badge/version-v0.4.1-green)
-![Type](https://img.shields.io/badge/type-methodology%20workbench-orange)
-
-
 The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
 
 This repository is not a narrative archive. It is a **workbench**.
@@ -13,11 +8,13 @@ A paper review is treated as a build process: fixed inputs → fixed outputs →
 ---
 
 
-## Related repositories
+## TRACE Method
 
-- **Operational artifacts:** https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-artifacts
-  - Contains templates, packs, rulebooks, and test vectors aligned to this methodology.
-  - Alignment contract lives at `docs/methodology-alignment.md` in the artifacts repo.
+**TRACE (Trust, Risk, Architecture & Conformance Evaluation)** is the named methodology used in this repository for examining DPI–AI governance and operational readiness.
+
+- TRACE docs: `docs/trace/`
+- TRACE version: `TRACE_VERSION`
+
 ## Purpose
 
 Most AI governance papers are directionally correct but operationally vague.
@@ -206,14 +203,3 @@ Narratives persuade.
 Artifacts enforce.
 
 The DPI AI Governance Lab prioritizes enforceable structure over rhetorical positioning.
-
-## Citation & Attribution
-
-If you reuse or adapt this work, please attribute as follows:
-
-Sankarshan Mukhopadhyay (2026). *DPI AI Governance Lab* (methodology, templates, and review artifacts). Licensed under **CC BY-SA 4.0**.
-
-Contact: sankarshan@qbfconsulting.digital
-
-If you cite this repository in academic or policy work, also see `CITATION.cff`.
-

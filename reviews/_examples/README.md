@@ -27,7 +27,8 @@ Each review directory includes the workbench’s **required outputs**:
 
 …and reproducibility/audit artifacts:
 
-- `paper.pdf` (the input)
+- `paper.source.md` (where to fetch the input PDF)
+- `paper.pdf` (optional local copy, **not** committed)
 - `extracted/` (canonical text + hashes)
 - `run/manifest.json` (engine + parameters + hashes)
 - `run/prompts/` and `run/responses/` (where model engines persist prompts/responses)
