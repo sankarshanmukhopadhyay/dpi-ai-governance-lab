@@ -1,5 +1,10 @@
 # DPI AI Governance Lab
 
+![License](https://img.shields.io/badge/license-CC--BY--4.0-blue)
+![Version](https://img.shields.io/badge/version-v0.4.1-green)
+![Type](https://img.shields.io/badge/type-methodology%20workbench-orange)
+
+
 The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
 
 This repository is not a narrative archive. It is a **workbench**.
@@ -7,6 +12,12 @@ A paper review is treated as a build process: fixed inputs → fixed outputs →
 
 ---
 
+
+## Related repositories
+
+- **Operational artifacts:** https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  - Contains templates, packs, rulebooks, and test vectors aligned to this methodology.
+  - Alignment contract lives at `docs/methodology-alignment.md` in the artifacts repo.
 ## Purpose
 
 Most AI governance papers are directionally correct but operationally vague.
