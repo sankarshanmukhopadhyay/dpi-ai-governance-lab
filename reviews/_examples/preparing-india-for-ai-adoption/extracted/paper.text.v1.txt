@@ -1,0 +1,150 @@
+--- PAGE 1 ---
+
+Preparing India for AI Adoption:
+Challenges and Solutions
+Hemant Adarkar1, Sridhar Ganapthy2
+1. Member, Advisory Council, Digital Empowerment Foundation and Senior Fellow,
+Artha Global
+2. Principal, Artha Global
+Abstract
+Artificial Intelligence (AI) is quickly changing economies and societies around the world. It is
+being used in healthcare, farming, education, and government to make systems more
+efficient, accurate, and scalable. India, with its young population, large amounts of data, and
+growing digital ecosystem, is well-placed to benefit from this AI revolution. But to unlock its
+full potential, India must overcome several challenges—such as gaps in technology,
+infrastructure, education, regulation, and ethics. This essay looks at the main obstacles to AI
+adoption in India and suggests practical solutions for building a sustainable and inclusive AI-
+powered future.
+India’s digital infrastructure has made significant progress in recent years through initiatives
+such as Digital India, the JAM Trinity (Jan Dhan, Aadhaar, Mobile), and the India Stack,
+which includes UPI, Aadhaar, and Data Exchanges (Ref 1 and 2). However, gaps remain,
+especially in rural and semi-urban areas. AI requires strong digital connectivity, high-
+performance computing, and reliable cloud services. Limited access to high-speed internet in
+remote regions restricts the rollout of AI-powered solutions such as telemedicine, smart
+farming, and e-learning. Today, AI needs special hardware – such hardware has to be
+imported and is one of the major hinderance for AI becoming widespread in India.
+AI also depends heavily on data. While India generates vast amounts of it, much of the data is
+not properly classified, fragmented, or siloed. Access to high-quality, annotated, and diverse
+datasets is limited, and there are few interoperable platforms or standardized protocols in key
+sectors like health, agriculture, and education.
+To address these challenges, India can focus on a few key solutions:
+ Build public-private partnerships to expand digital infrastructure in underserved areas.
+ Accelerate 5G rollout and leverage satellite internet initiatives like Starlink and
+BharatNet to achieve nationwide coverage.
+ Establish regional AI infrastructure hubs with compute clusters and data centres
+outside major cities.
+ Create national data exchanges with sector-specific platforms to enable sharing of
+anonymized, structured data.
+ Expand open data initiatives with clear APIs and compliance rules.
+ Develop data stewardship models that ensure ethical collection and use of data, with
+user consent, privacy protections, and participatory governance.
+
+--- PAGE 2 ---
+
+India has several initiatives to establish data exchange platforms, including the
+upcoming National Data Platform (NDP) for a unified national data marketplace and the
+operational India Urban Data Exchange (IUDX), which facilitates secure data sharing for
+urban development. Another key initiative is the Agricultural Data Exchange (ADeX), a
+consent-based platform for sharing agricultural data. These platforms are designed to promote
+data-driven decision-making, innovation, and the development of data-based ecosystems
+across various sectors. However, these efforts are seriously in need of public out reach
+programmes.
+India’s education system is not yet fully aligned with the needs of an AI-driven economy.
+While top institutes like the IITs and IISc are advancing AI research, most other institutions
+face challenges such as outdated curricula, a shortage of qualified faculty, and limited access
+to hands-on AI tools. As a result, there is a shortage of skilled AI professionals, particularly
+in Tier 2 and Tier 3 cities. Possible solutions include updating school and college curricula to
+integrate AI, machine learning, and data science under the National Education Policy (NEP);
+introducing faculty development programs through workshops, online courses, and industry-
+academia partnerships; expanding accessible AI learning via government initiatives like
+SWAYAM and Skill India in collaboration with platforms such as Coursera, edX, and
+NPTEL; and creating AI-focused vocational training programs for ITI students, working
+professionals, and entrepreneurs.
+As AI systems begin to influence decisions that directly affect people’s lives, it is essential to
+ensure transparency, accountability, and fairness. At present, India does not have a
+comprehensive AI policy or legal framework to deal with issues such as algorithmic bias,
+surveillance, data protection, and liability in automated systems. There are several strategy
+papers – salient amongst them are from the Niti Aayog (Ref 3). and India AI mission (Ref 4).
+The India AI mission has seven pillars: India AI Innovation centre for the deployment of
+indigenous LLMs, India AI Application Development Initiative for AI applications’
+development in critical sectors, AI Kosh Data Platform for creating datasets, models and
+toolkits for innovation in AI platforms, India AI Compute Capacity for providing IT
+infrastructure for AI, India AI Start-up Financing, India AI Future Skill for training
+manpower and Safe and Trusted AI for creating adequate guardrails for development,
+deployment and adoption of responsible AI.
+Possible solutions include formulating strong AI ethics guidelines in line with global
+standards such as those from the OECD and UNESCO, with a focus on inclusivity, fairness,
+and transparency; setting up regulatory sandboxes where startups and companies can test AI
+solutions under oversight; developing adaptive legal frameworks for emerging technologies
+through regular consultations and expert reviews; and creating a national AI ethics board to
+oversee large-scale deployments and track their societal impact.
+India has over 22 official languages and hundreds of dialects, but most AI systems are trained
+on English-focused datasets. This limits their ability to reflect the country’s rich linguistic
+and cultural diversity. If AI tools are not designed with inclusion in mind, they risk widening
+social inequalities, especially for marginalized communities whose specific needs are often
+overlooked. Possible solutions include strengthening the Bhashini initiative (Ref 4) to
+develop multilingual AI tools such as speech-to-text, machine translation, and natural
+language processing across Indian languages; involving local communities in the design of
+
+--- PAGE 3 ---
+
+AI applications tailored to their contexts, whether in tribal healthcare, rural education, or
+urban sanitation; creating and open-sourcing region-specific datasets that capture diverse
+voices, accents, and cultural contexts; and promoting greater participation of women and
+minority groups in AI development teams to reduce bias and support more equitable
+adoption.
+India lags behind global leaders in areas such as AI research output, patents, and startup
+funding. While institutes like the IITs and IISc produce high-quality research, there is still a
+strong need for closer collaboration between industry and academia, as well as better
+pathways to turn research into commercial applications. Niti Aayog report says that India has
+less than 100 researchers out of a worldwide number of 25000.
+Possible solutions include setting up National AI Research Centres or Centres of Excellence
+across regions, modelled on successful global institutions; supporting AI startups in sectors
+like health tech, edtech, aggrotech, and fintech with seed funding, mentorship, and testing
+facilities; building international collaborations with leading countries and organizations to
+share knowledge and best practices; and boosting domestic startups by integrating their AI
+solutions into public service delivery through platforms like the Government e-Marketplace
+(GeM). Integration of AI with Digital Public Infrastructure (DPI) will give rise to interesting
+possibilities – large amount of data availability for training and multi-lingual capabilities of
+AI can be extremely beneficial to DPI.  Public understanding of AI in India is still limited.
+Many people are unclear about what AI is, how it works, and what its impacts might be. This
+lack of awareness can lead to fear, misinformation, or resistance, especially when AI is
+introduced in sensitive areas like healthcare or law enforcement.
+Possible solutions include running mass awareness campaigns through media, digital literacy
+programs, and local-language content to explain AI’s benefits and limits; using community
+engagement models where citizens are involved and educated during pilot deployments;
+investing in explainable AI systems that can justify their decisions in simple, human-
+understandable terms to build trust; and creating citizen feedback mechanisms so users can
+report errors, biases, or harms caused by AI systems, ensuring they improve over time.
+As AI adoption increases, new concerns are emerging around environmental impact, misuse,
+and employment. Training large AI models requires significant energy, raising sustainability
+challenges. AI can also be misused for harmful purposes such as deepfakes and
+misinformation, while automation poses risks of job displacement. The biggest fear is a
+scenario where AI could lead to large scale unemployment (Ref 6). India needs to ensure that
+AI growth balances people, environment, and productivity.
+Possible solutions include promoting energy-efficient AI models and infrastructure powered
+by renewable energy; prioritizing AI projects that address social challenges in health, the
+environment, disaster management, and poverty reduction; launching reskilling and transition
+programs for workers whose jobs may be affected by automation; and funding research on
+responsible AI that emphasizes fairness, inclusivity, and sustainability.
+
+--- PAGE 4 ---
+
+Conclusion
+AI presents both a challenge and an opportunity for India. It has the potential to address some
+of the country’s most critical needs, such as better healthcare, quality education, sustainable
+farming, and more efficient governance. However, these benefits will only be realized if
+adoption is proactive, inclusive, and ethical. By strengthening the infrastructure, improving
+data systems, encouraging innovation, and building human skills, India can not only adopt AI
+but also play a role in shaping its global future. What is needed is more than a policy—it is a
+national effort that prepares every citizen, institution, and business for the era of intelligent
+machines.
+References:
+1. The Digital Divide in India: Challenges and Governmental Responses • Law Notes by
+The Law Institute
+2. Indiastack.org
+3. https://www.niti.gov.in/sites/default/files/2023-03/National-Strategy-for-Artificial-
+Intelligence.pdf
+4. India AI Misson – www.indiaai.gov.in
+5. https://bhashini.gov.in/
+6. H. Guliyev, Research in Globalization Volume 7, December 2023, 100140

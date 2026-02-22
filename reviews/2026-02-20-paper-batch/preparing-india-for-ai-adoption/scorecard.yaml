@@ -1,0 +1,14 @@
+version: '0.1'
+paper:
+  title: 'Preparing India for AI Adoption: Challenges and Solutions'
+  year: 2025
+scores:
+  tiering_completeness: 1
+  accountability_plumbing: 1
+  data_governance: 2
+  redress: 1
+  sovereignty: 1
+notes:
+- Scores are 0–5 (5=strong, implementable).
+- 'This scorecard reflects DPI AI Governance Lab methodology: abstractions → risk
+  surfaces → tier binding → accountability → conformance.'

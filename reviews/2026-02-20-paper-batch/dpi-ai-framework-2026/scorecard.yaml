@@ -1,0 +1,14 @@
+version: '0.1'
+paper:
+  title: 'Vision Paper: DPI-AI Framework 2026 (CDPI)'
+  year: 2026
+scores:
+  tiering_completeness: 3
+  accountability_plumbing: 3
+  data_governance: 4
+  redress: 2
+  sovereignty: 2
+notes:
+- Scores are 0–5 (5=strong, implementable).
+- 'This scorecard reflects DPI AI Governance Lab methodology: abstractions → risk
+  surfaces → tier binding → accountability → conformance.'

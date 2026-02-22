@@ -1,0 +1,12 @@
+version: 0.1
+paper:
+  title: "UKRI AI Research and Innovation Strategic Framework"
+  publisher: "UK Research and Innovation (UKRI)"
+  published: "2026-02-19"
+  url: "https://www.ukri.org/publications/ukri-artificial-intelligence-research-and-innovation-strategic-framework/ukri-ai-research-and-innovation-strategic-framework/"
+  document_type: "Strategic framework / investment priorities"
+review:
+  conducted: "2026-02-22"
+  methodology: "DPI AI Governance Lab (paper review pack)"
+  reviewer_notes:
+    - "Reviewed as a system-level R&I strategy with downstream implications for regulated-sector deployments."

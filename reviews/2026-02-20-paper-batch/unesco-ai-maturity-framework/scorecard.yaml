@@ -1,0 +1,14 @@
+version: '0.1'
+paper:
+  title: 'UNESCO AI Maturity Framework: A self-positioning guide for public administrations'
+  year: 2025
+scores:
+  tiering_completeness: 2
+  accountability_plumbing: 2
+  data_governance: 3
+  redress: 2
+  sovereignty: 1
+notes:
+- Scores are 0–5 (5=strong, implementable).
+- 'This scorecard reflects DPI AI Governance Lab methodology: abstractions → risk
+  surfaces → tier binding → accountability → conformance.'
