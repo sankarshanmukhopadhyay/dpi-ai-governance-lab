@@ -203,3 +203,8 @@ Narratives persuade.
 Artifacts enforce.
 
 The DPI AI Governance Lab prioritizes enforceable structure over rhetorical positioning.
+
+## Source documents (PDFs)
+
+PDF copies of reviewed documents are intentionally not stored in this repository to keep it lightweight. See `docs/sources/removed-pdfs.md` for canonical links.
+
