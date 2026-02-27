@@ -15,6 +15,19 @@ A paper review is treated as a build process: fixed inputs → fixed outputs →
 - TRACE docs: `docs/trace/`
 - TRACE version: `TRACE_VERSION`
 
+## Methodology v1.0 (stabilized path)
+
+To ensure reviews are **reproducible and auditable**, the Lab now ships a stable methodology spine:
+
+- Start here: `methodology/README.md`
+- Evaluation contract (required outputs): `methodology/evaluation-contract.md`
+- Review workflow: `methodology/review-workflow.md`
+- Scoring rubric + scale: `methodology/scoring-rubric.md`, `methodology/scoring-scale.md`
+- Templates: `templates/`
+- Calibration examples: `calibration/`
+- Change log: `meta/methodology-changelog.md`
+
+
 ## Purpose
 
 Most AI governance papers are directionally correct but operationally vague.
@@ -29,6 +42,12 @@ The Lab applies a deterministic review workflow to:
 The goal is operational clarity, not commentary.
 
 ---
+
+## Companion repository (operational packs)
+
+This Lab produces **evaluations** (TRACE reviews, scorecards, audit trails). The companion repository ships the **operational governance packs** (schemas, templates, conformance/evidence bundles):
+
+- `dpi-ai-governance-artifacts` — operational packs aligned to TRACE outputs
 
 ## Repository Structure
 
