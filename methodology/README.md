@@ -12,3 +12,12 @@ This folder contains the **stable, reproducible review methodology** used by the
 - `scoring-scale.md` — anchored 1–5 scoring scale
 - `inter-reviewer-guidance.md` — consistency rules
 - `glossary.md` — shared terminology
+
+## Companion repo (operational packs)
+This Lab produces **evaluations** (TRACE reviews, scorecards, audit trails). The companion repository ships the **operational governance packs** (schemas, templates, conformance/evidence bundles) that reviews map to:
+
+- `dpi-ai-governance-artifacts`
+
+## Canonical example
+- `reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/`
+

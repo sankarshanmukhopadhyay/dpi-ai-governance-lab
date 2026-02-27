@@ -97,3 +97,9 @@ This methodology does not attempt to:
 - Determine “truth” of paper claims
 - Provide legal compliance determinations
 - Replace formal audit or certification
+
+## Companion packs (Artifacts repo)
+Reviews SHOULD include alignment mapping to the operational packs in the companion repository:
+
+- `dpi-ai-governance-artifacts`
+

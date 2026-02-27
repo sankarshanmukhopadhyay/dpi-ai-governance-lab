@@ -35,3 +35,9 @@ A Review Package lives at:
 
 - `_template/` — A ready-to-copy review package skeleton.
 - `_examples/` — Example outputs to demonstrate the methodology and file layout.
+
+## Canonical example (v1.0)
+A fully structured review package you can copy as a reference implementation:
+
+- `reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/`
+

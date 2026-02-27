@@ -14,6 +14,8 @@ A paper review is treated as a build process: fixed inputs → fixed outputs →
 
 - TRACE docs: `docs/trace/`
 - TRACE version: `TRACE_VERSION`
+- Canonical example review: `reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/`
+
 
 ## Methodology v1.0 (stabilized path)
 
