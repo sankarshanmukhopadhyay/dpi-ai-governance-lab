@@ -56,7 +56,7 @@ def run_review(
     eng = get_engine(engine)
     seed = int(res["pdf_sha256"][:8], 16)
     cfg = EngineConfig(
-        model=model or "gpt-5",
+        model=model or "gpt-4o-mini",
         seed=seed,
         max_input_chars=max_input_chars,
         chunk_max_chars=chunk_max_chars,

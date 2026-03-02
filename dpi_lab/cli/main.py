@@ -60,7 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_review.add_argument(
         "--model",
         default=None,
-        help="Model name for model-backed engines (e.g., gpt-5). Ignored by local engine.",
+        help="Model name for model-backed engines (e.g., gpt-4o-mini). Ignored by local engine.",
     )
     p_review.add_argument(
         "--max-input-chars",

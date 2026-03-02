@@ -30,10 +30,10 @@ Goal: Improve reliability and defensibility of scores.
 
 ## 3. Automation & Tooling
 
-- Structured input template for paper ingestion
-- Machine-readable review output schema
-- CLI or script-assisted evaluation flow (optional future)
-- Export formats (Markdown, JSON, PDF-ready)
+- [Implemented] Structured input templates for review scaffolding (`dpi-lab scaffold`)
+- [Implemented] Machine-readable review output schemas (metadata + scorecard)
+- [Implemented] Script-assisted evaluation and validation workflow (`dpi-lab review`, `dpi-lab validate`)
+- [Planned] Additional export formats (JSON bundle, PDF-ready renders)
 
 Goal: Reduce manual friction and increase repeatability.
 

@@ -66,7 +66,7 @@ def semantic_validate(
         errors.append("Semantic validation requires a model-backed engine; 'local' does not support it.")
         return SemanticValidation(errors=errors, warnings=warnings)
 
-    chosen_model = model or manifest_model or "gpt-5"
+    chosen_model = model or manifest_model or "gpt-4o-mini"
 
     # Load paper text
     extracted = review_dir / "extracted" / "paper.text.v1.txt"

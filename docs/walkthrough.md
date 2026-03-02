@@ -106,7 +106,7 @@ Model-backed engines produce richer analysis/report content while still keeping 
 ```bash
 export OPENAI_API_KEY="..."
 
-python -m dpi_lab review --engine openai --model gpt-5 \
+python -m dpi_lab review --engine openai --model gpt-4o-mini \
   --pdf /path/to/paper.pdf \
   --slug my-paper \
   --out reviews/examples-batch

@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-- Restructured repo with artifacts + reviews + tools.
+- No unreleased changes.
 
 ## [0.4.1] - 2026-02-21
 

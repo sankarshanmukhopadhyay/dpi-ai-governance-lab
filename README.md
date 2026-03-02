@@ -1,5 +1,7 @@
 # DPI AI Governance Lab
 
+![CI](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab/actions/workflows/ci.yml/badge.svg)
+
 The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
 
 This repository is not a narrative archive. It is a **workbench**.
@@ -111,7 +113,7 @@ and persists the raw payload for debugging.
 
 ```bash
 export OPENAI_API_KEY="..."
-dpi-lab review --engine openai --model gpt-5 \
+dpi-lab review --engine openai --model gpt-4o-mini \
   --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
 ```
 
@@ -151,7 +153,7 @@ dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level schema
 dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level policy
 
 # Optional semantic validation (engine-backed; requires API key for model engines)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-5
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-4o-mini
 ```
 
 
