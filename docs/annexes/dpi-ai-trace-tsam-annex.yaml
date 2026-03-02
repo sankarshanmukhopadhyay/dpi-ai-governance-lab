@@ -1,0 +1,64 @@
+spec: DPI-AI-TRACE-TSAM-Annex
+version: 0.1.0
+normative_language: RFC2119+RFC8174
+system_scope:
+  ai_system_name: ''
+  deployment_context: ''
+  public_impact_domain: ''
+  delegation_level: ''
+  owner_or_implementing_authority: ''
+  independent_verifier: ''
+trace_risk_classification:
+  risk_concentration:
+    impact_scope: ''
+    affected_population: ''
+    institutional_exposure: ''
+    threshold_justification: ''
+  delegation_and_agency:
+    decision_boundaries: ''
+    override_mechanisms: ''
+    escalation_pathways: ''
+    human_intervention_guarantees: ''
+  legitimacy:
+    authorizing_mandate: ''
+    policy_basis: ''
+    accountability_structure: ''
+    scope_limitations: ''
+  redress:
+    appeal_pathway: ''
+    remediation_timeline: ''
+    responsible_authority: ''
+    rollback_rectification_capability: ''
+  systemic_externality:
+    cross_agency_dependencies: ''
+    model_dependency_chains: ''
+    external_data_reliance: ''
+    failure_containment_assumptions: ''
+tsam_instantiation:
+  governance_semantics: ''
+  assurance_level:
+    declared_tier: ''
+    justification: ''
+    evidence_delta_if_upgrade: ''
+  conformance_verification:
+    test_suites_executed: []
+    independent_verification_entity: ''
+    results_summary: ''
+    reproducibility_notes: ''
+  runtime_integrity_controls:
+    zero_trust_posture: ''
+    api_security_posture: ''
+    model_supply_chain_controls: ''
+    logging_monitoring_architecture: ''
+    deployment_hardening_posture: ''
+  evidence_and_observability:
+    decision_trace_artifacts: []
+    model_lineage_artifacts: []
+    redress_records: []
+    telemetry_retention_policy: ''
+    evidence_bundle_location: ''
+compliance_declaration:
+  trace_axes_instantiated_across_tsam_layers: false
+  conformance_artifacts_reproducible: false
+  evidence_retained_for_independent_audit: false
+  non_instantiated_axes_justification: ''

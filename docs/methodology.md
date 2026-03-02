@@ -16,3 +16,9 @@ This lab applies structured institutional pressure-testing:
 5. Translate insights into reusable governance artifacts and conformance surfaces
 
 The goal is composable legitimacy, not narrative critique.
+
+
+## TRACE ↔ TSAM (assurance engineering binding)
+TRACE defines the governance and risk analysis lens. For implementation-grade assurance, TRACE can be paired with TSAM (Trust Systems Assurance Method), which binds governance intent to assurance levels, conformance verification, runtime integrity controls, and evidence.
+
+See: `docs/trace/TRACE-TSAM.md`
