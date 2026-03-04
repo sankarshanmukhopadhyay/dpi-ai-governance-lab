@@ -1,7 +1,13 @@
 # Changelog
 
 ## Unreleased
-- No unreleased changes.
+
+### Added
+- Agent governance artifacts and conformance profile updates aligned to agentic risk management (registration, mandates, containment, monitoring, shutdown).
+- Reference bibliography updated to include Andrew Clearwater’s agent governance showdown (Mar 03, 2026).
+
+### Fixed
+- Removed stray `.DS_Store` from repository root.
 
 ## [0.4.1] - 2026-02-21
 

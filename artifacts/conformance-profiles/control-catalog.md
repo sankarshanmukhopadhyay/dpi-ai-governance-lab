@@ -10,3 +10,4 @@ Example domains:
 - IR (incident response)
 - RED (redress)
 - SUP (supply chain)
+- AGT (agent governance: registration, mandates, containment, monitoring)

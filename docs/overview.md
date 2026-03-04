@@ -26,3 +26,13 @@ The **DPI AI Governance Lab** is a repo of **governance artifacts** used to revi
 
 Earlier work remains available under `/papers`, `/templates`, `/schemas`, and `/profiles`.
 New work should prefer `/artifacts` + `/reviews`.
+
+
+## Agentic AI governance
+
+Agentic systems require governance that is **runtime-aware** (registration, mandates, containment, monitoring).
+
+Artifacts:
+- `artifacts/agent-governance/` (templates)
+- `artifacts/conformance-profiles/profile-agentic-action.md` (profile)
+- `annexes/reference-bibliography.md` (upstream references, including Clearwater’s agent governance showdown)

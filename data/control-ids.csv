@@ -5,3 +5,8 @@ EVAL-01,EVAL,Evaluation minimums
 OBS-01,OBS,Monitoring and drift
 RED-01,RED,Redress SLAs
 SUP-01,SUP,Supply chain exposure
+AGT-01,AGT,Operational agent registry
+AGT-02,AGT,Mandates and authority boundaries
+AGT-03,AGT,Delegation chain provenance
+AGT-04,AGT,Containment and stop-rights
+AGT-05,AGT,Continuous monitoring for agents
