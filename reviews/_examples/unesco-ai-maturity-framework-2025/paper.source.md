@@ -7,7 +7,7 @@ This example review is based on an external paper/report. To keep this repositor
 - **Title:** AI Maturity Framework: A self‑positioning guide for public administrations
 - **Publisher:** UNESCO
 - **Published:** 2025
-- **Source URL:** TBD (add canonical UNESCO PDF URL)
+- **Source URL:** https://unesdoc.unesco.org/ark:/48223/pf0000397145 (canonical publication record; PDF accessible from this page)
 
 ## Notes
 

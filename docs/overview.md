@@ -1,3 +1,8 @@
+---
+last_reviewed: 2026-03-04
+applies_to: main
+---
+
 # DPI AI Governance Lab
 
 The **DPI AI Governance Lab** is a repo of **governance artifacts** used to review (and pressure-test) AI + DPI proposals, papers, and deployment plans.
