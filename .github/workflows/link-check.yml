@@ -2,11 +2,28 @@ name: Link Check
 on:
   push:
   pull_request:
+
 jobs:
   links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Placeholder link check
-        run: |
-          echo "TODO: add link checker"
+
+      - name: Link check (internal + external)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --accept 200,206,429
+            --exclude-mail
+            --exclude-path ./node_modules
+            --exclude-path ./dist
+            --exclude-path ./build
+            --exclude-path ./site
+            --exclude-path ./_site
+            --exclude-path ./vendor
+            --exclude-path ./reviews/run
+            ./README.md ./docs ./annexes ./artifacts ./controlled ./conformance ./controls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

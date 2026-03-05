@@ -2,27 +2,34 @@ name: CI
 on:
   push:
   pull_request:
+
 jobs:
   sanity:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install deps
+          python-version: "3.11"
+
+      - name: Install package
         run: |
+          python -m pip install --upgrade pip
           pip install .
+
       - name: CLI smoke test
         run: |
           dpi-lab --help
           dpi-lab review --help
           dpi-lab validate --help
-- name: Offline smoke review + validate
-  run: |
-    mkdir -p /tmp/dpi-lab-ci
-    dpi-lab review --engine local --pdf reviews/examples-batch/cdpi-dpi-ai-framework-2026/paper.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
-    dpi-lab validate /tmp/dpi-lab-ci/ci-smoke
-- name: Validate bundled examples
-  run: |
-    dpi-lab validate reviews/examples-batch
+
+      - name: Offline smoke review + validate
+        run: |
+          mkdir -p /tmp/dpi-lab-ci
+          dpi-lab review --engine local --pdf reviews/examples-batch/cdpi-dpi-ai-framework-2026/paper.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
+          dpi-lab validate /tmp/dpi-lab-ci/ci-smoke
+
+      - name: Validate bundled examples
+        run: |
+          dpi-lab validate reviews/examples-batch

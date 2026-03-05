@@ -2,12 +2,19 @@
 
 ## Unreleased
 
+## [0.5.0] - 2026-03-05
+
 ### Added
-- Agent governance artifacts and conformance profile updates aligned to agentic risk management (registration, mandates, containment, monitoring, shutdown).
-- Reference bibliography updated to include Andrew Clearwater’s agent governance showdown (Mar 03, 2026).
+- Repository release version file (`VERSION`) and version synchronization across docs.
+- Deterministic Lab ↔ Artifacts contract stub (`docs/contracts/lab-artifacts-interface.md`) to make review outputs composable with operational packs.
+
+### Changed
+- CI now runs end-to-end: install, CLI smoke test, offline smoke review, and validation of bundled examples.
+- Link checking now validates internal + external links using `lychee` (replacing placeholder job).
 
 ### Fixed
-- Removed stray `.DS_Store` from repository root.
+- Corrected malformed GitHub Actions workflow YAML that previously placed steps outside the job.
+- Removed OS cruft (`.DS_Store`) and enforced ignore rules.
 
 ## [0.4.1] - 2026-02-21
 
