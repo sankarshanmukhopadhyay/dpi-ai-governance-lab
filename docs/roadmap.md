@@ -33,6 +33,7 @@ Goal: Improve reliability and defensibility of scores.
 - [Implemented] Structured input templates for review scaffolding (`dpi-lab scaffold`)
 - [Implemented] Machine-readable review output schemas (metadata + scorecard)
 - [Implemented] Script-assisted evaluation and validation workflow (`dpi-lab review`, `dpi-lab validate`)
+- [Implemented] Governance support tooling for risk registers, evidence bundles, and scorecards under `tools/`
 - [Planned] Additional export formats (JSON bundle, PDF-ready renders)
 
 Goal: Reduce manual friction and increase repeatability.
@@ -45,6 +46,7 @@ Goal: Reduce manual friction and increase repeatability.
 - Thematic clustering model
 - Governance gap index
 - Cross-paper risk matrix synthesis
+- [Implemented] Case-study structure for representative DPI-AI deployments under `case-studies/`
 
 Goal: Elevate the lab from single-review outputs to ecosystem analysis.
 
@@ -66,6 +68,7 @@ Goal: Increase epistemic rigor.
 - Template for declaring adherence to the Lab methodology
 - Versioned methodology reference in outputs
 - Change log for scoring criteria evolution
+- [Implemented] Explicit Lab ↔ Artifacts compatibility contract for the v0.6.0 / v0.9.0 pairing
 
 Goal: Treat the methodology itself as governable infrastructure.
 
@@ -77,8 +80,19 @@ Goal: Treat the methodology itself as governable infrastructure.
 - Structured risk register output
 - Reusable visual tables
 - Repository output consistency checks
+- [Implemented] Reference governance architecture and maturity model guidance
 
 Goal: Ensure professional-grade, publishable artifacts.
+
+---
+
+## 8. Ecosystem Threat Modeling
+
+- [Implemented] DPI AI ecosystem threat model
+- [Implemented] Agentic AI governance threat model
+- Extend threat libraries with sector-specific overlays
+
+Goal: Make systemic harm legible before it becomes a procurement requirement written in panic.
 
 ---
 

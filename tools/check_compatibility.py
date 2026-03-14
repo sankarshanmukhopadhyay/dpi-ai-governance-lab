@@ -42,8 +42,12 @@ def main() -> int:
 
     if version_file.exists():
         v = read_text(version_file)
-        if contract.get("artifacts", {}).get("version") != v:
-            raise SystemExit(f"Artifacts version mismatch: VERSION={v} contract.artifacts.version={contract.get('artifacts', {}).get('version')}")
+        if pyproject.exists():
+            if contract.get("lab", {}).get("version") != v:
+                raise SystemExit(f"Lab version mismatch: VERSION={v} contract.lab.version={contract.get('lab', {}).get('version')}")
+        else:
+            if contract.get("artifacts", {}).get("version") != v:
+                raise SystemExit(f"Artifacts version mismatch: VERSION={v} contract.artifacts.version={contract.get('artifacts', {}).get('version')}")
 
     # Basic mapping sanity: declared pair must exist in compatibility list
     declared = (contract.get("lab", {}).get("version"), contract.get("artifacts", {}).get("version"))

@@ -50,7 +50,18 @@ The Lab applies a deterministic review workflow to:
 
 The goal is operational clarity, not commentary.
 
+This release deepens the workbench into a governance operating model by adding DPI-specific threat models, reference governance architectures, case studies, maturity guidance, and lightweight validation tools for risk registers, evidence bundles, and governance scorecards.
+
 ---
+
+
+## What this release adds
+
+- DPI and agentic AI threat models under `docs/threat-models/`
+- Reference governance architecture under `docs/architecture/`
+- Case studies under `case-studies/` to ground TRACE in public-interest deployments
+- Governance maturity model under `maturity-model/`
+- Lightweight operator tools for scorecards, evidence bundles, and risk-register checks under `tools/`
 
 ## Companion repository (operational packs)
 
@@ -68,6 +79,8 @@ docs/          Methodology and reference documentation
 data/          Control IDs, taxonomies, shared reference tables
 schemas/       Machine-readable structures
 tools/         Validators, generators, linters
+case-studies/  Worked governance analyses for common DPI-AI deployments
+maturity-model/ Governance capability ladder and adoption guidance
 ```
 
 ### Conceptual Separation

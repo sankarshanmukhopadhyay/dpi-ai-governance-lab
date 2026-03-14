@@ -14,6 +14,12 @@ Validators are CLI scripts that return non-zero exit codes on failure.
   - Score range enforced: **0..5** (inclusive).
 - `tools/validators/validate_dossier.py <dossier.json>`
   - Validates presence of required dossier fields.
+- `tools/governance_scorecard.py <scorecard.json>`
+  - Checks a lightweight governance readiness scorecard.
+- `tools/risk_register_validator.py <risk-register.json>`
+  - Validates a portable machine-readable risk register.
+- `tools/evidence_bundle_checker.py <bundle-dir>`
+  - Confirms a minimal assurance evidence bundle layout exists.
 
 ## Generators
 

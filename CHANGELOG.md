@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## [0.6.0] - 2026-03-14
+
+### Added
+- DPI-specific threat models for ecosystem-scale public-sector deployments and agentic AI operating environments (`docs/threat-models/`).
+- Reference governance architecture and public-interest case studies to connect TRACE analysis to deployable operating models (`docs/architecture/`, `case-studies/`).
+- Governance maturity model and lightweight tooling for evidence bundles, risk registers, and scorecards (`maturity-model/`, `tools/`).
+
+### Changed
+- Updated the Lab ↔ Artifacts compatibility contract for the new release pair (`TRACE_COMPATIBILITY.json`).
+- Refreshed README and documentation index so the repo reads less like a research shelf and more like an operator workbench.
+
+### Fixed
+- Removed OS cruft and synchronized version metadata across `VERSION`, `pyproject.toml`, and compatibility docs.
+
+
 ## [0.5.0] - 2026-03-05
 
 ### Added
