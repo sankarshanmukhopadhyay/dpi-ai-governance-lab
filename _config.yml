@@ -1,0 +1,16 @@
+title: "DPI AI Governance Lab"
+description: "A structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts."
+theme: jekyll-theme-primer
+show_downloads: false
+google_analytics:
+
+exclude:
+  - build/
+  - dist/
+  - "*.egg-info/"
+  - ".github/"
+  - "TRACE_COMPATIBILITY.json"
+  - "TRACE_VERSION"
+  - "reviews/_examples/"
+  - "reviews/examples-batch/*/extracted/"
+  - "reviews/examples-batch/*/run/"

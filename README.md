@@ -1,11 +1,12 @@
 # DPI AI Governance Lab
 
 ![CI](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab/actions/workflows/ci.yml/badge.svg)
+![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)
 
 ## Documentation
 
 - Overview: `docs/overview.md`
-- Freshness + audit guardrails: `docs/documentation-freshness.md` (last reviewed: 2026-03-04)
+- Freshness + audit guardrails: `docs/documentation-freshness.md` (last reviewed: 2026-03-16)
 
 The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
 

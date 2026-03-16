@@ -1,6 +1,6 @@
 # Lab ↔ Artifacts Interface Contract (v1)
 
-Last reviewed: 2026-03-05
+Last reviewed: 2026-03-16
 
 ## Purpose
 

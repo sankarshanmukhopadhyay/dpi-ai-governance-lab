@@ -1,5 +1,5 @@
 ---
-last_reviewed: 2026-03-04
+last_reviewed: 2026-03-16
 applies_to: main
 owners:
   tier0: repo-maintainers
@@ -33,7 +33,15 @@ This repository treats documentation as a build artifact. The goal is simple: a 
 python scripts/docs_audit.py
 ```
 
+## What changed in this review (2026-03-16)
+
+- Phase 1 build fixes: purged committed `.DS_Store` files and `build/`/`*.egg-info/` artefacts, hardened `.gitignore`, fixed CI smoke test broken PDF reference, added hygiene gate to CI.
+- Phase 2 freshness sweep: updated `last_reviewed` dates across all Tier 0 and Tier 1 documents.
+- Phase 3: added GitHub Pages deployment workflow and `_config.yml`.
+- TRACE compatibility entry added for lab v0.7.0 / artifacts v1.0.0 pairing.
+
 ## What changed in this review (2026-03-04)
+
 
 - Removed OS metadata artifacts (e.g., `.DS_Store`) from the repository root.
 - Resolved placeholder references in the UNESCO AI maturity framework example by linking to the canonical publication record.
