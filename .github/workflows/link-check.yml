@@ -16,7 +16,6 @@ jobs:
             --verbose
             --no-progress
             --accept 200,206,429
-            --exclude-mail
             --exclude-path ./node_modules
             --exclude-path ./dist
             --exclude-path ./build
