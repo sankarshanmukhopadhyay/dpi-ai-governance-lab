@@ -27,6 +27,8 @@ from dpi_lab.core.review import run_review
 from dpi_lab.core.scaffold import scaffold_review
 from dpi_lab.core.validate import validate_tree, validate_review_dir
 from dpi_lab.core.lint import lint_markdown_paths
+from dpi_lab.core.bundle import write_review_bundle
+from dpi_lab.core.compare import write_comparison
 
 
 def _p(s: str) -> Path:
@@ -60,7 +62,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_review.add_argument(
         "--model",
         default=None,
-        help="Model name for model-backed engines (e.g., gpt-5). Ignored by local engine.",
+        help="Model name for model-backed engines (e.g., gpt-4o-mini). Ignored by local engine.",
     )
     p_review.add_argument(
         "--max-input-chars",
@@ -127,6 +129,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_lint = sub.add_parser("lint", help="Lint markdown files for basic hygiene")
     p_lint.add_argument("paths", nargs="+", help="Files or directories")
+
+    p_bundle = sub.add_parser("bundle", help="Export a portable JSON bundle for one review directory")
+    p_bundle.add_argument("review_dir", help="Path to review directory")
+    p_bundle.add_argument("--out", required=True, help="Output JSON path")
+
+    p_compare = sub.add_parser("compare", help="Build a comparative matrix across one or more review directories")
+    p_compare.add_argument("path", help="Path to a review directory or tree of reviews")
+    p_compare.add_argument("--out", required=True, help="Output path stem (writes .json and .md)")
 
     return p
 
@@ -207,5 +217,16 @@ def main(argv: list[str] | None = None) -> int:
         for e in res.errors:
             print(f"- {e}")
         return 1
+
+    if args.cmd == "bundle":
+        out = write_review_bundle(_p(args.review_dir), _p(args.out))
+        print(str(out))
+        return 0
+
+    if args.cmd == "compare":
+        outputs = write_comparison(_p(args.path), _p(args.out))
+        print(str(outputs["markdown"]))
+        print(str(outputs["json"]))
+        return 0
 
     return 2

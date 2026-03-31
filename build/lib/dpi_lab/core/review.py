@@ -12,6 +12,7 @@ from dpi_lab.core.scaffold import scaffold_review
 from dpi_lab.core.utils import safe_write_text
 from dpi_lab.engines.base import EngineConfig
 from dpi_lab import __version__
+from dpi_lab.core.bundle import write_review_bundle
 
 
 def run_review(
@@ -56,7 +57,7 @@ def run_review(
     eng = get_engine(engine)
     seed = int(res["pdf_sha256"][:8], 16)
     cfg = EngineConfig(
-        model=model or "gpt-5",
+        model=model or "gpt-4o-mini",
         seed=seed,
         max_input_chars=max_input_chars,
         chunk_max_chars=chunk_max_chars,
@@ -132,5 +133,6 @@ def run_review(
         },
     }
     safe_write_text(manifest_path, json.dumps(manifest, indent=2) + "\n")
+    write_review_bundle(review_dir, review_dir / "run" / "review-bundle.json")
 
     return review_dir

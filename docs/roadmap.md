@@ -34,7 +34,8 @@ Goal: Improve reliability and defensibility of scores.
 - [Implemented] Machine-readable review output schemas (metadata + scorecard)
 - [Implemented] Script-assisted evaluation and validation workflow (`dpi-lab review`, `dpi-lab validate`)
 - [Implemented] Governance support tooling for risk registers, evidence bundles, and scorecards under `tools/`
-- [Planned] Additional export formats (JSON bundle, PDF-ready renders)
+- [Implemented] Portable JSON review bundle export (`dpi-lab bundle`)
+- [Planned] PDF-ready renders
 
 Goal: Reduce manual friction and increase repeatability.
 
@@ -42,7 +43,7 @@ Goal: Reduce manual friction and increase repeatability.
 
 ## 4. Comparative & Meta-Analysis Layer
 
-- Framework for comparing multiple papers
+- [Implemented] Framework for comparing multiple papers (`dpi-lab compare`)
 - Thematic clustering model
 - Governance gap index
 - Cross-paper risk matrix synthesis
@@ -54,10 +55,10 @@ Goal: Elevate the lab from single-review outputs to ecosystem analysis.
 
 ## 5. Evidence & Citation Discipline
 
-- Citation integrity standards
-- Source traceability model
-- Explicit assumption logging
-- Claim verification section in reviews
+- [Implemented] Citation integrity guidance
+- [Implemented] Source traceability via portable bundle export and manifest linking
+- [Implemented] Explicit assumption logging scaffold
+- [Implemented] Claim verification log scaffold
 
 Goal: Increase epistemic rigor.
 

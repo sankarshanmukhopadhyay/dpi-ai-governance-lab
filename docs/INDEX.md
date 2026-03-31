@@ -37,3 +37,6 @@ Last reviewed: 2026-03-16
 ## Ownership
 
 Primary ownership is defined in `.github/CODEOWNERS`.
+
+- `docs/evidence-and-citation-discipline.md`
+- `docs/comparative-analysis.md`

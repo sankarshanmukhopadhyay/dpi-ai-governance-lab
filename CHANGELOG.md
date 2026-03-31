@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Portable review bundle export and comparative matrix generation in the CLI.
+- Optional assumption and claim-verification logs with schemas.
+- Evidence discipline and comparative analysis documentation.
+
+# Changelog
+
 ## [0.7.0] - 2026-03-16
 
 ### Summary

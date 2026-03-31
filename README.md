@@ -36,6 +36,8 @@ To ensure reviews are **reproducible and auditable**, the Lab now ships a stable
 - Templates: `templates/`
 - Calibration examples: `calibration/`
 - Change log: `meta/methodology-changelog.md`
+- Evidence discipline: `docs/evidence-and-citation-discipline.md`
+- Comparative layer: `docs/comparative-analysis.md`
 
 
 ## Purpose
@@ -63,6 +65,8 @@ This release deepens the workbench into a governance operating model by adding D
 - Case studies under `case-studies/` to ground TRACE in public-interest deployments
 - Governance maturity model under `maturity-model/`
 - Lightweight operator tools for scorecards, evidence bundles, and risk-register checks under `tools/`
+- Portable review bundle export and comparative review matrix generation in the CLI
+- Optional assumption and claim-verification logs to tighten evidence discipline
 
 ## Companion repository (operational packs)
 
@@ -254,3 +258,9 @@ PDF copies of reviewed documents are intentionally not stored in this repository
 ## Documentation
 
 - Documentation index: `docs/INDEX.md`
+
+
+## Additional workflow commands
+
+- `dpi-lab bundle <review_dir> --out <path>` exports a portable JSON bundle for one review.
+- `dpi-lab compare <path> --out <path-stem>` generates JSON and Markdown comparative outputs across multiple reviews.

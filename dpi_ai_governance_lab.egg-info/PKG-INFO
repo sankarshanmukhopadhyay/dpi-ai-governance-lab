@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: dpi-ai-governance-lab
-Version: 0.4.1
+Version: 0.7.0
 Summary: DPI AI Governance Lab Workbench: deterministic paper review scaffolding, extraction, validation
 Author: DPI AI Governance Lab contributors
 License-Expression: CC-BY-4.0
@@ -12,9 +12,20 @@ Requires-Dist: jsonschema>=4.19
 Requires-Dist: pypdf>=4.0
 Requires-Dist: openai>=1.0
 Requires-Dist: tiktoken>=0.7
+Provides-Extra: test
+Requires-Dist: pytest>=8.0; extra == "test"
+Requires-Dist: pytest-cov>=5.0; extra == "test"
 Dynamic: license-file
 
 # DPI AI Governance Lab
+
+![CI](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab/actions/workflows/ci.yml/badge.svg)
+![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)
+
+## Documentation
+
+- Overview: `docs/overview.md`
+- Freshness + audit guardrails: `docs/documentation-freshness.md` (last reviewed: 2026-03-16)
 
 The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
 
@@ -22,6 +33,31 @@ This repository is not a narrative archive. It is a **workbench**.
 A paper review is treated as a build process: fixed inputs → fixed outputs → validators.
 
 ---
+
+
+## TRACE Method
+
+**TRACE (Trust, Risk, Architecture & Conformance Evaluation)** is the named methodology used in this repository for examining DPI–AI governance and operational readiness.
+
+- TRACE docs: `docs/trace/`
+- TRACE version: `TRACE_VERSION`
+- Canonical example review: `reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/`
+
+
+## Methodology v1.0 (stabilized path)
+
+To ensure reviews are **reproducible and auditable**, the Lab now ships a stable methodology spine:
+
+- Start here: `methodology/README.md`
+- Evaluation contract (required outputs): `methodology/evaluation-contract.md`
+- Review workflow: `methodology/review-workflow.md`
+- Scoring rubric + scale: `methodology/scoring-rubric.md`, `methodology/scoring-scale.md`
+- Templates: `templates/`
+- Calibration examples: `calibration/`
+- Change log: `meta/methodology-changelog.md`
+- Evidence discipline: `docs/evidence-and-citation-discipline.md`
+- Comparative layer: `docs/comparative-analysis.md`
+
 
 ## Purpose
 
@@ -36,7 +72,26 @@ The Lab applies a deterministic review workflow to:
 
 The goal is operational clarity, not commentary.
 
+This release deepens the workbench into a governance operating model by adding DPI-specific threat models, reference governance architectures, case studies, maturity guidance, and lightweight validation tools for risk registers, evidence bundles, and governance scorecards.
+
 ---
+
+
+## What this release adds
+
+- DPI and agentic AI threat models under `docs/threat-models/`
+- Reference governance architecture under `docs/architecture/`
+- Case studies under `case-studies/` to ground TRACE in public-interest deployments
+- Governance maturity model under `maturity-model/`
+- Lightweight operator tools for scorecards, evidence bundles, and risk-register checks under `tools/`
+- Portable review bundle export and comparative review matrix generation in the CLI
+- Optional assumption and claim-verification logs to tighten evidence discipline
+
+## Companion repository (operational packs)
+
+This Lab produces **evaluations** (TRACE reviews, scorecards, audit trails). The companion repository ships the **operational governance packs** (schemas, templates, conformance/evidence bundles):
+
+- `dpi-ai-governance-artifacts` — operational packs aligned to TRACE outputs
 
 ## Repository Structure
 
@@ -48,6 +103,8 @@ docs/          Methodology and reference documentation
 data/          Control IDs, taxonomies, shared reference tables
 schemas/       Machine-readable structures
 tools/         Validators, generators, linters
+case-studies/  Worked governance analyses for common DPI-AI deployments
+maturity-model/ Governance capability ladder and adoption guidance
 ```
 
 ### Conceptual Separation
@@ -98,7 +155,7 @@ and persists the raw payload for debugging.
 
 ```bash
 export OPENAI_API_KEY="..."
-dpi-lab review --engine openai --model gpt-5 \
+dpi-lab review --engine openai --model gpt-4o-mini \
   --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
 ```
 
@@ -138,7 +195,7 @@ dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level schema
 dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level policy
 
 # Optional semantic validation (engine-backed; requires API key for model engines)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-5
+dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-4o-mini
 ```
 
 
@@ -211,3 +268,18 @@ Narratives persuade.
 Artifacts enforce.
 
 The DPI AI Governance Lab prioritizes enforceable structure over rhetorical positioning.
+
+## Source documents (PDFs)
+
+PDF copies of reviewed documents are intentionally not stored in this repository to keep it lightweight. See `docs/sources/removed-pdfs.md` for canonical links.
+
+
+## Documentation
+
+- Documentation index: `docs/INDEX.md`
+
+
+## Additional workflow commands
+
+- `dpi-lab bundle <review_dir> --out <path>` exports a portable JSON bundle for one review.
+- `dpi-lab compare <path> --out <path-stem>` generates JSON and Markdown comparative outputs across multiple reviews.

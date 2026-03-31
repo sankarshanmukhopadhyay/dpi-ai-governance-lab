@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/dpi-ai-governance-lab/schemas/reviews/claim-verification-log.schema.json",
+  "title": "Review Claim Verification Log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "claims"
+  ],
+  "properties": {
+    "version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "claim",
+          "verification_status",
+          "evidence_type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 2
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 10
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "partially_verified",
+              "unverified",
+              "contested"
+            ]
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": [
+              "paper_text",
+              "cited_source",
+              "external_source",
+              "reviewer_inference"
+            ]
+          },
+          "source_locator": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

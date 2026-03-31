@@ -88,6 +88,8 @@ def validate_review_dir(
     # Load schemas (from packaged resources in pip installs; fallback to repo paths in editable installs)
     meta_schema = load_schema("schemas/reviews/paper-review-metadata.schema.json")
     score_schema = load_schema("schemas/reviews/paper-review-scorecard.schema.json")
+    assumption_schema = load_schema("schemas/reviews/assumption-log.schema.json")
+    claim_schema = load_schema("schemas/reviews/claim-verification-log.schema.json")
 
     # Schema checks
     meta_p = review_dir / "paper-review-metadata.yaml"
@@ -105,6 +107,14 @@ def validate_review_dir(
         errors.extend(_validate_schema(inst, schema, "scorecard"))
     else:
         warnings.append("Scorecard missing; skipping schema validation")
+
+    assumption_p = review_dir / "assumption-log.yaml"
+    if assumption_p.exists():
+        errors.extend(_validate_schema(_load_yaml(assumption_p), assumption_schema, "assumption_log"))
+
+    claim_p = review_dir / "claim-verification-log.yaml"
+    if claim_p.exists():
+        errors.extend(_validate_schema(_load_yaml(claim_p), claim_schema, "claim_verification_log"))
 
     # Manifest JSON parses (if present)
     man = review_dir / "run" / "manifest.json"

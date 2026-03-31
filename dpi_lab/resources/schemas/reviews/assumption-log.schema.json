@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/dpi-ai-governance-lab/schemas/reviews/assumption-log.schema.json",
+  "title": "Review Assumption Log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "assumptions"
+  ],
+  "properties": {
+    "version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "assumption",
+          "impact_if_wrong",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 2
+          },
+          "assumption": {
+            "type": "string",
+            "minLength": 10
+          },
+          "impact_if_wrong": {
+            "type": "string",
+            "minLength": 10
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "validated",
+              "invalidated",
+              "deferred"
+            ]
+          },
+          "evidence_note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

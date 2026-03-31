@@ -14,6 +14,11 @@ REQUIRED_FILES = {
     "paper-review-scorecard.yaml": ("reviews/templates/paper-review-scorecard-template.yaml",),
 }
 
+OPTIONAL_FILES = {
+    "assumption-log.yaml": ("reviews/templates/assumption-log-template.yaml",),
+    "claim-verification-log.yaml": ("reviews/templates/claim-verification-log-template.yaml",),
+}
+
 
 def _repo_root() -> Path:
     # Back-compat for editable installs; not relied on for packaged installs.
@@ -26,17 +31,18 @@ def scaffold_review(base_dir: Path, slug: str, pdf_path: Path | None = None) -> 
     review_dir = (base_dir / slug).resolve()
     review_dir.mkdir(parents=True, exist_ok=True)
     # Write templates (packaged resources for pip installs; fallback to repo paths for editable dev)
-    for out_name, (src_rel,) in REQUIRED_FILES.items():
-        dst = review_dir / out_name
-        if dst.exists():
-            continue
-        try:
-            content = read_resource_text(src_rel)
-            safe_write_text(dst, content)
-        except FileNotFoundError:
-            # Fallback: repo-relative (editable installs)
-            src = repo / src_rel
-            shutil.copyfile(src, dst)
+    for file_map in (REQUIRED_FILES, OPTIONAL_FILES):
+        for out_name, (src_rel,) in file_map.items():
+            dst = review_dir / out_name
+            if dst.exists():
+                continue
+            try:
+                content = read_resource_text(src_rel)
+                safe_write_text(dst, content)
+            except FileNotFoundError:
+                # Fallback: repo-relative (editable installs)
+                src = repo / src_rel
+                shutil.copyfile(src, dst)
 
     # Make standard subfolders for deterministic runs
     (review_dir / "extracted").mkdir(exist_ok=True)
