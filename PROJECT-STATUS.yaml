@@ -1,0 +1,31 @@
+schema_version: "1.0"
+project:
+  name: dpi-ai-governance-lab
+  maturity: implementation-draft
+  lifecycle: active
+  operational_status: active-development
+  specification_status: not-applicable
+  intended_use:
+    - applied-governance-lab
+    - dpi-ai-governance-experimentation
+    - assurance-pattern-testing
+  not_asserted:
+    - production-certification
+    - jurisdictional-policy-authority
+    - independent-third-party-assurance
+authority:
+  normative_scope:
+    - dpi-ai-governance-lab
+  does_not_own:
+    - jurisdictional-governance-authority
+    - external-model-provider-policy
+    - upstream-framework-authority
+  delegation: "Repository maintainers govern lab methods, experiments, and repository-local evidence; participating jurisdictions and external systems retain their own authority."
+  revocation_or_supersession: "Lab methods and findings are superseded through explicit versioned changes while historical evidence remains auditable."
+evidence:
+  validation_commands:
+    - git diff --check
+  evidence_outputs: []
+  known_limitations:
+    - lab findings are experimental and do not constitute external certification
+    - jurisdictional legitimacy is outside repository authority
