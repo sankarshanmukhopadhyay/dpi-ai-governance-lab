@@ -1,0 +1,129 @@
+review_id: CAL-MISSION-LOOP-001
+methodology: TRACE
+methodology_version: mission-loop-preview
+source:
+  title: Calibration review for a hypothetical DPI-AI service publication
+  uri: urn:trace:calibration:mission-loop-001
+
+gaps:
+  - gap_id: GAP-REDRESS-001
+    title: Operational appeal path is unspecified
+    domain: redress
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The publication requires accountability but does not define an operational appeal path for a person adversely affected by an automated decision.
+      basis: explicit_absence
+    evidence:
+      references:
+        - locator: section-5-accountability
+          note: Accountability is stated without appeal states, accountable redress authority, or response timelines.
+    required_capability:
+      id: CAP-REDRESS-APPEAL
+      statement: A deployment must expose a discoverable appeal mechanism with accountable ownership, disposition states, response timelines, and remedy outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Identify the authority accountable for appeals.
+        - Define appeal intake, review, disposition, correction, and remedy states.
+        - Publish measurable response and escalation timelines.
+      controls:
+        - TRACE-TRUST-03
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/redress/redress-workflow.md
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/redress/redress-workflow.schema.json
+          relationship: tests
+          normative: false
+    closure:
+      required_evidence:
+        - instantiated_redress_workflow
+        - accountable_redress_authority
+        - published_response_timeline
+        - tested_adverse_decision_appeal
+      acceptance_criteria:
+        - An affected person can discover and initiate an appeal.
+        - Every appeal reaches a terminal disposition or escalated remedy state.
+        - Evidence identifies the responsible redress authority and measured response time.
+    status: remediation_available
+
+  - gap_id: GAP-AUTHORITY-001
+    title: Automated decision authority is not bounded
+    domain: authority
+    severity: critical
+    confidence: moderate
+    observed_condition:
+      statement: The publication proposes automated decisioning but does not define who may authorize consequential effects or how machine delegation is bounded.
+      basis: inferred_absence
+    evidence:
+      references:
+        - locator: section-3-automation
+          note: Automated execution is described without an explicit authority or delegation model.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Consequential automated actions must resolve to a named authority, explicit delegation scope, runtime authorization decision, and revocation mechanism.
+    remediation:
+      coverage: partial
+      requirements:
+        - Declare the accountable authority for each consequential action.
+        - Bound delegated actors by action, resource, purpose, time, and revocation state.
+        - Record runtime authorization evidence before effect.
+      controls:
+        - TRACE-TRUST-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/governance/decision-rights.md
+          relationship: templates
+          normative: false
+    closure:
+      required_evidence:
+        - authority_map
+        - delegation_record
+        - runtime_authorization_record
+        - revocation_test
+      acceptance_criteria:
+        - Every consequential automated action resolves to an accountable authority.
+        - Out-of-scope or revoked delegation deterministically denies execution.
+    status: remediation_available
+
+  - gap_id: GAP-EVIDENCE-001
+    title: No verifiable closure evidence is specified
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: Governance controls are proposed but the publication does not define evidence sufficient to demonstrate that controls operated in deployment.
+      basis: explicit_deficiency
+    evidence:
+      references:
+        - locator: section-6-assurance
+          note: Assurance is discussed without a minimum evidence bundle or closure criteria.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Each material governance control must have defined evidence requirements and testable closure criteria.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Bind control claims to versioned evidence artifacts.
+        - Preserve provenance and integrity for the evidence set.
+        - Define pass, partial, fail, and not-evaluable outcomes.
+      controls:
+        - TRACE-CONF-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence:
+        - evidence_bundle_manifest
+        - artifact_hashes
+        - control_to_evidence_mapping
+        - verification_result
+      acceptance_criteria:
+        - A verifier can resolve each material control claim to integrity-protected evidence.
+        - Missing evidence produces a fail-closed or not-evaluable assurance outcome.
+    status: remediation_available
