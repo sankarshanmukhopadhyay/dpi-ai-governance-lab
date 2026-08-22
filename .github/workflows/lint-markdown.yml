@@ -13,6 +13,6 @@ jobs:
       - name: Install deps
         run: |
           pip install .
-      - name: Lint markdown
+      - name: Lint maintained markdown surfaces
         run: |
-          python tools/linters/lint_markdown.py .
+          python tools/linters/lint_markdown.py README.md docs annexes methodology case-studies
