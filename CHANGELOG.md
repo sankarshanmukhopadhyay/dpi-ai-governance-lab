@@ -2,6 +2,50 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-08-22
+
+### Summary
+
+Implementation-readiness and harms release. This version makes the Lab substantially easier to adopt from a system-building starting point and stabilizes an operational AI-harm analysis contract through non-corpus pressure testing.
+
+### Added
+
+- Implementation-first onboarding path from system proposition to governance gap, capability, remediation, negative tests, evidence and TRACE verification.
+- Task-oriented Start Here guidance for teams that want to build rather than begin with publication review.
+- Minimum viable evidence and implementation-readiness definitions for governed systems.
+- Machine-readable `schemas/harms/harm-chain.schema.json` for causal, evidence-bearing harm analysis.
+- Reusable harm-chain template, worked example and CI validator.
+- Twelve-class operational DPI/AI harm taxonomy covering exclusion, differential error, automation bias, data/provenance harm, privacy/correlation, authority abuse, accountability diffusion, drift, manipulation/synthetic evidence, security/supply-chain harm, correction/remedy failure, and population-scale compounding harm.
+- Harm-oriented adversarial checklist separating model risk, governance failure, experienced harm, propagation, redress, residual risk and closure evidence.
+- Non-Digital-Statecraft stabilization fixtures for welfare fraud detection and a delegated entitlement agent.
+- Reader-facing executable entitlement-agent guide documenting authority, runtime enforcement, negative paths and minimum evidence.
+
+### Changed
+
+- README and Pages navigation now treat evaluation-first and implementation-first use as equal entry paths.
+- Digital Statecraft is positioned as proof of method rather than a corpus-expansion requirement.
+- Harm analysis now separates preventive, detective and corrective controls and binds redress/remedy to closure evidence.
+- Harm-chain validation covers the canonical example plus two materially different non-corpus pressure fixtures.
+- Lab ↔ Artifacts compatibility contract now records Lab `0.9.0` with Artifacts `1.1.0` as supported.
+
+### Stabilization evidence
+
+The operational harm-chain model was exercised against:
+
+- welfare fraud detection — false-positive model signal, automation bias, wrongful benefit suspension and delayed remedy;
+- delegated entitlement agent — scope, revocation, runtime authorization, effect correlation and redress failure.
+
+Both cases validated without a structural change to the harm schema. The exercise exposed a documentation gap, not a schema gap: the executable entitlement-agent case lacked reader-facing implementation guidance, which is now supplied.
+
+No new Artifacts capability was justified by the pressure tests; existing bounded-delegation, inference-traceability, evidence-closure, redress and correction-propagation capabilities were sufficient for the selected cases.
+
+### Notes
+
+- TRACE method version remains `0.1.0`.
+- The harm taxonomy is jurisdiction-neutral and does not itself establish legal conclusions or risk acceptance.
+- Candidate capability mappings are pressure-test outputs, not claims that every harm is solved by an existing artifact.
+- Reference-case success is not production certification.
+
 ## [0.8.0] - 2026-08-22
 
 ### Summary
