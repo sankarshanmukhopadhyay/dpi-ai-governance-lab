@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/harms/harm-chain.schema.json",
+  "title": "DPI AI Harm Chain",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "harm_id",
+    "title",
+    "harm_class",
+    "affected_parties",
+    "initiating_condition",
+    "mechanism",
+    "experienced_harm",
+    "signals",
+    "controls",
+    "redress",
+    "closure_evidence"
+  ],
+  "properties": {
+    "harm_id": {"type": "string", "pattern": "^HARM-[A-Z0-9-]+$"},
+    "title": {"type": "string", "minLength": 3},
+    "harm_class": {
+      "type": "string",
+      "enum": [
+        "exclusion_wrongful_denial",
+        "differential_error_discrimination",
+        "automation_bias_deskilling",
+        "data_provenance_harm",
+        "privacy_correlation_surveillance",
+        "authority_delegation_abuse",
+        "accountability_diffusion",
+        "model_rule_drift",
+        "manipulation_deception_synthetic_evidence",
+        "security_supply_chain_harm",
+        "correction_remedy_failure",
+        "population_scale_compounding_harm",
+        "other"
+      ]
+    },
+    "affected_parties": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["party", "exposure"],
+        "properties": {
+          "party": {"type": "string"},
+          "exposure": {"type": "string"},
+          "vulnerability_factors": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "initiating_condition": {"type": "string"},
+    "mechanism": {"type": "string"},
+    "authority_failure": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["present", "description"],
+      "properties": {
+        "present": {"type": "boolean"},
+        "description": {"type": "string"},
+        "authority_ref": {"type": "string"},
+        "delegation_ref": {"type": "string"}
+      }
+    },
+    "immediate_outcome": {"type": "string"},
+    "experienced_harm": {"type": "string"},
+    "propagation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "downstream_effects": {"type": "array", "items": {"type": "string"}},
+        "aggregate_effect": {"type": "string"},
+        "feedback_loop": {"type": "string"}
+      }
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["signal", "evidence_source"],
+        "properties": {
+          "signal": {"type": "string"},
+          "evidence_source": {"type": "string"},
+          "threshold_or_trigger": {"type": "string"}
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preventive", "detective", "corrective"],
+      "properties": {
+        "preventive": {"type": "array", "items": {"type": "string"}},
+        "detective": {"type": "array", "items": {"type": "string"}},
+        "corrective": {"type": "array", "items": {"type": "string"}},
+        "candidate_capabilities": {"type": "array", "items": {"type": "string", "pattern": "^CAP-[A-Z0-9-]+$"}}
+      }
+    },
+    "redress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "authority", "remedy"],
+      "properties": {
+        "available": {"type": "boolean"},
+        "authority": {"type": "string"},
+        "remedy": {"type": "string"},
+        "time_constraint": {"type": "string"}
+      }
+    },
+    "residual_risk": {"type": "string"},
+    "closure_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"}
+    },
+    "source_refs": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"}
+  }
+}
