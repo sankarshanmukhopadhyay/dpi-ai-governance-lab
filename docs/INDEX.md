@@ -1,6 +1,6 @@
 # Documentation Index
 
-Last reviewed: 2026-03-16
+Last reviewed: 2026-08-22
 
 ## Tiers
 
@@ -14,12 +14,15 @@ Last reviewed: 2026-03-16
 ### Tier 0
 - `README.md` — project overview and quickstart
 - `docs/overview.md` — conceptual overview
-- `reviews/examples-batch/` — runnable examples
+- `reviews/examples-batch/` — runnable paper-review examples
+- `case-studies/executable-governance-entitlement-agent/` — executable-governance preview case
 
 ### Tier 1
 - `docs/methodology.md` — TRACE-driven review method
+- `docs/executable-governance.md` — executable governance evaluation contract, authority discipline, adversarial vectors and evidence workflow
 - `docs/contracts/lab-artifacts-interface.md` — Lab ↔ Artifacts contract
-- `schemas/` — review and validation schemas (canonical)
+- `schemas/` — review and validation schemas
+- `schemas/executable-governance/governance-model.schema.json` — public executable-governance schema
 - `tools/` — lightweight operational validation helpers
 
 ### Tier 2
