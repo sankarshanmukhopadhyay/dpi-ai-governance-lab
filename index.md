@@ -1,46 +1,66 @@
 ---
 layout: default
 title: DPI AI Governance Lab
+nav_order: 0
 ---
 
 # DPI AI Governance Lab
 
-A structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts. This is not a narrative archive — it is a **workbench**. A paper review is treated as a build process: fixed inputs → fixed outputs → validators.
+**Evaluate → find gaps → remediate → verify improvement.**
 
----
+The Lab is a TRACE workbench for people who design, procure, implement, operate, and assure DPI/AI systems. It turns publications and deployment propositions into evidence-backed findings, normalized governance gaps, remediation requirements, and closure tests.
 
-## Start here
+{: .note }
+The Lab is deliberately paired with the companion **DPI–AI Governance Artifacts** repository. The Lab identifies and normalizes the problem; the Artifacts repository supplies reusable implementation assets and evidence requirements.
 
-- [Overview](docs/overview.md) — what the Lab is and how it works
-- [Methodology](methodology/README.md) — the TRACE review workflow
-- [Walkthrough](docs/walkthrough.md) — guided tour for new users
-- [CLI reference](docs/methodology/dpi-ai-governance-lab-method.md) — `dpi-lab` command usage
+## Choose your path
 
-## TRACE Method
+### Evaluate a publication
 
-**TRACE (Trust, Risk, Architecture & Conformance Evaluation)** is the named methodology used in this repository.
+Start with [Start here](docs/start-here.md), then use the TRACE methodology, review workflow, and `dpi-lab` CLI to create a reproducible evaluation.
 
-- [TRACE documentation](docs/trace/README.md)
-- [Evaluation contract](methodology/evaluation-contract.md) — required outputs
-- [Scoring rubric](methodology/scoring-rubric.md) and [scale](methodology/scoring-scale.md)
-- [Calibration examples](calibration/)
-- [Canonical example review](reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/)
+### Improve a deployment
 
-## Governance artifacts
+Use the [Operator playbook](docs/operator-playbook.md) to move from a material gap to a capability, remediation asset, implementation change, test, and evidence-backed closure.
 
-- [Artifacts catalog](artifacts/) — risk tiering, conformance profiles, deployment dossier, redress, agent governance
-- [Threat models](docs/threat-models/) — DPI ecosystem and agentic AI
-- [Reference architecture](docs/architecture/reference-governance-architecture.md)
-- [Maturity model](maturity-model/dpi-ai-governance-maturity.md)
-- [Case studies](case-studies/)
+### See what repeated evaluations are teaching us
 
-## Lab ↔ Artifacts contract
+Go to [Evaluations](docs/evaluations.md). The [first real-review governance gap baseline](baselines/2026-08-22/README.md) re-expresses three existing substantive reviews as nine machine-readable gaps and identifies three recurring capability clusters.
 
-Reviews produced by this Lab are composable with the operational packs in the companion repository:
+### Build or test executable governance
 
-- [Lab ↔ Artifacts interface contract](docs/contracts/lab-artifacts-interface.md)
-- [DPI–AI Governance Artifacts](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-artifacts) — companion repo
+Use [Executable governance](docs/executable-governance.md) as the verification layer once authority, remediation requirements, and closure evidence have been made explicit.
 
----
+## Current programme signal
 
-*Release: v0.7.0 · License: [CC BY-SA 4.0](LICENSE.md)*
+The first real-review baseline found the same three capability gaps across all three reviewed publications:
+
+| Capability | Recurrence | Current remediation coverage |
+| --- | ---: | --- |
+| Bounded authority and delegation | 3/3 | Partial |
+| Operational appeal and remedy | 3/3 | Standardized |
+| Evidence-backed governance closure | 3/3 | Standardized |
+
+This gives the programme an evidence-derived priority: strengthen authority/delegation remediation, then instantiate and test the standardized redress and evidence assets in a realistic deployment.
+
+## Core tools
+
+```bash
+dpi-lab review --pdf paper.pdf --slug example --out reviews/batch
+dpi-lab validate reviews/batch/example
+dpi-lab gaps-validate reviews/batch/example/governance-gaps.yaml --summary
+dpi-lab governance-validate case-studies/executable-governance-entitlement-agent
+```
+
+## Documentation architecture
+
+- [Start here](docs/start-here.md) — task routing and concepts
+- [Operator playbook](docs/operator-playbook.md) — implementation lifecycle
+- [Evaluations](docs/evaluations.md) — reviews, baselines, recurring gaps, re-evaluation
+- [TRACE Operator Improvement Loop](docs/operator-improvement-loop.md) — mission and cross-repo contract
+- [Methodology](methodology/README.md) — evaluation method and scoring
+- [Evidence discipline](docs/evidence-and-citation-discipline.md) — provenance and auditability
+- [Executable governance](docs/executable-governance.md) — runtime verification preview
+
+{: .warning }
+TRACE findings, mappings, and closure assessments do not acquire jurisdictional, institutional, legal, procurement, or deployment authority. Those authorities remain with the responsible external actors.
