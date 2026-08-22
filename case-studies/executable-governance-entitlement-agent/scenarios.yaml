@@ -1,0 +1,34 @@
+scenarios:
+  - id: EG-POS-001
+    vector_type: happy_path
+    condition: eligibility current, delegation active, scope valid, authorization valid
+    expected_outcome: allow
+    evidence:
+      - EVID-ELIGIBILITY
+      - EVID-DELEGATION
+      - EVID-AUTHZ
+
+  - id: EG-NEG-001
+    vector_type: scope
+    condition: requested payment exceeds delegated policy limit
+    expected_outcome: deny
+
+  - id: EG-NEG-002
+    vector_type: revocation
+    condition: delegation revoked before payment effect
+    expected_outcome: deny
+
+  - id: EG-NEG-003
+    vector_type: evidence
+    condition: eligibility evidence missing or stale
+    expected_outcome: fail_closed
+
+  - id: EG-NEG-004
+    vector_type: evidence
+    condition: payment effect cannot be correlated to runtime authorization
+    expected_outcome: assurance_failure
+
+  - id: EG-NEG-005
+    vector_type: redress
+    condition: adverse decision has no discoverable appeal or remedy path
+    expected_outcome: governance_failure
