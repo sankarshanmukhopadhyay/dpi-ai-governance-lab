@@ -1,0 +1,24 @@
+delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+authority_id: AUTH-PAYMENT
+delegator: programme-authority
+delegate: service-agent
+scope:
+  actions:
+    - initiate-payment
+  resources:
+    - benefit-account
+  purposes:
+    - approved-entitlement
+  constraints:
+    max_amount_inr: 5000
+validity:
+  not_before: 2026-08-01T00:00:00Z
+  not_after: 2026-12-31T23:59:59Z
+revocation:
+  mechanism: programme-delegation-registry
+  authority: programme-authority
+  revoked_at: null
+  reason: null
+status: active
+issued_at: 2026-08-01T00:00:00Z
+evidence_ref: evidence/delegation-issued-001

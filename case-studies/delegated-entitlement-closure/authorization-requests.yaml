@@ -1,0 +1,57 @@
+vector_set: delegated-entitlement-closure-v1
+requests:
+  - id: REQ-ALLOW-001
+    delegation_status: active
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    at: 2026-08-22T05:00:00Z
+    expected:
+      decision: allow
+      reason: delegation_valid
+      effect_id: PAY-001
+
+  - id: REQ-DENY-ACTION-001
+    delegation_status: active
+    actor: service-agent
+    action: change-eligibility
+    resource: benefit-account
+    purpose: approved-entitlement
+    at: 2026-08-22T05:01:00Z
+    expected:
+      decision: deny
+      reason: action_out_of_scope
+
+  - id: REQ-DENY-PURPOSE-001
+    delegation_status: active
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: analytics
+    at: 2026-08-22T05:02:00Z
+    expected:
+      decision: deny
+      reason: purpose_out_of_scope
+
+  - id: REQ-DENY-REVOKED-001
+    delegation_status: revoked
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    at: 2026-08-22T05:03:00Z
+    expected:
+      decision: deny
+      reason: delegation_revoked
+
+  - id: REQ-DENY-EXPIRED-001
+    delegation_status: active
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    at: 2027-01-01T00:00:00Z
+    expected:
+      decision: deny
+      reason: delegation_expired

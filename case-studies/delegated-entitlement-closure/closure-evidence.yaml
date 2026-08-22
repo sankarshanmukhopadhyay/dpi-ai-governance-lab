@@ -1,0 +1,44 @@
+closure_id: CLOSURE-DELEGATION-FIXTURE-001
+capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+scope: delegated-entitlement-closure synthetic fixture
+status: closed
+assurance_level: experimental-fixture
+control_to_evidence:
+  accountable_authority:
+    evidence:
+      - delegation-record.yaml#authority_id
+      - delegation-record.yaml#delegator
+    result: pass
+  bounded_scope:
+    evidence:
+      - delegation-record.yaml#scope
+      - authorization-requests.yaml
+    result: pass
+  fail_closed_negative_paths:
+    evidence:
+      - runtime-authorization-records.yaml
+    tested_reasons:
+      - action_out_of_scope
+      - purpose_out_of_scope
+      - delegation_revoked
+      - delegation_expired
+    result: pass
+  effect_authorization_correlation:
+    evidence:
+      - runtime-authorization-records.yaml#AUTHZ-ALLOW-001
+    expected_effect_id: PAY-001
+    result: pass
+  redress_available:
+    evidence:
+      - ../executable-governance-entitlement-agent/governance-model.yaml#REDRESS-001
+    result: pass
+acceptance_criteria:
+  - criterion: Every consequential allowed effect resolves to an accountable authority and a valid runtime authorization.
+    result: pass
+  - criterion: Revoked, expired and out-of-scope requests deterministically deny execution.
+    result: pass
+  - criterion: The allowed effect is correlated to the authorization record that permitted it.
+    result: pass
+  - criterion: Affected persons retain a discoverable redress path.
+    result: pass
+closure_statement: The synthetic fixture demonstrates evidence-backed closure of CAP-AUTHORITY-BOUNDED-DELEGATION within its declared scope. It is not a certification or closure of any external publication or production deployment.

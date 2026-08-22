@@ -61,3 +61,11 @@ jobs:
           cp -R "$CASE" /tmp/executable-governance-case
           dpi-lab governance-manifest /tmp/executable-governance-case
           dpi-lab governance-validate /tmp/executable-governance-case --verify-manifest
+
+      - name: Validate delegated entitlement closure fixture
+        run: |
+          python tools/validate_delegation_closure_fixture.py
+
+      - name: Validate rendered Pages front matter
+        run: |
+          python tools/validate_pages_front_matter.py
