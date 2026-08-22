@@ -1,0 +1,76 @@
+records:
+  - authorization_id: AUTHZ-ALLOW-001
+    delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    decision: allow
+    reason_codes:
+      - delegation_valid
+    decided_at: 2026-08-22T05:00:00Z
+    effect_id: PAY-001
+    policy_version: entitlement-payment-v1
+    evidence_refs:
+      - evidence/eligibility-001
+      - evidence/delegation-issued-001
+
+  - authorization_id: AUTHZ-DENY-ACTION-001
+    delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+    actor: service-agent
+    action: change-eligibility
+    resource: benefit-account
+    purpose: approved-entitlement
+    decision: deny
+    reason_codes:
+      - action_out_of_scope
+    decided_at: 2026-08-22T05:01:00Z
+    effect_id: null
+    policy_version: entitlement-payment-v1
+    evidence_refs:
+      - evidence/delegation-issued-001
+
+  - authorization_id: AUTHZ-DENY-PURPOSE-001
+    delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: analytics
+    decision: deny
+    reason_codes:
+      - purpose_out_of_scope
+    decided_at: 2026-08-22T05:02:00Z
+    effect_id: null
+    policy_version: entitlement-payment-v1
+    evidence_refs:
+      - evidence/delegation-issued-001
+
+  - authorization_id: AUTHZ-DENY-REVOKED-001
+    delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    decision: deny
+    reason_codes:
+      - delegation_revoked
+    decided_at: 2026-08-22T05:03:00Z
+    effect_id: null
+    policy_version: entitlement-payment-v1
+    evidence_refs:
+      - evidence/revocation-001
+
+  - authorization_id: AUTHZ-DENY-EXPIRED-001
+    delegation_id: DEL-ENTITLEMENT-PAYMENT-001
+    actor: service-agent
+    action: initiate-payment
+    resource: benefit-account
+    purpose: approved-entitlement
+    decision: deny
+    reason_codes:
+      - delegation_expired
+    decided_at: 2027-01-01T00:00:00Z
+    effect_id: null
+    policy_version: entitlement-payment-v1
+    evidence_refs:
+      - evidence/delegation-issued-001
