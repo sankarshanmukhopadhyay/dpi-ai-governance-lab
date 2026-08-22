@@ -1,0 +1,111 @@
+review_id: DS-TRACE-004
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: The Digital Constitution of the State
+  uri: https://digitalstatecraft.substack.com/p/the-digital-constitution-of-the-state
+gaps:
+  - gap_id: GAP-DS004-INFERENCE
+    title: Probabilistic matching is constitutionally material but not yet evidence-bound
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay correctly treats matching logic, confidence thresholds and ambiguity as determinants of public outcomes, but does not specify a portable inference trace that binds the exact transformation to each affected decision.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-digital-constitution-of-the-state#what-this-means-in-practice
+          note: The cash-transfer example explicitly identifies probabilistic matching, thresholds, reconstructability and challenge of data/match/threshold as constitutional questions.
+    required_capability:
+      id: CAP-INFERENCE-TRACEABILITY
+      statement: Bind consequential probabilistic matching or other inference to immutable model/algorithm identity, version, input snapshot, threshold/parameters, output and decision role.
+    remediation:
+      coverage: none
+      requirements:
+        - Record algorithm/model identity and immutable version.
+        - Bind decision-time input snapshots and threshold/parameters.
+        - Preserve output and its relationship to the authorized rule.
+        - Expose sufficient evidence to challenge or independently reconstruct the inference.
+    closure:
+      required_evidence: [inference_trace, threshold_binding, input_snapshot_binding, reconstruction_test]
+      acceptance_criteria:
+        - A verifier can reconstruct the matching/inference configuration that affected the decision.
+        - Affected persons can identify which data and threshold were material to an adverse outcome.
+    status: open
+
+  - gap_id: GAP-DS004-REDRESS
+    title: Contestability requires an executable remedy lifecycle
+    domain: redress
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay treats remedy and challenge of data, matching and thresholds as constitutional properties, but an implementation still needs an accountable appeal lifecycle with timing, disposition, correction and remedy evidence.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-digital-constitution-of-the-state#translating-constitutional-principles-into-architecture
+          note: Due process is mapped to contestable decision records and public accountability to reconstructable decisions.
+    required_capability:
+      id: CAP-REDRESS-APPEAL
+      statement: Provide a discoverable, attributable, measurable appeal and remedy path for adverse digital decisions, including challenges to source data and inference.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Identify redress authority and review scope.
+        - Define intake, review, disposition, correction and remedy states with timing.
+        - Exercise an adverse decision challenge involving data or inference.
+      controls: [TRACE-TRUST-03]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/redress/redress-workflow.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/redress/redress-and-remediation.md
+          relationship: informs
+          normative: false
+    closure:
+      required_evidence: [instantiated_redress_workflow, accountable_redress_authority, tested_adverse_decision_appeal, remedy_evidence]
+      acceptance_criteria:
+        - Data, inference and outcome can each be challenged within the declared review scope.
+        - A successful challenge produces an effective and attributable remedy.
+    status: remediation_available
+
+  - gap_id: GAP-DS004-AUTHORITY
+    title: System-level separation of powers needs bounded delegated execution
+    domain: delegation
+    severity: high
+    confidence: moderate
+    observed_condition:
+      statement: The essay translates separation of powers into role-separated systems, but does not define the runtime delegation envelope by which a component or automated actor may exercise consequential authority on behalf of an accountable institution.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-digital-constitution-of-the-state#translating-constitutional-principles-into-architecture
+          note: The essay explicitly maps separation of powers to role-separated systems and authority to a constitutional system property.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Bind delegated system execution to an accountable authority with explicit action, resource, purpose, validity and revocation semantics.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Map accountable authority to each consequential system action.
+        - Enforce bounded delegation before effect.
+        - Preserve revocation-aware runtime authorization records.
+      controls: [TRACE-TRUST-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/bounded-delegation.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/runtime-authorization-record.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [authority_map, delegation_record, runtime_authorization_record, revocation_test]
+      acceptance_criteria:
+        - Every consequential system action resolves to an accountable authority and valid delegation.
+        - Expired or revoked delegation fails closed before effect.
+    status: remediation_available

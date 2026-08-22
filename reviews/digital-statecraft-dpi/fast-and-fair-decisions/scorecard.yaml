@@ -1,0 +1,13 @@
+version: '0.1'
+paper:
+  title: Making Fast and Fair Decisions in the Age of AI
+  year: 2026
+scores:
+  tiering_completeness: 4
+  accountability_plumbing: 5
+  data_governance: 4
+  redress: 5
+  sovereignty: 3
+notes:
+  - Scores are 0–5 and represent implementation readiness under TRACE, not editorial quality.
+  - Strong role separation and correction architecture raise accountability/redress readiness; portable runtime contracts remain to be specified.

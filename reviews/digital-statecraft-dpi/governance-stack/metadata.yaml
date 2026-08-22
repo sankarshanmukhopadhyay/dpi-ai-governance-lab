@@ -1,0 +1,12 @@
+review_id: DS-TRACE-003
+corpus_id: digital-statecraft-dpi-2026-wave1
+corpus_item_id: DS-DPI-003
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: The Governance Stack
+  uri: https://digitalstatecraft.substack.com/p/the-governance-stack
+  author: Manish Srivastava
+  published_on: 2026-03-13
+reviewed_on: 2026-08-22
+evaluation_stance: implementation-distance

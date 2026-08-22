@@ -1,0 +1,102 @@
+review_id: DS-TRACE-006
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: How Trust Travels Between Institutions
+  uri: https://digitalstatecraft.substack.com/p/how-trust-travels-between-institutions
+gaps:
+  - gap_id: GAP-DS006-ADMISSIBILITY
+    title: Institutional admissibility lacks a portable reliance contract
+    domain: information-trust
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay defines admissibility as the layer that determines whether a receiving institution can act on an upstream output, but it does not specify a machine-readable reliance decision covering purpose, downstream decision, jurisdiction, conditions, validity, recourse and revocation.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/how-trust-travels-between-institutions#the-dpi-building-blocks-in-their-right-place
+          note: The essay distinguishes authenticity, authority, admissibility and accountability and explains that credentials carry upstream decisions while admissibility determines practical reliance.
+    required_capability:
+      id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+      statement: Represent and evidence the conditions under which a receiving institution may rely on an upstream authority/output for a specific downstream decision.
+    remediation:
+      coverage: none
+      requirements:
+        - Identify upstream authority, output type and downstream relying decision.
+        - State permitted reliance purpose, jurisdiction, conditions and validity.
+        - State recourse/liability and revocation effects.
+        - Record the relying party's admissibility decision.
+    closure:
+      required_evidence: [admissibility_profile, relying_party_decision, inadmissible_evidence_test, revocation_test]
+      acceptance_criteria:
+        - Authentic but inadmissible evidence is deterministically rejected for the downstream decision.
+        - Reliance conditions, authority and recourse remain inspectable after decision time.
+    status: open
+
+  - gap_id: GAP-DS006-CORRECTION
+    title: Downstream correction propagation is required conceptually but not executable
+    domain: operations
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay explicitly asks whether a correction propagates through downstream decisions that relied on an original output, but no protocol is specified for dependency discovery, invalidation, recomputation, acknowledgement or partial failure.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/how-trust-travels-between-institutions#accountability
+          note: Accountability is defined to include correction, grievance, consequence and propagation back through downstream decisions that relied on the original output.
+    required_capability:
+      id: CAP-CORRECTION-PROPAGATION
+      statement: Propagate an authoritative correction through dependent reliance chains with recomputation/invalidation, acknowledgements, partial-failure handling and completion evidence.
+    remediation:
+      coverage: none
+      requirements:
+        - Identify dependency/reliance links from corrected upstream output to downstream decisions.
+        - Invalidate or recompute affected downstream decisions according to policy.
+        - Record acknowledgements, unresolved targets and compensating action.
+        - Produce a correction execution receipt.
+    closure:
+      required_evidence: [correction_order, dependency_set, correction_execution_receipt, downstream_recomputation_test]
+      acceptance_criteria:
+        - All declared dependent decisions are corrected/recomputed or explicitly reported unresolved.
+        - The correction trail preserves prior reliance provenance and new decision evidence.
+    status: open
+
+  - gap_id: GAP-DS006-EVIDENCE
+    title: Inter-institutional accountability needs portable closure evidence
+    domain: conformance
+    severity: moderate
+    confidence: high
+    observed_condition:
+      statement: The essay requires institutions that can hear grievance, impose consequence and order remedy, but an operator still needs a reproducible evidence bundle showing that these accountability controls executed across the relying institutions.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/how-trust-travels-between-institutions#the-dpi-building-blocks-in-their-right-place
+          note: The essay states that wallets and audit trails can support accountability but institutions are required to impose consequence and remedy.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Bind inter-institutional accountability claims to versioned evidence, control mappings and reproducible assurance outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Produce an evidence bundle for the relevant reliance, correction and redress controls.
+        - Preserve provenance and integrity across institutional boundaries.
+        - Record pass, partial, fail or not-evaluable outcomes.
+      controls: [TRACE-CONF-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/minimum-audit-trail.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [evidence_bundle_manifest, artifact_hashes, control_to_evidence_mapping, verification_result]
+      acceptance_criteria:
+        - Accountability claims across institutions are traceable to evidence and disposition.
+        - Unresolved correction or grievance paths remain visible in the assurance result.
+    status: remediation_available

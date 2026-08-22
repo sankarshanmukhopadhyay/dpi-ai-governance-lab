@@ -1,0 +1,12 @@
+review_id: DS-TRACE-001
+corpus_id: digital-statecraft-dpi-2026-wave1
+corpus_item_id: DS-DPI-001
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: A First Principles Case for DPI + AI
+  uri: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai
+  author: Manish Srivastava
+  published_on: 2026-01-25
+reviewed_on: 2026-08-22
+evaluation_stance: implementation-distance

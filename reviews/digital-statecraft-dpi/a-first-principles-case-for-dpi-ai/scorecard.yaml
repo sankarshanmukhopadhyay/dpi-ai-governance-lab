@@ -1,0 +1,13 @@
+version: '0.1'
+paper:
+  title: A First Principles Case for DPI + AI
+  year: 2026
+scores:
+  tiering_completeness: 2
+  accountability_plumbing: 3
+  data_governance: 4
+  redress: 3
+  sovereignty: 2
+notes:
+  - Scores are 0–5 and represent implementation readiness under TRACE, not editorial quality.
+  - The essay is conceptually strong; lower scores identify additional contracts an operator would need before deployment.

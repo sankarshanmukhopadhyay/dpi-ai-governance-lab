@@ -1,0 +1,102 @@
+review_id: DS-TRACE-002
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: The Minimum Digital Kernel of an Unbundled State
+  uri: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an
+gaps:
+  - gap_id: GAP-DS002-AUTHORITY
+    title: Certified authority is not yet a bounded runtime delegation
+    domain: delegation
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The kernel makes legitimate actors discoverable and certifiable, but operational execution still requires explicit delegate scope, validity, revocation and runtime authorization evidence.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an#trust-authority-and-trust-directory-of-authority
+          note: The Directory is described as the public map of regulators, registrars, certified providers, roles, endpoints and verification keys.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Represent delegated execution authority with enforceable action, resource, purpose, time and revocation bounds and bind every consequential effect to runtime authorization.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Instantiate bounded delegations for certified operators and automated actors.
+        - Deny execution outside scope or after expiry/revocation.
+        - Preserve authorization evidence correlated to effect.
+      controls: [TRACE-TRUST-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/bounded-delegation.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/runtime-authorization-record.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [authority_map, delegation_record, runtime_authorization_record, revocation_test]
+      acceptance_criteria:
+        - Runtime effects cannot exceed delegated scope or survive pre-effect revocation.
+        - Authorization records identify the authority, delegate and requested effect.
+    status: remediation_available
+
+  - gap_id: GAP-DS002-INFERENCE
+    title: Decision reconstructability does not fully bind automated inference
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The decision trace binds authority, rule version, facts, checks, reasons and outcome, but AI-assisted or probabilistic processing also requires an independently verifiable trace of the inference transformation that contributed to the outcome.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an#lines-19-34
+          note: The signed decision trace is defined around rule, data, reason, authority and remedy, while AI is identified as a scaling context.
+    required_capability:
+      id: CAP-INFERENCE-TRACEABILITY
+      statement: Bind every material automated inference to model/inference identity and version, relevant parameters or thresholds, input snapshot references, output, and its permitted normative role in the decision.
+    remediation:
+      coverage: none
+      requirements:
+        - Record the inference/model identifier and immutable version used at decision time.
+        - Bind inference inputs and output to the decision evidence set.
+        - Record thresholds or decision-relevant parameters where they influence outcome.
+        - Distinguish probabilistic model output from the normative rule authorizing the decision.
+    closure:
+      required_evidence: [inference_trace, model_version_binding, input_snapshot_binding, inference_negative_test]
+      acceptance_criteria:
+        - An independent verifier can reconstruct which inference contributed to a decision and under which immutable configuration.
+        - A model output cannot silently substitute for the authorized normative rule.
+    status: open
+
+  - gap_id: GAP-DS002-CORRECTION
+    title: Correction and recomputation lack a complete propagation protocol
+    domain: operations
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The kernel requires a corrected registry fact to trigger recomputation, but it does not specify dependency discovery, target propagation, partial-failure handling, downstream invalidation and completion evidence.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an#lines-19-30
+          note: The essay states that an address correction should cause the affected decision to be recomputed.
+    required_capability:
+      id: CAP-CORRECTION-PROPAGATION
+      statement: Execute an attributable correction across dependent facts, decisions and effects with deterministic target discovery, invalidation/recomputation, partial-failure semantics and completion evidence.
+    remediation:
+      coverage: none
+      requirements:
+        - Identify downstream decisions or derived objects dependent on corrected evidence.
+        - Define invalidation and recomputation triggers.
+        - Record target acknowledgements and partial failures.
+        - Produce a correction execution receipt proving completed and outstanding actions.
+    closure:
+      required_evidence: [correction_order, dependency_set, correction_execution_receipt, partial_failure_test]
+      acceptance_criteria:
+        - A correction deterministically reaches all declared dependent targets or records explicit unresolved failures.
+        - Recomputed decisions bind to corrected evidence and preserve superseded decision provenance.
+    status: open

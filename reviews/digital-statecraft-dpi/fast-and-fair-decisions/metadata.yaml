@@ -1,0 +1,12 @@
+review_id: DS-TRACE-005
+corpus_id: digital-statecraft-dpi-2026-wave1
+corpus_item_id: DS-DPI-005
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: Making Fast and Fair Decisions in the Age of AI
+  uri: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in
+  author: Manish Srivastava
+  published_on: 2026-05-18
+reviewed_on: 2026-08-22
+evaluation_stance: implementation-distance

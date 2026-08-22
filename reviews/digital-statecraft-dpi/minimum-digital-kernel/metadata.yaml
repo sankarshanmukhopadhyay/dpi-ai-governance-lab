@@ -1,0 +1,12 @@
+review_id: DS-TRACE-002
+corpus_id: digital-statecraft-dpi-2026-wave1
+corpus_item_id: DS-DPI-002
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: The Minimum Digital Kernel of an Unbundled State
+  uri: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an
+  author: Manish Srivastava
+  published_on: 2026-02-22
+reviewed_on: 2026-08-22
+evaluation_stance: implementation-distance
