@@ -7,6 +7,7 @@ pages:
   - docs/evaluations.md
   - docs/operator-metrics.md
   - docs/executable-governance.md
+  - docs/threat-models/operational-ai-harms.md
   - docs/information-architecture.md
   - docs/pages-theme.md
   - docs/site-map.md
