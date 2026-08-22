@@ -1,0 +1,57 @@
+corpus_id: digital-statecraft-dpi-2026-wave1
+version: 1.0.0
+status: frozen
+publication:
+  name: Digital Statecraft
+  archive_url: https://digitalstatecraft.substack.com/archive
+retrieved_on: 2026-08-22
+selection_method: corpora/digital-statecraft-dpi/selection-method.md
+items:
+  - id: DS-DPI-001
+    title: A First Principles Case for DPI + AI
+    canonical_url: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai
+    author: Manish Srivastava
+    published_on: 2026-01-25
+    themes: [dpi, ai, registries, credentials, data-exchange, redress]
+    inclusion_rationale: Establishes the corpus-level proposition that trusted reusable data and AI-mediated rule application can reduce governance friction while preserving due process.
+    evaluation_status: pending
+  - id: DS-DPI-002
+    title: The Minimum Digital Kernel of an Unbundled State
+    canonical_url: https://digitalstatecraft.substack.com/p/the-minimum-digital-kernel-of-an
+    author: Manish Srivastava
+    published_on: 2026-02-22
+    themes: [decision-infrastructure, authority, registries, decision-receipts, redress, audit]
+    inclusion_rationale: Proposes shared decision-governance primitives linking authority, rules, facts, decisions, appeals, and audit.
+    evaluation_status: pending
+  - id: DS-DPI-003
+    title: The Governance Stack
+    canonical_url: https://digitalstatecraft.substack.com/p/the-governance-stack
+    author: Manish Srivastava
+    published_on: 2026-03-13
+    themes: [governance-stack, institutions, decision-kernel, dpi-rails, applications]
+    inclusion_rationale: Defines a layered systems architecture for how public authority is expressed through institutions, decision protocols, DPI rails, and applications.
+    evaluation_status: pending
+  - id: DS-DPI-004
+    title: The Digital Constitution of the State
+    canonical_url: https://digitalstatecraft.substack.com/p/the-digital-constitution-of-the-state
+    author: Manish Srivastava
+    published_on: 2026-03-24
+    themes: [constitutional-infrastructure, recognition, authority, accountability, remedy]
+    inclusion_rationale: Treats identity, registries, payments, and decision systems as functionally constitutional infrastructure when they shape public power across domains.
+    evaluation_status: pending
+  - id: DS-DPI-005
+    title: Making Fast and Fair Decisions in the Age of AI
+    canonical_url: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in
+    author: Manish Srivastava
+    published_on: 2026-05-18
+    themes: [ai, modular-state, decision-receipts, correction, appeals, audit]
+    inclusion_rationale: Proposes separated institutional roles and shared decision objects for fast, contestable, correctable public automation.
+    evaluation_status: pending
+  - id: DS-DPI-006
+    title: How Trust Travels Between Institutions
+    canonical_url: https://digitalstatecraft.substack.com/p/how-trust-travels-between-institutions
+    author: Manish Srivastava
+    published_on: 2026-05-20
+    themes: [institutional-trust, admissibility, credentials, informal-formal-boundary, reliance]
+    inclusion_rationale: Examines the institutional substrate required for trust and decisions to travel across organizational boundaries rather than stopping at cryptographic verification.
+    evaluation_status: pending
