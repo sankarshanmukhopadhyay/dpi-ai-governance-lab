@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sankarshanmukhopadhyay.github.io/dpi-ai-governance-lab/schemas/findings/governance-gaps.schema.json",
+  "title": "TRACE Governance Gap Register",
+  "type": "object",
+  "required": ["review_id", "methodology", "gaps"],
+  "properties": {
+    "review_id": {"type": "string", "minLength": 1},
+    "methodology": {"const": "TRACE"},
+    "methodology_version": {"type": "string"},
+    "source": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "uri": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "gaps": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/gap"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "gap": {
+      "type": "object",
+      "required": ["gap_id", "domain", "severity", "observed_condition", "evidence", "required_capability", "remediation", "closure", "status"],
+      "properties": {
+        "gap_id": {"type": "string", "pattern": "^GAP-[A-Z0-9][A-Z0-9._-]*$"},
+        "title": {"type": "string", "minLength": 1},
+        "domain": {"type": "string", "enum": ["trust", "risk", "architecture", "conformance", "authority", "delegation", "evidence", "revocation", "redress", "inclusion", "information-trust", "legal", "operations", "other"]},
+        "severity": {"type": "string", "enum": ["low", "moderate", "high", "critical"]},
+        "confidence": {"type": "string", "enum": ["low", "moderate", "high"]},
+        "observed_condition": {
+          "type": "object",
+          "required": ["statement", "basis"],
+          "properties": {
+            "statement": {"type": "string", "minLength": 1},
+            "basis": {"type": "string", "enum": ["explicit_deficiency", "explicit_absence", "inferred_absence", "implementation_risk", "contradiction"]}
+          },
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["references"],
+          "properties": {
+            "references": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["locator"],
+                "properties": {
+                  "locator": {"type": "string", "minLength": 1},
+                  "note": {"type": "string"},
+                  "quote": {"type": "string", "maxLength": 500}
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "required_capability": {
+          "type": "object",
+          "required": ["id", "statement"],
+          "properties": {
+            "id": {"type": "string", "pattern": "^CAP-[A-Z0-9][A-Z0-9._-]*$"},
+            "statement": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        "remediation": {
+          "type": "object",
+          "required": ["coverage", "requirements"],
+          "properties": {
+            "coverage": {"type": "string", "enum": ["none", "partial", "standardized"]},
+            "requirements": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "controls": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+            "artifacts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["repository", "path", "relationship"],
+                "properties": {
+                  "repository": {"type": "string", "minLength": 1},
+                  "path": {"type": "string", "minLength": 1},
+                  "version": {"type": "string"},
+                  "relationship": {"type": "string", "enum": ["implements", "templates", "tests", "evidences", "informs"]},
+                  "normative": {"type": "boolean", "default": false}
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "closure": {
+          "type": "object",
+          "required": ["required_evidence", "acceptance_criteria"],
+          "properties": {
+            "required_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+            "acceptance_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+          },
+          "additionalProperties": false
+        },
+        "status": {"type": "string", "enum": ["open", "remediation_available", "implementation_pending", "verification_pending", "closed", "accepted_risk"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}
