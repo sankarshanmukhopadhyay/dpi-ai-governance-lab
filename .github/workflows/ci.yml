@@ -54,6 +54,13 @@ jobs:
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/preparing-india-for-ai-adoption/governance-gaps.yaml --summary
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/unesco-ai-maturity-framework/governance-gaps.yaml --summary
 
+      - name: Validate Digital Statecraft TRACE evaluations
+        run: |
+          python tools/validate_digital_statecraft_reviews.py
+          for f in reviews/digital-statecraft-dpi/*/governance-gaps.yaml; do
+            dpi-lab gaps-validate "$f" --summary
+          done
+
       - name: Validate executable governance case
         run: |
           CASE=case-studies/executable-governance-entitlement-agent
