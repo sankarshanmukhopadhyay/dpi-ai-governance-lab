@@ -1,0 +1,111 @@
+review_id: DS-TRACE-003
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: The Governance Stack
+  uri: https://digitalstatecraft.substack.com/p/the-governance-stack
+gaps:
+  - gap_id: GAP-DS003-AUTHORITY
+    title: Cross-layer authority handoffs are conceptually allocated but not runtime-bounded
+    domain: delegation
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The stack allocates authority to institutions and execution to kernel/rail/application components, but does not specify an enforceable runtime delegation contract for components acting on institutional authority.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-governance-stack#governance-as-infrastructure
+          note: The essay distinguishes institutions that allocate authority from the kernel and rails that structure or execute decisions.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Bind cross-layer execution to explicit delegated authority, scope, validity, revocation and runtime authorization evidence.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Represent which institution delegates which consequential action to which component.
+        - Enforce action, resource, purpose and time bounds at runtime.
+        - Preserve revocation-aware authorization evidence.
+      controls: [TRACE-TRUST-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/bounded-delegation.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/runtime-authorization-record.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [authority_map, delegation_record, runtime_authorization_record, scope_violation_test]
+      acceptance_criteria:
+        - A component cannot exercise public authority beyond its declared delegated scope.
+        - Revocation/expiry is enforced before the governed effect.
+    status: remediation_available
+
+  - gap_id: GAP-DS003-INFERENCE
+    title: Structured decisions do not fully capture the inference transformation
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The kernel decision object captures rule, evidence, authority and outcome, but an automated transformation between evidence and outcome can remain opaque unless inference identity/version and decision-relevant parameters are bound to the trace.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-governance-stack#the-five-layers-of-the-governance-stack
+          note: The kernel is described as linking authorized rule, verified facts, responsible authority, outcome and review path.
+    required_capability:
+      id: CAP-INFERENCE-TRACEABILITY
+      statement: Make automated inference independently reconstructable and distinguish it from the normative rule that authorizes the decision.
+    remediation:
+      coverage: none
+      requirements:
+        - Bind inference/model identifier and version to the decision.
+        - Bind input snapshots and output to the decision evidence.
+        - Record decision-relevant thresholds/parameters where applicable.
+        - Record the permitted role of the inference relative to the normative rule.
+    closure:
+      required_evidence: [inference_trace, model_version_binding, threshold_binding, reconstruction_test]
+      acceptance_criteria:
+        - A verifier can reproduce which automated transformation contributed to a decision at the relevant time.
+        - The inference cannot silently become the legal/normative basis for the decision.
+    status: open
+
+  - gap_id: GAP-DS003-EVIDENCE
+    title: Layer-specific governance guarantees lack a common closure-evidence contract
+    domain: conformance
+    severity: moderate
+    confidence: high
+    observed_condition:
+      statement: The essay identifies governance risks and required oversight at multiple layers, but an operator still needs a portable evidence bundle showing control execution, failures, corrective action and verification outcome.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/the-governance-stack#risks-and-limits-by-layer
+          note: Risks are identified by layer, including concentration, exclusion, surveillance and application fragmentation.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Bind governance claims to versioned evidence and reproducible pass/partial/fail assurance outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Produce a versioned evidence bundle for selected controls.
+        - Preserve provenance and hashes for evidence artifacts.
+        - Record verification outcomes and residual limitations.
+      controls: [TRACE-CONF-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/trace-conformance-declaration.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [evidence_bundle_manifest, artifact_hashes, control_to_evidence_mapping, verification_result]
+      acceptance_criteria:
+        - Each selected governance claim is traceable to versioned evidence and an assurance outcome.
+        - Failed or partial controls remain visible rather than being collapsed into a binary compliance claim.
+    status: remediation_available
