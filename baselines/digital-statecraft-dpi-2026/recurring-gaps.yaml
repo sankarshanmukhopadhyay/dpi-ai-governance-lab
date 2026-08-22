@@ -1,0 +1,36 @@
+baseline_id: digital-statecraft-dpi-2026-wave1
+created_on: 2026-08-22
+corpus_id: digital-statecraft-dpi-2026-wave1
+review_count: 6
+material_gap_count: 19
+capabilities:
+  - capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+    reviews_with_gap: 5
+    gap_count: 5
+    reviews: [DS-TRACE-001, DS-TRACE-002, DS-TRACE-003, DS-TRACE-004, DS-TRACE-005]
+    recurring_gap_class: bounded_runtime_authority
+  - capability_id: CAP-INFERENCE-TRACEABILITY
+    reviews_with_gap: 4
+    gap_count: 4
+    reviews: [DS-TRACE-002, DS-TRACE-003, DS-TRACE-004, DS-TRACE-005]
+    recurring_gap_class: unbound_automated_inference
+  - capability_id: CAP-CORRECTION-PROPAGATION
+    reviews_with_gap: 3
+    gap_count: 3
+    reviews: [DS-TRACE-002, DS-TRACE-005, DS-TRACE-006]
+    recurring_gap_class: non_executable_correction_propagation
+  - capability_id: CAP-EVIDENCE-CLOSURE
+    reviews_with_gap: 3
+    gap_count: 3
+    reviews: [DS-TRACE-003, DS-TRACE-005, DS-TRACE-006]
+    recurring_gap_class: unverifiable_governance_closure
+  - capability_id: CAP-REDRESS-APPEAL
+    reviews_with_gap: 2
+    gap_count: 2
+    reviews: [DS-TRACE-001, DS-TRACE-004]
+    recurring_gap_class: non_executable_redress
+  - capability_id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    reviews_with_gap: 2
+    gap_count: 2
+    reviews: [DS-TRACE-001, DS-TRACE-006]
+    recurring_gap_class: undefined_downstream_admissibility
