@@ -1,0 +1,14 @@
+version: 1
+pages:
+  - index.md
+  - docs/start-here.md
+  - docs/operator-playbook.md
+  - docs/evaluations.md
+  - docs/operator-metrics.md
+  - docs/executable-governance.md
+  - docs/information-architecture.md
+  - docs/pages-theme.md
+  - docs/site-map.md
+  - docs/README.md
+  - baselines/2026-08-22/README.md
+  - case-studies/delegated-entitlement-closure/README.md
