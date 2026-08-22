@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "DPI AI Governance Lab"
-version: "0.8.0"
+version: "0.9.0"
 authors:
   - family-names: "Mukhopadhyay"
     given-names: "Sankarshan"
