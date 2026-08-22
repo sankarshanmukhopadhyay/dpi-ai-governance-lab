@@ -1,0 +1,13 @@
+version: '0.1'
+paper:
+  title: How Trust Travels Between Institutions
+  year: 2026
+scores:
+  tiering_completeness: 4
+  accountability_plumbing: 4
+  data_governance: 4
+  redress: 4
+  sovereignty: 4
+notes:
+  - Scores are 0–5 and represent implementation readiness under TRACE, not editorial quality.
+  - The essay is strongest on institutional trust semantics; machine-readable admissibility and correction execution remain open.
