@@ -1,0 +1,159 @@
+review_id: unesco-ai-maturity-framework
+methodology: TRACE
+methodology_version: "1.0"
+source:
+  title: "UNESCO AI Maturity Framework: A self-positioning guide for public administrations"
+  uri: "reviews/2026-02-20-paper-batch/unesco-ai-maturity-framework/paper-review-report.md"
+gaps:
+  - gap_id: GAP-UNESCO-AUTHORITY-001
+    title: Maturity governance is not bound to runtime decision authority
+    domain: authority
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The review finds governance structures but no runtime RACI, weak escalation triggers, and no explicit kill-switch or rollback for higher-tier deployments.
+      basis: explicit_deficiency
+    evidence:
+      references:
+        - locator: "paper-review-report.md#3-accountability-and-runtime-governance"
+          note: Runtime RACI, escalation and rollback are incomplete or absent.
+        - locator: "paper-review-report.md#5-conformance-profile-alignment"
+          note: Tier 2 and Tier 3 decision-support and automated-action gates are missing.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Consequential automated actions require explicit accountable authority, bounded delegation, runtime authorization evidence, and revocation semantics.
+    remediation:
+      coverage: partial
+      requirements:
+        - Define accountable runtime authority by deployment tier.
+        - Bound delegated action scope and require authorization before consequential effect.
+        - Define escalation, suspension, revocation, and rollback semantics.
+      controls:
+        - TRACE-TRUST-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/governance/decision-rights.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/governance/raci.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+    closure:
+      required_evidence:
+        - authority_map
+        - delegation_record
+        - runtime_authorization_record
+        - revocation_test
+      acceptance_criteria:
+        - Higher-tier deployments identify accountable runtime authority and bounded delegated scope.
+        - Revocation, escalation and rollback behavior is testable and evidenced.
+    status: remediation_available
+
+  - gap_id: GAP-UNESCO-REDRESS-001
+    title: Redress lacks operational requirements and service levels
+    domain: redress
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: Contestability is referenced, but the review finds no system-level appeal requirement, SLAs, or remedy taxonomy.
+      basis: explicit_absence
+    evidence:
+      references:
+        - locator: "paper-review-report.md#6-redress-and-remedy"
+          note: Contestability is not operationalized and SLAs and remedies are absent.
+        - locator: "paper-review-report.md#9-recommendations-minimal-viable-upgrades"
+          note: A redress and remedy module is explicitly recommended.
+    required_capability:
+      id: CAP-REDRESS-APPEAL
+      statement: Affected persons require a discoverable appeal path with accountable ownership, disposition states, measurable timelines, and remedy outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Identify the accountable redress authority.
+        - Define appeal intake, review, correction, escalation, and remedy states.
+        - Publish measurable response and escalation timelines.
+      controls:
+        - TRACE-TRUST-03
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/redress/redress-workflow.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/redress/redress-workflow.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/redress/redress-and-remediation.md
+          version: "remediation-registry-0.1.0"
+          relationship: informs
+          normative: false
+    closure:
+      required_evidence:
+        - instantiated_redress_workflow
+        - accountable_redress_authority
+        - published_response_timeline
+        - tested_adverse_decision_appeal
+      acceptance_criteria:
+        - Maturity assessment for consequential deployments requires an operational appeal path.
+        - Appeal and remedy behavior is demonstrated through tested adverse cases.
+    status: remediation_available
+
+  - gap_id: GAP-UNESCO-EVIDENCE-001
+    title: Maturity claims are not bound to evidence requirements
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The review explicitly warns that maturity assessment is not evidence-driven and lacks required logs, test outputs, deployment dossiers, benchmark minimums, and drift evidence.
+      basis: explicit_deficiency
+    evidence:
+      references:
+        - locator: "paper-review-report.md#1-executive-framing"
+          note: Maturity models without evidence hooks are identified as vulnerable to maturity theatre.
+        - locator: "paper-review-report.md#4-data-exchange-governance"
+          note: Auditability is not evidence-driven.
+        - locator: "paper-review-report.md#8-required-artifacts-missing"
+          note: Deployment dossiers, audit-ready logs and evaluation evidence are missing.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Governance and assurance claims require versioned evidence, integrity binding, control-to-evidence mapping, and deterministic closure outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Convert maturity claims into control objectives with explicit evidence requirements.
+        - Preserve evidence provenance and integrity.
+        - Define deterministic assurance outcomes and closure criteria.
+      controls:
+        - TRACE-CONF-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          version: "remediation-registry-0.1.0"
+          relationship: informs
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/minimum-audit-trail.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: evidences
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/trace-conformance-declaration.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence:
+        - evidence_bundle_manifest
+        - artifact_hashes
+        - control_to_evidence_mapping
+        - verification_result
+      acceptance_criteria:
+        - Every material maturity claim identifies verifiable evidence and an evaluation outcome.
+        - Evidence integrity is independently reproducible.
+    status: remediation_available
