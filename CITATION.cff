@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "DPI AI Governance Lab"
-version: "0.7.0"
+version: "0.8.0"
 authors:
   - family-names: "Mukhopadhyay"
     given-names: "Sankarshan"
@@ -10,4 +10,4 @@ contact:
 license: "CC-BY-SA-4.0"
 repository-code: "https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab"
 url: "https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab"
-date-released: "2026-03-16"
+date-released: "2026-08-22"
