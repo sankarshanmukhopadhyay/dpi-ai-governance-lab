@@ -2,13 +2,14 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
-import sys
 import yaml
 
 ROOT = Path("case-studies/delegated-entitlement-closure")
 
 
-def parse(ts: str) -> datetime:
+def parse(ts: str | datetime) -> datetime:
+    if isinstance(ts, datetime):
+        return ts
     return datetime.fromisoformat(ts.replace("Z", "+00:00"))
 
 
