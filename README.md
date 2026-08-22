@@ -3,103 +3,105 @@
 ![CI](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab/actions/workflows/ci.yml/badge.svg)
 ![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)
 
-## Documentation
+The DPI AI Governance Lab is a **governance evaluation and implementation-readiness workbench** for DPI, AI, agentic systems and consequential digital services.
 
-- Overview: `docs/overview.md`
-- Freshness + audit guardrails: `docs/documentation-freshness.md` (last reviewed: 2026-03-16)
+It can begin from either:
 
-The DPI AI Governance Lab is a structured, repeatable methodology for transforming AI and DPI policy papers into enforceable governance artifacts.
+- a publication, policy paper or architecture proposition; or
+- a service, product, agent, workflow or deployment that somebody intends to build or improve.
 
-This repository is not a narrative archive. It is a **workbench**.
-A paper review is treated as a build process: fixed inputs → fixed outputs → validators.
+The Lab turns those inputs into **evidence-backed findings, normalized governance gaps, required capabilities, testable closure criteria and re-evaluation evidence**.
 
----
+## Start here
 
+| Your task | Recommended entry point |
+| --- | --- |
+| I am designing or building a DPI/AI system | [`docs/implementation-first.md`](docs/implementation-first.md) |
+| I operate an existing system and need to close a governance weakness | [`docs/operator-playbook.md`](docs/operator-playbook.md) |
+| I need to evaluate a paper or publication | [`methodology/README.md`](methodology/README.md) |
+| I need to prove that a control works | [`docs/executable-governance.md`](docs/executable-governance.md) |
+| I want to see a complete worked example | [`docs/digital-statecraft-dpi-demonstration.md`](docs/digital-statecraft-dpi-demonstration.md) |
+| I need the rendered documentation map | [`docs/start-here.md`](docs/start-here.md) |
 
-## TRACE Method
+## The improvement loop
 
-**TRACE (Trust, Risk, Architecture & Conformance Evaluation)** is the named methodology used in this repository for examining DPI–AI governance and operational readiness.
+```text
+publication / system proposition / deployment
+        ↓
+TRACE evaluation
+        ↓
+evidence-backed GAP-*
+        ↓
+required CAP-*
+        ↓
+reusable remediation
+        ↓
+implementation + failure-path tests
+        ↓
+closure evidence
+        ↓
+TRACE re-evaluation
+```
+
+**TRACE (Trust, Risk, Architecture & Conformance Evaluation)** is the evaluation method used by the Lab.
 
 - TRACE docs: `docs/trace/`
 - TRACE version: `TRACE_VERSION`
-- Canonical example review: `reviews/2026-02-22-ukri-ai-research-and-innovation-strategic-framework/`
-
-
-## Methodology v1.0 (stabilized path)
-
-To ensure reviews are **reproducible and auditable**, the Lab now ships a stable methodology spine:
-
-- Start here: `methodology/README.md`
-- Evaluation contract (required outputs): `methodology/evaluation-contract.md`
-- Review workflow: `methodology/review-workflow.md`
-- Scoring rubric + scale: `methodology/scoring-rubric.md`, `methodology/scoring-scale.md`
-- Templates: `templates/`
-- Calibration examples: `calibration/`
-- Change log: `meta/methodology-changelog.md`
+- Evaluation contract: `methodology/evaluation-contract.md`
+- Scoring: `methodology/scoring-rubric.md`, `methodology/scoring-scale.md`
 - Evidence discipline: `docs/evidence-and-citation-discipline.md`
-- Comparative layer: `docs/comparative-analysis.md`
 
+## Lab ↔ Artifacts responsibility boundary
 
-## Purpose
+The companion [`dpi-ai-governance-artifacts`](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-artifacts) repository is the reusable remediation layer.
 
-Most AI governance papers are directionally correct but operationally vague.
-The Lab applies a deterministic review workflow to:
+### The Lab owns
 
-- Extract architectural primitives
-- Surface institutional risk structures
-- Bind risks to workflow tiers
-- Define accountability and escalation models
-- Translate insights into reusable governance artifacts
+- evaluation and evidence extraction;
+- review outputs and scorecards;
+- governance-gap normalization;
+- `GAP-* → CAP-*` remediation requirements;
+- comparison and synthesis;
+- adversarial verification;
+- scoped closure assessment and re-evaluation.
 
-The goal is operational clarity, not commentary.
+### The Artifacts repository owns
 
-This release deepens the workbench into a governance operating model by adding DPI-specific threat models, reference governance architectures, case studies, maturity guidance, and lightweight validation tools for risk registers, evidence bundles, and governance scorecards.
+- reusable schemas and governed templates;
+- remediation registry entries;
+- controlled implementation guidance;
+- positive/negative test vectors;
+- reusable evidence requirements and conformance materials.
 
----
+### Adopting organizations retain
 
+- legal and institutional authority;
+- policy and procurement authority;
+- deployment approval;
+- authority to delegate, revoke, admit evidence, decide, correct and remedy.
 
-## What this release adds
+Repository-local historical files under `artifacts/` are supporting Lab material. They are **not** the normative operational remediation layer and do not override the companion Artifacts repository or an adopting institution's authority.
 
-- DPI and agentic AI threat models under `docs/threat-models/`
-- Reference governance architecture under `docs/architecture/`
-- Case studies under `case-studies/` to ground TRACE in public-interest deployments
-- Governance maturity model under `maturity-model/`
-- Lightweight operator tools for scorecards, evidence bundles, and risk-register checks under `tools/`
-- Portable review bundle export and comparative review matrix generation in the CLI
-- Optional assumption and claim-verification logs to tighten evidence discipline
+## If you are building something
 
-## Companion repository (operational packs)
+Use [`docs/implementation-first.md`](docs/implementation-first.md) to turn a service idea into a governable design.
 
-This Lab produces **evaluations** (TRACE reviews, scorecards, audit trails). The companion repository ships the **operational governance packs** (schemas, templates, conformance/evidence bundles):
+The minimum path is:
 
-- `dpi-ai-governance-artifacts` — operational packs aligned to TRACE outputs
+1. write the system proposition;
+2. identify affected parties, consequential decisions and effects;
+3. identify accountable authorities and delegates;
+4. pressure-test authority, evidence, lifecycle, redress and correction;
+5. encode material weaknesses in `governance-gaps.yaml`;
+6. resolve `required_capability.id` in the Artifacts remediation registry;
+7. implement controls at runtime enforcement points;
+8. exercise positive and negative paths;
+9. preserve closure evidence;
+10. return to TRACE for verification.
 
-## Repository Structure
+## If you are reviewing a publication
 
-```
-artifacts/     Reusable governance artifacts (control mappings, tier models, templates)
-reviews/       Per-paper structured reviews
-papers/        Source documents or paper packs
-docs/          Methodology and reference documentation
-data/          Control IDs, taxonomies, shared reference tables
-schemas/       Machine-readable structures
-tools/         Validators, generators, linters
-case-studies/  Worked governance analyses for common DPI-AI deployments
-maturity-model/ Governance capability ladder and adoption guidance
-```
-
-### Conceptual Separation
-
-- `artifacts/` = normative governance building blocks
-- `reviews/` = instantiations of the methodology applied to specific papers
-- `data/` and `schemas/` = shared validation and taxonomy backbone
-- `tools/` = validation and reproducibility layer
-
----
-
-## Quickstart
-
-### 1) Install (pip)
+Install the workbench:
 
 ```bash
 python -m venv .venv
@@ -108,159 +110,95 @@ pip install .
 dpi-lab --version
 ```
 
-> `pip install -r requirements.txt` is still supported for development, but releases are expected to be installable via `pip install .`.
-
-
-### 2) Run a deterministic review from a PDF
-
-This creates a **structurally correct**, deterministic baseline review using the local engine (no external services).
+Run a deterministic local review:
 
 ```bash
-dpi-lab review --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
+dpi-lab review --pdf /path/to/paper.pdf --slug my-paper --out reviews/my-batch
+dpi-lab validate reviews/my-batch/my-paper --level policy
 ```
 
-### Optional: model-backed deterministic review (OpenAI)
+A model-backed engine is optional. The repository keeps prompts/raw outputs where applicable so model-assisted work remains inspectable and replayable.
 
-This engine generates **schema-valid JSON** and then renders deterministic YAML/Markdown artifacts.
-It also saves the **exact prompts** and **raw response payload** for audit and replay.
-
-For long papers, the OpenAI engine automatically switches to **deterministic chunking + multi-pass summarization**
-(map: per-chunk digests → reduce: final artifacts). This prevents truncation while keeping runs replayable.
-You can tune limits via `--max-input-chars`, `--chunk-max-chars`, and `--chunk-max-count`.
-
-For better control, the OpenAI engine also supports **token-aware budgets** (uses `tiktoken` when available):
-`--max-input-tokens` and `--chunk-max-tokens`. If set, token budgets take precedence over character budgets.
-
-If a schema-constrained call still fails (rare, but possible in the real world), the engine performs a **bounded repair retry**
-and persists the raw payload for debugging.
+Material governance findings can then be encoded and validated with:
 
 ```bash
-export OPENAI_API_KEY="..."
-dpi-lab review --engine openai --model gpt-4o-mini \
-  --pdf /path/to/paper.pdf --slug my-paper --out reviews/2026-xx-paper-batch
+dpi-lab gaps-validate path/to/governance-gaps.yaml --summary
 ```
 
-Outputs land in:
+## What a review should produce
 
-```
-reviews/2026-xx-paper-batch/my-paper/
-  paper.pdf
-  extracted/
-    paper.text.v1.txt
-    paper.pdf.sha256
-    paper.text.v1.sha256
-  run/
-    manifest.json
-  paper-analysis.md
-  paper-review-report.md
-  paper-review-metadata.yaml
-  paper-review-scorecard.yaml
-```
-
-### 3) Validate the output contract
-
-```bash
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper
-```
-
-Validation levels:
-
-```bash
-# Contract-only (required files exist)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level contract
-
-# Contract + schema (default)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level schema
-
-# Contract + schema + light policy checks (recommended)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level policy
-
-# Optional semantic validation (engine-backed; requires API key for model engines)
-dpi-lab validate reviews/2026-xx-paper-batch/my-paper --level semantic --engine openai --model gpt-4o-mini
-```
-
-
-### 4) Follow a guided walkthrough (recommended)
-
-- Walkthrough: `docs/walkthrough.md`
-- Example outputs: `reviews/examples-batch/` (offline, deterministic, onboarding-focused)
-
-The walkthrough uses the example directories to explain the full lifecycle: extraction → scaffolding → generation → validation, plus how the manifest and hashes support audit and replay.
-
----
-
-## How to Review Any Paper (Method)
-
-Full method reference: `docs/methodology.md`
-
-The Lab workflow:
-
-1. Extract Architectural Primitives
-2. Identify Institutional Risk Surfaces
-3. Bind Risk to Workflow Tiers
-4. Define Accountability + Escalation
-5. Convert to Governance Artifacts
-
----
-
-## Required Outputs (Contract)
-
-Every review MUST produce:
+The core review contract includes:
 
 - `paper-analysis.md`
 - `paper-review-report.md`
 - `paper-review-metadata.yaml`
 - `paper-review-scorecard.yaml`
 
-These files ensure cross-paper comparability and enable structured scoring.
+The governance-improvement layer adds `governance-gaps.yaml` where material implementation-distance gaps exist.
 
-Scorecards use integer scores on a **0..5** scale (inclusive).
+## What implementation-ready means here
 
----
+A proposition is not implementation-ready because its architecture diagram is persuasive. It is ready for governed implementation when:
 
-## Tools
+- consequential decisions/effects are explicit;
+- authority and delegation are explicit;
+- material gaps have normalized capability requirements;
+- controls have identifiable runtime enforcement points;
+- revocation, failure, correction and redress paths are defined where relevant;
+- negative paths are testable;
+- required closure evidence is known before deployment;
+- residual risks and limitations remain visible.
 
-- CLI (recommended):
-  - `dpi-lab extract|scaffold|review|validate|lint`
-- Standalone scripts (also usable):
-  - `tools/validators/validate_scorecard.py <scorecard.yaml>`
-  - `tools/validators/validate_dossier.py <dossier.json>`
-  - `tools/generators/new_review_scaffold.py --slug ... --out ...`
-  - `tools/linters/lint_markdown.py <paths...>`
+## Proof of method
 
----
+The Digital Statecraft DPI first-wave programme is a worked demonstration, not an archive-expansion target.
 
-## Review Batches and Evolution
+It shows:
 
-The repository may contain both:
+```text
+6 source essays
+  → 6 reproducible TRACE reviews
+  → 19 material implementation-distance gaps
+  → 6 recurring capability classes
+  → evidence-derived reusable remediation
+  → six-capability implementation fixture
+  → 9 scenarios / 8 adversarial
+  → scoped closure evidence
+```
 
-- `reviews/2026/...` (legacy structure)
-- `reviews/<date>-paper-batch/...` (current structure)
+See [`docs/digital-statecraft-dpi-demonstration.md`](docs/digital-statecraft-dpi-demonstration.md).
 
-Future reviews should follow the batch-first structure for consistency.
+## Repository map
 
----
+```text
+dpi_lab/        CLI and implementation code
+methodology/    TRACE evaluation contract and scoring method
+reviews/        Applied review evidence
+schemas/        Machine-readable review/governance contracts
+docs/           Adoption, evaluation, architecture and assurance guidance
+case-studies/   Worked implementation and governance fixtures
+calibration/    Method calibration examples
+maturity-model/ Governance capability ladder
+tools/          Validators and evidence tooling
+artifacts/      Historical/supporting Lab material; not the companion remediation authority
+```
 
-## Design Philosophy
+## Design principle
 
-Governance must be operational.
+Governance should be **observable, enforceable, revocable, correctable and evidentiary**.
 
-Narratives persuade.
-Artifacts enforce.
-
-The DPI AI Governance Lab prioritizes enforceable structure over rhetorical positioning.
-
-## Source documents (PDFs)
-
-PDF copies of reviewed documents are intentionally not stored in this repository to keep it lightweight. See `docs/sources/removed-pdfs.md` for canonical links.
-
+Narrative is useful when it explains the system. It is insufficient when a claim needs to survive implementation, failure and independent verification.
 
 ## Documentation
 
+- Start here: `docs/start-here.md`
 - Documentation index: `docs/INDEX.md`
+- Operator playbook: `docs/operator-playbook.md`
+- Implementation-first path: `docs/implementation-first.md`
+- Executable governance: `docs/executable-governance.md`
+- Evidence and citation discipline: `docs/evidence-and-citation-discipline.md`
 
+Additional CLI workflows:
 
-## Additional workflow commands
-
-- `dpi-lab bundle <review_dir> --out <path>` exports a portable JSON bundle for one review.
-- `dpi-lab compare <path> --out <path-stem>` generates JSON and Markdown comparative outputs across multiple reviews.
+- `dpi-lab bundle <review_dir> --out <path>` — portable review bundle
+- `dpi-lab compare <path> --out <path-stem>` — comparative JSON/Markdown output

@@ -7,50 +7,69 @@ has_children: false
 
 # Start here
 
-The DPI AI Governance Lab is a workbench for turning publications and deployment propositions into **evidence-backed governance findings, normalized gaps, remediation requirements, and closure tests**.
+The DPI AI Governance Lab is a workbench for turning **publications, system propositions, and deployment weaknesses** into evidence-backed governance findings, normalized gaps, remediation requirements, implementation tests, and closure assessments.
+
+You do not need to begin with a paper review.
 
 ## Choose your task
 
-### I need to evaluate a paper or publication
+| I need to… | Start here | You should leave with… |
+| --- | --- | --- |
+| Evaluate a paper or policy publication | TRACE methodology | Reproducible review + governance gaps |
+| Turn a service/product idea into a governable design | [Build from an implementation idea](implementation-first.md) | System proposition + `GAP-*` / `CAP-*` requirements |
+| Improve an existing DPI/AI deployment | [Operator playbook](operator-playbook.md) | Remediation and closure-evidence plan |
+| Understand recurring findings | [Evaluations](evaluations.md) | Comparable evidence and gap patterns |
+| Prove that a governance control actually works | [Executable governance](executable-governance.md) | Failure-path tests + closure evidence |
+| See a complete end-to-end example | [Digital Statecraft DPI worked demonstration](digital-statecraft-dpi-demonstration.md) | Proposition → gap → artifact → implementation → evidence |
 
-Use the TRACE methodology and deterministic review workflow:
+## If you are building something
+
+Use [Build from an implementation idea](implementation-first.md) when you have a service, agent, workflow, registry interaction, eligibility system, AI-assisted decision, or public-sector product concept.
+
+The implementation-first path helps you make explicit:
+
+1. consequential decisions and effects;
+2. accountable authorities and delegates;
+3. facts, rules, model outputs and other evidence inputs;
+4. governance failure paths;
+5. normalized `CAP-*` remediation requirements;
+6. runtime enforcement points;
+7. evidence needed to verify closure.
+
+The companion `dpi-ai-governance-artifacts` repository then supplies reusable schemas, tests and operator guidance for the required capabilities.
+
+## If you are evaluating a publication
+
+Use the deterministic TRACE workflow:
 
 1. read `methodology/README.md`;
 2. run `dpi-lab review`;
-3. validate the review with `dpi-lab validate`;
-4. convert material findings into `governance-gaps.yaml`;
-5. validate and summarize gaps with `dpi-lab gaps-validate --summary`.
+3. validate with `dpi-lab validate`;
+4. encode material findings in `governance-gaps.yaml`;
+5. validate and summarize with `dpi-lab gaps-validate --summary`.
 
-### I operate or implement a DPI/AI system
+A missing implementation detail is not automatically a defect. TRACE distinguishes what the source actually claims from what an implementer would still need to define.
 
-Start with the [Operator playbook](operator-playbook.md). The goal is to resolve a governance weakness into a concrete capability, remediation asset, implementation change, and evidence requirement.
+## The improvement loop
 
-### I want to understand what TRACE is finding across publications
-
-Start with [Evaluations](evaluations.md) and the [first real-review gap baseline](../baselines/2026-08-22/README.md).
-
-### I need executable governance or assurance testing
-
-Use [Executable governance](executable-governance.md) after the governance gap and remediation requirement have been made explicit. Executable governance is a verification mechanism inside the improvement loop, not a separate end goal.
-
-## The operator improvement loop
-
-```text
-publication / deployment proposition
-        ↓
-TRACE evaluation
-        ↓
-evidence-backed governance gap
-        ↓
-required capability
-        ↓
-standard remediation
-        ↓
-implementation
-        ↓
-closure evidence
-        ↓
-re-evaluation
+```mermaid
+flowchart LR
+    A[Publication / system proposition / deployment] --> B[TRACE evaluation]
+    B --> C[Evidence-backed GAP-*]
+    C --> D[Required CAP-*]
+    D --> E[Reusable remediation]
+    E --> F[Implementation]
+    F --> G[Negative tests + evidence]
+    G --> H[TRACE verification]
+    H --> I[Closure / residual risk]
 ```
 
-The companion `dpi-ai-governance-artifacts` repository owns reusable remediation assets. The Lab owns evaluation, normalization, comparison, and closure assessment within the stated scope.
+## Repository boundary
+
+**Lab owns:** evaluation, evidence extraction, gap normalization, comparison, verification and scoped closure assessment.
+
+**Artifacts owns:** reusable remediation schemas, controlled guidance, test vectors, implementation patterns and evidence requirements.
+
+**Adopting organizations retain:** legal, institutional, programme, procurement and deployment authority.
+
+The Lab can test a governance claim; it does not acquire the authority to make the underlying public or institutional decision.
