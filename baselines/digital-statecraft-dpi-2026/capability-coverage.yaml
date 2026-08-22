@@ -1,0 +1,40 @@
+baseline_id: digital-statecraft-dpi-2026-wave1
+resolved_on: 2026-08-22
+remediation_registry:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  registry_version: 0.2.0
+  source_commit: 3ea873bdb2ce719d82c86d459c9699ae6114b0d1
+  path: remediation/remediation-registry.yaml
+metrics:
+  material_gaps: 19
+  gaps_with_standardized_remediation: 10
+  gaps_with_partial_remediation: 0
+  gaps_with_no_registered_remediation: 9
+  artifact_coverage_ratio: 0.5263
+  standardized_remediation_ratio: 0.5263
+  evidence_backed_closure_rate: 0.0
+capabilities:
+  - capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+    gap_count: 5
+    registry_status: registered
+    coverage: standardized
+  - capability_id: CAP-EVIDENCE-CLOSURE
+    gap_count: 3
+    registry_status: registered
+    coverage: standardized
+  - capability_id: CAP-REDRESS-APPEAL
+    gap_count: 2
+    registry_status: registered
+    coverage: standardized
+  - capability_id: CAP-INFERENCE-TRACEABILITY
+    gap_count: 4
+    registry_status: unregistered
+    coverage: none
+  - capability_id: CAP-CORRECTION-PROPAGATION
+    gap_count: 3
+    registry_status: unregistered
+    coverage: none
+  - capability_id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    gap_count: 2
+    registry_status: unregistered
+    coverage: none
