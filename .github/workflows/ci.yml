@@ -66,6 +66,10 @@ jobs:
         run: |
           python tools/validate_delegation_closure_fixture.py
 
+      - name: Validate Digital Statecraft corpus
+        run: |
+          python tools/validate_digital_statecraft_corpus.py
+
       - name: Validate rendered Pages front matter
         run: |
           python tools/validate_pages_front_matter.py
