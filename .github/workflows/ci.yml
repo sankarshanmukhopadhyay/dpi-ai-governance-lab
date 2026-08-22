@@ -37,6 +37,8 @@ jobs:
         run: dpi-lab validate reviews/examples-batch
       - name: Validate governance gap handoff
         run: dpi-lab gaps-validate calibration/mission-loop/example-governance-gaps.yaml --summary
+      - name: Validate operational harm chains
+        run: python tools/validate_harm_chain.py
       - name: Validate real-review governance gaps
         run: |
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/dpi-ai-framework-2026/governance-gaps.yaml --summary
