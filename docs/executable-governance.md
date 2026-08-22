@@ -1,3 +1,9 @@
+---
+layout: default
+title: Executable governance
+nav_order: 5
+---
+
 # TRACE Executable Governance Evaluation Preview
 
 TRACE is being extended from deterministic policy-paper review into an experimental executable-governance evaluation capability.
@@ -6,16 +12,16 @@ This preview does **not** transfer normative authority from upstream policy, law
 
 ## Evaluation pipeline
 
-```text
-source proposition
-  -> governance claims
-  -> authority and delegation
-  -> actors and governed actions
-  -> runtime decision points
-  -> evidence requirements
-  -> revocation and redress
-  -> adversarial scenarios
-  -> assurance evidence
+```mermaid
+flowchart LR
+    S[Source proposition] --> C[Governance claims]
+    C --> A[Authority and delegation]
+    A --> R[Actors and governed actions]
+    R --> D[Runtime decision points]
+    D --> E[Evidence requirements]
+    E --> V[Revocation and redress]
+    V --> T[Adversarial scenarios]
+    T --> O[Assurance evidence]
 ```
 
 ## Required evaluation artifacts
@@ -49,6 +55,26 @@ Any evaluation containing delegation must include negative vectors covering at l
 
 The preview deliberately treats a technically valid transaction with no redress path as a governance failure rather than a successful execution.
 
+## Runtime authorization relationship
+
+```mermaid
+sequenceDiagram
+    participant Authority as Accountable authority
+    participant Agent as Delegated actor
+    participant Gate as Runtime gate
+    participant Effect as Governed effect
+    Authority->>Agent: bounded delegation
+    Agent->>Gate: request action
+    Gate->>Gate: validate status + scope + evidence
+    alt authorized
+        Gate-->>Agent: allow + authorization record
+        Agent->>Effect: execute with authorization id
+        Effect-->>Gate: correlate effect id
+    else revoked/expired/out of scope
+        Gate-->>Agent: deny + reason code
+    end
+```
+
 ## CLI
 
 Validate an evaluation:
@@ -69,15 +95,13 @@ Validate the evaluation and verify the generated hashes:
 dpi-lab governance-validate case-studies/executable-governance-entitlement-agent --verify-manifest
 ```
 
-## Worked case
+## Worked cases
 
 `case-studies/executable-governance-entitlement-agent/` models a delegated service agent that may initiate a public-service entitlement payment only after current eligibility evidence, bounded delegated authority, and runtime authorization are all present.
 
-The case tests scope escalation, pre-effect revocation, missing/stale evidence, effect-to-authorization correlation, and redress availability. It is intentionally experimental and jurisdiction-neutral.
+`case-studies/delegated-entitlement-closure/` takes the next step: it instantiates the bounded-delegation remediation package, executes positive and negative authorization requests, preserves runtime authorization records, correlates an allowed effect, and records an evidence-backed closure result within a synthetic fixture scope.
 
 ## Portfolio interoperability
-
-The preview is designed for later machine-readable mappings to portfolio components without creating hidden normative dependencies:
 
 | Component | Intended relationship | Authority effect |
 | --- | --- | --- |
@@ -86,16 +110,10 @@ The preview is designed for later machine-readable mappings to portfolio compone
 | TIS | portable evidence representation | none |
 | RAHP | adversarial pressure-testing input | none |
 | Trust Protocol Interop Lab | executable cross-system evaluation | none |
+| DPI–AI Governance Artifacts | reusable remediation package | none |
 
 Future mappings must state relationship type and normative status explicitly. `maps-to` or `informs` must never be interpreted as `depends-on`, conformance, endorsement, or transfer of authority.
 
 ## Preview maturity gate
 
-The capability remains **Experimental** until multiple independently structured worked cases demonstrate:
-
-1. deterministic validation;
-2. repeatable negative-vector execution;
-3. stable schema semantics;
-4. evidence-manifest integrity;
-5. documented authority boundaries; and
-6. no regression to the existing TRACE paper-review workflow.
+The capability remains **Experimental** until multiple independently structured worked cases demonstrate deterministic validation, repeatable negative-vector execution, stable schema semantics, evidence-manifest integrity, documented authority boundaries, and no regression to the existing TRACE paper-review workflow.
