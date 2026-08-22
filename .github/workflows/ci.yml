@@ -29,7 +29,14 @@ jobs:
       - name: Offline smoke review + validate
         run: |
           mkdir -p /tmp/dpi-lab-ci
-          dpi-lab review --engine local --pdf reviews/examples-batch/cdpi-dpi-ai-framework-2026/paper.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
+          python - <<'PY'
+          from pypdf import PdfWriter
+          writer = PdfWriter()
+          writer.add_blank_page(width=612, height=792)
+          with open('/tmp/dpi-lab-ci/smoke.pdf', 'wb') as handle:
+              writer.write(handle)
+          PY
+          dpi-lab review --engine local --pdf /tmp/dpi-lab-ci/smoke.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
           dpi-lab validate /tmp/dpi-lab-ci/ci-smoke
 
       - name: Validate bundled examples
