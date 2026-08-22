@@ -1,0 +1,157 @@
+review_id: dpi-ai-framework-2026
+methodology: TRACE
+methodology_version: "1.0"
+source:
+  title: "Vision Paper: DPI-AI Framework 2026 (CDPI)"
+  uri: "reviews/2026-02-20-paper-batch/dpi-ai-framework-2026/paper-review-report.md"
+gaps:
+  - gap_id: GAP-DPIAI-AUTHORITY-001
+    title: Consequential agent authority is not bounded at runtime
+    domain: authority
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The review identifies missing agent-authority declarations, hard tier triggers, runtime escalation, suspension, and rollback controls for consequential workflows.
+      basis: explicit_deficiency
+    evidence:
+      references:
+        - locator: "paper-review-report.md#3-accountability-and-runtime-governance"
+          note: Accountability, escalation and rollback are only partially specified.
+        - locator: "paper-review-report.md#8-required-artifacts-missing"
+          note: Agent authority declaration and tier declarations are explicitly listed as missing.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Consequential automated actions require explicit accountable authority, bounded delegation, runtime authorization evidence, and revocation semantics.
+    remediation:
+      coverage: partial
+      requirements:
+        - Define accountable decision authority for each consequential action.
+        - Bind delegated agent scope to action, resource, purpose, tier, time, and revocation state.
+        - Preserve authorization evidence before effect and define suspension and rollback triggers.
+      controls:
+        - TRACE-TRUST-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/governance/decision-rights.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/governance/raci.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+    closure:
+      required_evidence:
+        - authority_map
+        - delegation_record
+        - runtime_authorization_record
+        - revocation_test
+      acceptance_criteria:
+        - Every consequential action resolves to an accountable authority and bounded delegation.
+        - Revocation or suspension before effect deterministically prevents execution.
+    status: remediation_available
+
+  - gap_id: GAP-DPIAI-REDRESS-001
+    title: Redress is mentioned but not operational
+    domain: redress
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: Contestability is mentioned, but response SLAs, remedy taxonomy, accountable redress ownership, and operational appeal states are missing.
+      basis: explicit_absence
+    evidence:
+      references:
+        - locator: "paper-review-report.md#6-redress-and-remedy"
+          note: SLAs and remedies are explicitly missing.
+        - locator: "paper-review-report.md#9-recommendations-minimal-viable-upgrades"
+          note: The review calls for a redress bundle for Tier 2/3.
+    required_capability:
+      id: CAP-REDRESS-APPEAL
+      statement: Affected persons require a discoverable appeal path with accountable ownership, disposition states, measurable timelines, and remedy outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Identify the accountable redress authority.
+        - Define intake, review, disposition, correction, escalation, and remedy states.
+        - Define measurable response and escalation timelines.
+      controls:
+        - TRACE-TRUST-03
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/redress/redress-workflow.md
+          version: "remediation-registry-0.1.0"
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/redress/redress-workflow.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/redress/redress-and-remediation.md
+          version: "remediation-registry-0.1.0"
+          relationship: informs
+          normative: false
+    closure:
+      required_evidence:
+        - instantiated_redress_workflow
+        - accountable_redress_authority
+        - published_response_timeline
+        - tested_adverse_decision_appeal
+      acceptance_criteria:
+        - Affected persons can discover and invoke an appeal path for Tier 2/3 outcomes.
+        - Test evidence demonstrates correction, escalation, and remedy handling.
+    status: remediation_available
+
+  - gap_id: GAP-DPIAI-EVIDENCE-001
+    title: Assurance claims lack a minimum evidence contract
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: Auditability, signed/versioned outputs, block test suites, drift observability, and evidence requirements are incomplete or unspecified.
+      basis: explicit_deficiency
+    evidence:
+      references:
+        - locator: "paper-review-report.md#4-data-exchange-governance"
+          note: Required logs, retention and attestation format are missing.
+        - locator: "paper-review-report.md#8-required-artifacts-missing"
+          note: Signed block outputs, policy versioning, minimum tests and observability are listed as missing.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Governance and assurance claims require versioned evidence, integrity binding, control-to-evidence mapping, and deterministic closure outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Bind control claims to versioned evidence artifacts.
+        - Preserve provenance and integrity for the evidence set.
+        - Define pass, partial, fail, and not-evaluable assurance outcomes.
+      controls:
+        - TRACE-CONF-01
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          version: "remediation-registry-0.1.0"
+          relationship: informs
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/minimum-audit-trail.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: evidences
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/trace-conformance-declaration.schema.json
+          version: "remediation-registry-0.1.0"
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence:
+        - evidence_bundle_manifest
+        - artifact_hashes
+        - control_to_evidence_mapping
+        - verification_result
+      acceptance_criteria:
+        - Each material governance claim is traceable to versioned evidence.
+        - Evidence integrity and verification outcome can be independently checked.
+    status: remediation_available
