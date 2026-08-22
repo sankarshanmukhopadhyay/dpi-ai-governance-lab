@@ -1,0 +1,60 @@
+harm_id: HARM-BENEFIT-DENIAL-001
+title: Wrongful benefit denial propagated by stale income evidence
+harm_class: exclusion_wrongful_denial
+affected_parties:
+  - party: benefit applicant
+    exposure: essential income support denied or delayed
+    vulnerability_factors:
+      - low ability to absorb payment interruption
+      - limited access to alternative evidence channels
+initiating_condition: An upstream employment registry retains an income value that has already been corrected elsewhere.
+mechanism: The benefit service treats the stale registry value as current and admissible, and an automated eligibility rule denies the application without detecting the contradiction.
+authority_failure:
+  present: false
+  description: The denial authority is valid, but the decision is made on stale evidence and the correction lifecycle is incomplete.
+immediate_outcome: Eligibility is denied and no payment instruction is produced.
+experienced_harm: The applicant loses or is delayed access to a benefit for which they are otherwise eligible.
+propagation:
+  downstream_effects:
+    - denial is copied to case-management history
+    - payment remains blocked
+    - future eligibility checks may reuse the stale fact
+  aggregate_effect: Repeated stale-data reuse can create a geographically or socioeconomically clustered exclusion pattern.
+  feedback_loop: Prior denial may be treated as supporting evidence in later review, reinforcing the original error.
+signals:
+  - signal: appeal reversal rate materially exceeds normal review reversal rate
+    evidence_source: appeal and decision receipts
+    threshold_or_trigger: sustained increase over an adopted monitoring threshold
+  - signal: same upstream record appears in multiple corrected or reversed cases
+    evidence_source: correction requests and dependency logs
+controls:
+  preventive:
+    - validate freshness and effective date of authoritative facts before decision
+    - require explicit reliance/admissibility decision for external evidence where applicable
+  detective:
+    - monitor contradiction and appeal-reversal clusters
+    - correlate denied decisions with later source-record corrections
+  corrective:
+    - propagate authoritative correction to every mandatory dependent decision and effect
+    - recompute eligibility and issue remedy where the corrected result changes entitlement
+  candidate_capabilities:
+    - CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    - CAP-CORRECTION-PROPAGATION
+    - CAP-REDRESS-APPEAL
+    - CAP-EVIDENCE-CLOSURE
+redress:
+  available: true
+  authority: benefits appeals office
+  remedy: correct the source fact or reliance decision, recompute eligibility, restore entitlement and compensate where required by adopted policy
+  time_constraint: within the programme's adopted appeal and correction SLA
+residual_risk: Corrected decisions may not repair secondary harms such as debt, service interruption or delayed access unless remedy scope explicitly covers them.
+closure_evidence:
+  - source correction record
+  - correction order and execution receipt
+  - recomputed decision receipt
+  - restored or compensating effect record
+  - evidence that stale dependent outcomes were superseded
+  - monitoring evidence showing no unresolved mandatory propagation target
+source_refs:
+  - worked synthetic example; no claim about a specific real deployment
+notes: This example separates a governance/data lifecycle failure from the experienced harm. The stale value is the condition; the denial is the outcome; loss of benefit access is the harm.
