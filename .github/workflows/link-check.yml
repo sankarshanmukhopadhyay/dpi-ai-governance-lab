@@ -23,6 +23,6 @@ jobs:
             --exclude-path ./_site
             --exclude-path ./vendor
             --exclude-path ./reviews/run
-            ./README.md ./docs ./annexes ./artifacts ./controlled ./conformance ./controls
+            ./README.md ./docs ./annexes ./artifacts ./case-studies ./methodology
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
