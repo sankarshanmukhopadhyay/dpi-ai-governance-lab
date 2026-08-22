@@ -23,6 +23,7 @@ jobs:
           dpi-lab --help
           dpi-lab review --help
           dpi-lab validate --help
+          dpi-lab gaps-validate --help
           dpi-lab governance-validate --help
           dpi-lab governance-manifest --help
 
@@ -42,6 +43,10 @@ jobs:
       - name: Validate bundled examples
         run: |
           dpi-lab validate reviews/examples-batch
+
+      - name: Validate governance gap handoff
+        run: |
+          dpi-lab gaps-validate calibration/mission-loop/example-governance-gaps.yaml --summary
 
       - name: Validate executable governance case
         run: |
