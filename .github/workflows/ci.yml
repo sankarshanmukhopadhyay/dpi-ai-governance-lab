@@ -23,6 +23,8 @@ jobs:
           dpi-lab --help
           dpi-lab review --help
           dpi-lab validate --help
+          dpi-lab governance-validate --help
+          dpi-lab governance-manifest --help
 
       - name: Offline smoke review + validate
         run: |
@@ -33,3 +35,11 @@ jobs:
       - name: Validate bundled examples
         run: |
           dpi-lab validate reviews/examples-batch
+
+      - name: Validate executable governance case
+        run: |
+          CASE=case-studies/executable-governance-entitlement-agent
+          dpi-lab governance-validate "$CASE"
+          cp -R "$CASE" /tmp/executable-governance-case
+          dpi-lab governance-manifest /tmp/executable-governance-case
+          dpi-lab governance-validate /tmp/executable-governance-case --verify-manifest
