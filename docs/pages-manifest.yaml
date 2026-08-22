@@ -3,6 +3,7 @@ pages:
   - index.md
   - docs/start-here.md
   - docs/operator-playbook.md
+  - docs/implementation-first.md
   - docs/evaluations.md
   - docs/operator-metrics.md
   - docs/executable-governance.md
