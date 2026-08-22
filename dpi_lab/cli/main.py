@@ -15,6 +15,7 @@ from dpi_lab.core.validate import validate_tree
 from dpi_lab.core.lint import lint_markdown_paths
 from dpi_lab.core.bundle import write_review_bundle
 from dpi_lab.core.compare import write_comparison
+from dpi_lab.core.findings import format_gap_summary, validate_gap_register
 from dpi_lab.core.governance import (
     validate_governance_dir,
     verify_evidence_manifest,
@@ -70,6 +71,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_compare = sub.add_parser("compare", help="Build a comparative matrix across review directories")
     p_compare.add_argument("path")
     p_compare.add_argument("--out", required=True)
+
+    p_gap_validate = sub.add_parser(
+        "gaps-validate",
+        help="Validate a TRACE governance-gap register and report remediation coverage",
+    )
+    p_gap_validate.add_argument("path")
+    p_gap_validate.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print operator-facing remediation and closure metrics",
+    )
 
     p_gov_validate = sub.add_parser(
         "governance-validate",
@@ -166,6 +178,13 @@ def main(argv: list[str] | None = None) -> int:
         print(str(outputs["markdown"]))
         print(str(outputs["json"]))
         return 0
+
+    if args.cmd == "gaps-validate":
+        result = validate_gap_register(_p(args.path))
+        exit_code = _print_result(result)
+        if args.summary:
+            print(format_gap_summary(result))
+        return exit_code
 
     if args.cmd == "governance-validate":
         result = validate_governance_dir(_p(args.path))
