@@ -28,22 +28,22 @@ Does not apply to:
 ## Required outputs (MUST)
 Each Review Package MUST contain the following files:
 
-1. `README.md`  
+1. `README.md`
    - MUST provide quick navigation and include the paper link(s).
 
-2. `01-summary.md`  
+2. `01-summary.md`
    - MUST include: paper citation, 5–10 bullet summary, declared scope, and key claims.
 
-3. `02-methodology-application.md`  
+3. `02-methodology-application.md`
    - MUST include: how the methodology was applied, assumptions, and boundaries.
 
-4. `03-scorecard.md`  
+4. `03-scorecard.md`
    - MUST include: completed rubric table + brief rationale per dimension.
 
-5. `04-audit-trail.md`  
+5. `04-audit-trail.md`
    - MUST include: evidence references for each score, with traceability to paper sections.
 
-6. `05-alignment-mapping.md`  
+6. `05-alignment-mapping.md`
    - MUST include: mapping to relevant governance artifacts and concepts (e.g., TRACE dimensions, operational packs, control families).
 
 ## Evidence & traceability (MUST)
@@ -102,4 +102,3 @@ This methodology does not attempt to:
 Reviews SHOULD include alignment mapping to the operational packs in the companion repository:
 
 - `dpi-ai-governance-artifacts`
-
