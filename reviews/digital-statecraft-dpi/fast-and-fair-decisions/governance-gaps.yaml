@@ -1,0 +1,140 @@
+review_id: DS-TRACE-005
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: Making Fast and Fair Decisions in the Age of AI
+  uri: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in
+gaps:
+  - gap_id: GAP-DS005-AUTHORITY
+    title: Certified Operator status needs bounded runtime delegation
+    domain: delegation
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay assigns consequential decision production to a certified Operator, but certification does not by itself define the machine-enforceable scope, duration, revocation or runtime authority of a specific service or automated actor.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in#the-first-condition-a-modular-state
+          note: The essay distinguishes Regulator, Registrar, certified Operator, Appellate Authority and Audit Authority and emphasizes that these roles constrain each other.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Bind certified institutional authority to specific delegated execution scopes, validity, revocation state and runtime authorization evidence.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Instantiate a bounded delegation for each consequential automated actor or service.
+        - Enforce scope, expiry and revocation before effect.
+        - Preserve effect-correlated runtime authorization records.
+      controls: [TRACE-TRUST-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/bounded-delegation.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/runtime-authorization-record.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [authority_map, delegation_record, runtime_authorization_record, revocation_test]
+      acceptance_criteria:
+        - Certified status alone cannot authorize an out-of-scope effect.
+        - Revoked or expired delegation is denied before effect and evidenced.
+    status: remediation_available
+
+  - gap_id: GAP-DS005-INFERENCE
+    title: Rule/model separation is not yet preserved as portable decision evidence
+    domain: evidence
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay correctly distinguishes normative rules from risk scores and classifications, but an implementation needs a persistent inference trace proving which model/version/input/threshold/output contributed to the decision and how the rule used it.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in#the-second-condition-four-shared-objects
+          note: The essay explicitly states that rules and models are different and that probabilistic assessments must not become the legal basis for decisions.
+    required_capability:
+      id: CAP-INFERENCE-TRACEABILITY
+      statement: Preserve a verifiable distinction between normative rule and automated inference through immutable model/version/input/parameter/output evidence bound to the decision.
+    remediation:
+      coverage: none
+      requirements:
+        - Record model or inference identity and immutable version.
+        - Bind decision-time input snapshot and relevant thresholds/parameters.
+        - Record output and how the normative rule consumed or constrained it.
+        - Provide deterministic reconstruction and negative tests.
+    closure:
+      required_evidence: [inference_trace, model_version_binding, input_snapshot_binding, rule_inference_separation_test]
+      acceptance_criteria:
+        - A verifier can identify the exact inference that contributed to a decision.
+        - The normative rule remains independently identifiable as the authority for the decision.
+    status: open
+
+  - gap_id: GAP-DS005-CORRECTION
+    title: Correction orders lack downstream propagation and completion semantics
+    domain: operations
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay makes correction a first-class digital object and expects successful appeals to change facts and trigger recomputation, but it does not define dependency discovery, propagation, partial-failure handling, supersession and completion evidence.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in#from-prevention-to-correction
+          note: The essay states that fast decisions are legitimate only when correction is real and can change source facts and outcomes.
+    required_capability:
+      id: CAP-CORRECTION-PROPAGATION
+      statement: Execute and evidence correction across dependent facts, decisions and effects, including invalidation/recomputation and partial-failure handling.
+    remediation:
+      coverage: none
+      requirements:
+        - Bind a correction order to the source decision/fact and responsible authority.
+        - Discover affected downstream decisions or derived objects.
+        - Recompute/supersede outputs or record explicit unresolved failures.
+        - Produce a correction execution receipt.
+    closure:
+      required_evidence: [correction_order, dependency_set, correction_execution_receipt, partial_failure_test]
+      acceptance_criteria:
+        - All declared dependent targets are corrected/recomputed or explicitly reported unresolved.
+        - Superseded outputs remain traceable to the pre-correction state.
+    status: open
+
+  - gap_id: GAP-DS005-EVIDENCE
+    title: Audit Authority outcomes need evidence-backed closure semantics
+    domain: conformance
+    severity: moderate
+    confidence: high
+    observed_condition:
+      statement: The Audit Authority is expected to detect systemic failures across decisions, but the essay does not define a portable evidence bundle that binds findings to controls, corrective action and verification outcome.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/making-fast-and-fair-decisions-in#the-first-condition-a-modular-state
+          note: The Audit Authority is assigned responsibility for detecting systemic failures across many decisions.
+    required_capability:
+      id: CAP-EVIDENCE-CLOSURE
+      statement: Bind audit/control claims to versioned evidence, corrective action and reproducible assurance outcomes.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Produce a versioned evidence bundle for selected audit/control claims.
+        - Preserve provenance and artifact integrity.
+        - Record pass, partial, fail or not-evaluable verification outcomes.
+      controls: [TRACE-CONF-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: controlled/assurance/evidence-bundles.md
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/trace-conformance-declaration.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [evidence_bundle_manifest, artifact_hashes, control_to_evidence_mapping, verification_result]
+      acceptance_criteria:
+        - Systemic audit findings can be traced to evidence and disposition.
+        - Corrective actions cannot be marked closed without verification evidence.
+    status: remediation_available
