@@ -1,0 +1,33 @@
+programme_id: digital-statecraft-dpi-2026-wave1
+reported_on: 2026-08-22
+corpus:
+  publications: 6
+  trace_reviews: 6
+  material_gaps: 19
+  recurring_capability_classes: 6
+historical_baseline:
+  artifacts_registry_version: 0.2.0
+  artifacts_registry_commit: 3ea873bdb2ce719d82c86d459c9699ae6114b0d1
+  standardized_gap_mappings: 10
+  no_registered_remediation: 9
+  standardized_coverage_ratio: 0.5263
+current_remediation:
+  artifacts_registry_version: 0.5.0
+  artifacts_registry_commit: c4784e7c445ead3c27ca6347201d5d5ff383b95d
+  standardized_capability_classes: 6
+  first_wave_gap_mappings: 19
+  standardized_coverage_ratio: 1.0
+new_evidence_derived_capabilities:
+  - CAP-INFERENCE-TRACEABILITY
+  - CAP-CORRECTION-PROPAGATION
+  - CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+worked_fixture:
+  case_id: DS-BENEFIT-CLOSURE-001
+  selected_capabilities: 6
+  selected_capabilities_passed: 6
+  scenarios_executed: 9
+  negative_scenarios: 8
+  closure_status: closed
+publication_level_closure:
+  closed_publication_gaps: 0
+  note: Publication-level findings are not deployment findings and remain unclosed by a synthetic fixture.

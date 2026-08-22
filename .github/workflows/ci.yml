@@ -50,6 +50,8 @@ jobs:
         run: python tools/validate_digital_statecraft_baseline.py
       - name: Validate Digital Statecraft worked closure
         run: python tools/validate_digital_statecraft_benefit_closure.py
+      - name: Validate Digital Statecraft programme summary
+        run: python tools/validate_digital_statecraft_programme_summary.py
       - name: Validate executable governance case
         run: |
           CASE=case-studies/executable-governance-entitlement-agent
