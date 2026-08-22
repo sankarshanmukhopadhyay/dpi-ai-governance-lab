@@ -1,0 +1,110 @@
+review_id: DS-TRACE-001
+methodology: TRACE
+methodology_version: '0.7.0'
+source:
+  title: A First Principles Case for DPI + AI
+  uri: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai
+gaps:
+  - gap_id: GAP-DS001-AUTHORITY
+    title: Authorized actors are not yet bound to runtime delegation semantics
+    domain: delegation
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay makes authorized actors discoverable through directories, but does not specify the machine-verifiable scope, validity, revocation and runtime evidence needed when a service or automated actor exercises consequential authority.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai#lines-82-92
+          note: The essay defines navigable directories of authorized issuers/verifiers/services and then states DPI governance safeguards at principle level.
+    required_capability:
+      id: CAP-AUTHORITY-BOUNDED-DELEGATION
+      statement: Represent accountable authority and delegated machine/service authority with explicit action, resource, purpose, time and revocation bounds plus runtime authorization evidence.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Instantiate a bounded delegation record for each consequential automated actor.
+        - Enforce expiry, revocation, action, resource and purpose bounds before effect.
+        - Preserve runtime authorization evidence correlated to the governed effect.
+      controls: [TRACE-TRUST-01]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/bounded-delegation.schema.json
+          relationship: implements
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/governance/runtime-authorization-record.schema.json
+          relationship: evidences
+          normative: false
+    closure:
+      required_evidence: [authority_map, delegation_record, runtime_authorization_record, revocation_test]
+      acceptance_criteria:
+        - Consequential actions fail closed outside delegated action, resource, purpose or validity bounds.
+        - Revocation before effect causes denial and produces evidence.
+    status: remediation_available
+
+  - gap_id: GAP-DS001-ADMISSIBILITY
+    title: Reusable trusted data lacks explicit downstream admissibility semantics
+    domain: information-trust
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay expects departments and other actors to rely on portable verified data and credentials, but does not define when a receiving institution is entitled to rely on an upstream output for a particular downstream decision.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai#lines-78-102
+          note: The essay argues that trusted data becomes reusable and departments can rely on each other, while the conditions of downstream reliance remain unstated.
+    required_capability:
+      id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+      statement: Bind upstream authority and evidence to a downstream reliance decision with purpose, conditions, jurisdiction, validity, liability/recourse and revocation semantics.
+    remediation:
+      coverage: none
+      requirements:
+        - Define the receiving decision and permitted reliance purpose.
+        - Bind admissibility to recognized upstream authority, evidence type, jurisdiction, validity and recourse.
+        - Record the relying institution's admissibility decision and conditions.
+    closure:
+      required_evidence: [admissibility_profile, relying_party_decision, negative_reliance_test]
+      acceptance_criteria:
+        - A relying party can deterministically distinguish admissible from authentic-but-inadmissible evidence.
+        - Reliance conditions and recourse remain inspectable after the downstream decision.
+    status: open
+
+  - gap_id: GAP-DS001-REDRESS
+    title: Grievance redress is a principle rather than an executable lifecycle
+    domain: redress
+    severity: high
+    confidence: high
+    observed_condition:
+      statement: The essay explicitly requires strong grievance redressal and independent oversight but does not define an operational appeal authority, lifecycle, timing, disposition and remedy evidence contract.
+      basis: implementation_risk
+    evidence:
+      references:
+        - locator: https://digitalstatecraft.substack.com/p/a-first-principles-case-for-dpi-ai#lines-92-103
+          note: Privacy, minimal exposure, grievance redressal and independent oversight are named as necessary safeguards.
+    required_capability:
+      id: CAP-REDRESS-APPEAL
+      statement: Provide an accountable and measurable appeal, correction, escalation and remedy workflow for adverse consequential decisions.
+    remediation:
+      coverage: standardized
+      requirements:
+        - Identify the accountable redress authority.
+        - Instantiate intake, review, disposition, correction, escalation and remedy states.
+        - Exercise an adverse-decision appeal and preserve evidence.
+      controls: [TRACE-TRUST-03]
+      artifacts:
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: templates/redress/redress-workflow.md
+          relationship: templates
+          normative: false
+        - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+          path: schemas/redress/redress-workflow.schema.json
+          relationship: implements
+          normative: false
+    closure:
+      required_evidence: [instantiated_redress_workflow, accountable_redress_authority, published_response_timeline, tested_adverse_decision_appeal]
+      acceptance_criteria:
+        - An affected person can discover and invoke the appeal path.
+        - A successful appeal produces an attributable disposition and effective remedy within declared timing.
+    status: remediation_available
