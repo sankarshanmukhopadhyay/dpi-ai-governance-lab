@@ -8,16 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install package
         run: |
           python -m pip install --upgrade pip
           pip install .
-
       - name: CLI smoke test
         run: |
           dpi-lab --help
@@ -26,45 +23,33 @@ jobs:
           dpi-lab gaps-validate --help
           dpi-lab governance-validate --help
           dpi-lab governance-manifest --help
-
       - name: Offline smoke review + validate
         run: |
           mkdir -p /tmp/dpi-lab-ci
           python - <<'PY'
           from pypdf import PdfWriter
-          writer = PdfWriter()
-          writer.add_blank_page(width=612, height=792)
-          with open('/tmp/dpi-lab-ci/smoke.pdf', 'wb') as handle:
-              writer.write(handle)
+          writer=PdfWriter(); writer.add_blank_page(width=612,height=792)
+          with open('/tmp/dpi-lab-ci/smoke.pdf','wb') as handle: writer.write(handle)
           PY
           dpi-lab review --engine local --pdf /tmp/dpi-lab-ci/smoke.pdf --slug ci-smoke --out /tmp/dpi-lab-ci
           dpi-lab validate /tmp/dpi-lab-ci/ci-smoke
-
       - name: Validate bundled examples
-        run: |
-          dpi-lab validate reviews/examples-batch
-
+        run: dpi-lab validate reviews/examples-batch
       - name: Validate governance gap handoff
-        run: |
-          dpi-lab gaps-validate calibration/mission-loop/example-governance-gaps.yaml --summary
-
+        run: dpi-lab gaps-validate calibration/mission-loop/example-governance-gaps.yaml --summary
       - name: Validate real-review governance gaps
         run: |
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/dpi-ai-framework-2026/governance-gaps.yaml --summary
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/preparing-india-for-ai-adoption/governance-gaps.yaml --summary
           dpi-lab gaps-validate reviews/2026-02-20-paper-batch/unesco-ai-maturity-framework/governance-gaps.yaml --summary
-
       - name: Validate Digital Statecraft TRACE evaluations
         run: |
           python tools/validate_digital_statecraft_reviews.py
-          for f in reviews/digital-statecraft-dpi/*/governance-gaps.yaml; do
-            dpi-lab gaps-validate "$f" --summary
-          done
-
+          for f in reviews/digital-statecraft-dpi/*/governance-gaps.yaml; do dpi-lab gaps-validate "$f" --summary; done
       - name: Validate Digital Statecraft synthesis baseline
-        run: |
-          python tools/validate_digital_statecraft_baseline.py
-
+        run: python tools/validate_digital_statecraft_baseline.py
+      - name: Validate Digital Statecraft worked closure
+        run: python tools/validate_digital_statecraft_benefit_closure.py
       - name: Validate executable governance case
         run: |
           CASE=case-studies/executable-governance-entitlement-agent
@@ -72,15 +57,9 @@ jobs:
           cp -R "$CASE" /tmp/executable-governance-case
           dpi-lab governance-manifest /tmp/executable-governance-case
           dpi-lab governance-validate /tmp/executable-governance-case --verify-manifest
-
       - name: Validate delegated entitlement closure fixture
-        run: |
-          python tools/validate_delegation_closure_fixture.py
-
+        run: python tools/validate_delegation_closure_fixture.py
       - name: Validate Digital Statecraft corpus
-        run: |
-          python tools/validate_digital_statecraft_corpus.py
-
+        run: python tools/validate_digital_statecraft_corpus.py
       - name: Validate rendered Pages front matter
-        run: |
-          python tools/validate_pages_front_matter.py
+        run: python tools/validate_pages_front_matter.py
