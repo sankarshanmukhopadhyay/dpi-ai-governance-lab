@@ -1,34 +1,25 @@
 #!/usr/bin/env python3
-"""CLI entrypoint for DPI AI Governance Lab workbench.
-
-Goal: make the repo usable as a local workbench:
-- extract: PDF -> canonicalized text + hashes
-- scaffold: create a review directory with the contract files
-- review: extract + generate a deterministic baseline review (local engine)
-- validate: enforce the review contract and schemas
-- lint: basic markdown hygiene checks
-
-This includes:
-- a *local* deterministic engine to keep the workflow runnable without external services
-- an optional model-backed engine (OpenAI) that generates JSON-first outputs and renders
-  deterministic markdown/yaml artifacts from schema-valid JSON.
-"""
+"""CLI entrypoint for DPI AI Governance Lab workbench."""
 
 from __future__ import annotations
 
 import argparse
-
-from dpi_lab import __version__
 import sys
 from pathlib import Path
 
+from dpi_lab import __version__
 from dpi_lab.core.extract import extract_pdf
 from dpi_lab.core.review import run_review
 from dpi_lab.core.scaffold import scaffold_review
-from dpi_lab.core.validate import validate_tree, validate_review_dir
+from dpi_lab.core.validate import validate_tree
 from dpi_lab.core.lint import lint_markdown_paths
 from dpi_lab.core.bundle import write_review_bundle
 from dpi_lab.core.compare import write_comparison
+from dpi_lab.core.governance import (
+    validate_governance_dir,
+    verify_evidence_manifest,
+    write_evidence_manifest,
+)
 
 
 def _p(s: str) -> Path:
@@ -53,92 +44,66 @@ def build_parser() -> argparse.ArgumentParser:
     p_review.add_argument("--pdf", required=True, help="Path to PDF")
     p_review.add_argument("--slug", required=True, help="Review slug")
     p_review.add_argument("--out", required=True, help="Base output directory (batch folder)")
-    p_review.add_argument(
-        "--engine",
-        default="local",
-        choices=["local", "openai"],
-        help="Generation engine. 'local' is scaffold-only; 'openai' uses the OpenAI API (requires OPENAI_API_KEY).",
-    )
-    p_review.add_argument(
-        "--model",
-        default=None,
-        help="Model name for model-backed engines (e.g., gpt-4o-mini). Ignored by local engine.",
-    )
-    p_review.add_argument(
-        "--max-input-chars",
-        type=int,
-        default=180_000,
-        help="Maximum characters to send in a single-pass call. If exceeded, chunking is used (engine-dependent).",
-    )
-    p_review.add_argument(
-        "--max-input-tokens",
-        type=int,
-        default=None,
-        help="Preferred maximum tokens for a single-pass call (OpenAI engine uses tokenizer when available). Overrides --max-input-chars when set.",
-    )
-    p_review.add_argument(
-        "--chunk-max-chars",
-        type=int,
-        default=60_000,
-        help="Target maximum characters per chunk when chunking is enabled.",
-    )
-    p_review.add_argument(
-        "--chunk-max-tokens",
-        type=int,
-        default=None,
-        help="Preferred maximum tokens per chunk when chunking is enabled (OpenAI engine uses tokenizer when available).",
-    )
-    p_review.add_argument(
-        "--chunk-max-count",
-        type=int,
-        default=12,
-        help="Maximum number of chunks to process (prevents runaway costs).",
-    )
+    p_review.add_argument("--engine", default="local", choices=["local", "openai"])
+    p_review.add_argument("--model", default=None)
+    p_review.add_argument("--max-input-chars", type=int, default=180_000)
+    p_review.add_argument("--max-input-tokens", type=int, default=None)
+    p_review.add_argument("--chunk-max-chars", type=int, default=60_000)
+    p_review.add_argument("--chunk-max-tokens", type=int, default=None)
+    p_review.add_argument("--chunk-max-count", type=int, default=12)
 
     p_validate = sub.add_parser("validate", help="Validate a review directory")
-    p_validate.add_argument("path", help="Path to a review directory or a tree containing review directories")
-    p_validate.add_argument(
-        "--level",
-        default="schema",
-        choices=["contract", "schema", "policy", "semantic"],
-        help="Validation level. 'semantic' performs optional engine-backed checks in addition to schema/policy.",
-    )
-    p_validate.add_argument(
-        "--engine",
-        default=None,
-        choices=["local", "openai"],
-        help="Engine to use for semantic validation (ignored unless --level semantic). Defaults to manifest engine.",
-    )
-    p_validate.add_argument(
-        "--model",
-        default=None,
-        help="Model name for semantic validation (ignored unless --level semantic).",
-    )
-    p_validate.add_argument(
-        "--max-input-chars",
-        type=int,
-        default=180_000,
-        help="Maximum characters passed to semantic validator (best-effort bound).",
-    )
-    p_validate.add_argument(
-        "--max-input-tokens",
-        type=int,
-        default=None,
-        help="Preferred maximum tokens passed to semantic validator (best-effort bound; engine dependent).",
-    )
+    p_validate.add_argument("path")
+    p_validate.add_argument("--level", default="schema", choices=["contract", "schema", "policy", "semantic"])
+    p_validate.add_argument("--engine", default=None, choices=["local", "openai"])
+    p_validate.add_argument("--model", default=None)
+    p_validate.add_argument("--max-input-chars", type=int, default=180_000)
+    p_validate.add_argument("--max-input-tokens", type=int, default=None)
 
     p_lint = sub.add_parser("lint", help="Lint markdown files for basic hygiene")
-    p_lint.add_argument("paths", nargs="+", help="Files or directories")
+    p_lint.add_argument("paths", nargs="+")
 
     p_bundle = sub.add_parser("bundle", help="Export a portable JSON bundle for one review directory")
-    p_bundle.add_argument("review_dir", help="Path to review directory")
-    p_bundle.add_argument("--out", required=True, help="Output JSON path")
+    p_bundle.add_argument("review_dir")
+    p_bundle.add_argument("--out", required=True)
 
-    p_compare = sub.add_parser("compare", help="Build a comparative matrix across one or more review directories")
-    p_compare.add_argument("path", help="Path to a review directory or tree of reviews")
-    p_compare.add_argument("--out", required=True, help="Output path stem (writes .json and .md)")
+    p_compare = sub.add_parser("compare", help="Build a comparative matrix across review directories")
+    p_compare.add_argument("path")
+    p_compare.add_argument("--out", required=True)
+
+    p_gov_validate = sub.add_parser(
+        "governance-validate",
+        help="Validate a TRACE executable-governance evaluation directory",
+    )
+    p_gov_validate.add_argument("path")
+    p_gov_validate.add_argument(
+        "--verify-manifest",
+        action="store_true",
+        help="Also verify evidence-manifest.json hashes",
+    )
+
+    p_gov_manifest = sub.add_parser(
+        "governance-manifest",
+        help="Generate a SHA-256 evidence manifest for a valid governance evaluation",
+    )
+    p_gov_manifest.add_argument("path")
+    p_gov_manifest.add_argument("--out", default=None)
 
     return p
+
+
+def _print_result(result) -> int:
+    if result.ok:
+        print("OK")
+        for warning in result.warnings:
+            print(f"Warning: {warning}")
+        return 0
+    print("FAILED")
+    for error in result.errors:
+        print(f"- {error}")
+    for warning in result.warnings:
+        print(f"Warning: {warning}")
+    return 1
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -178,55 +143,46 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "validate":
-        result = validate_tree(
-            _p(args.path),
-            level=args.level,
-            semantic_engine=args.engine,
-            model=args.model,
-            max_input_chars=args.max_input_chars,
-            max_input_tokens=args.max_input_tokens,
+        return _print_result(
+            validate_tree(
+                _p(args.path),
+                level=args.level,
+                semantic_engine=args.engine,
+                model=args.model,
+                max_input_chars=args.max_input_chars,
+                max_input_tokens=args.max_input_tokens,
+            )
         )
-        if result.ok:
-            print("OK")
-            if result.warnings:
-                print("Warnings:")
-                for w in result.warnings:
-                    print(f"- {w}")
-            return 0
-
-        print("FAILED")
-        for e in result.errors:
-            print(f"- {e}")
-        if result.warnings:
-            print("Warnings:")
-            for w in result.warnings:
-                print(f"- {w}")
-        return 1
 
     if args.cmd == "lint":
-        paths = [_p(x) for x in args.paths]
-        res = lint_markdown_paths(paths)
-        if res.ok:
-            print("OK")
-            if res.warnings:
-                print("Warnings:")
-                for w in res.warnings:
-                    print(f"- {w}")
-            return 0
-        print("FAILED")
-        for e in res.errors:
-            print(f"- {e}")
-        return 1
+        return _print_result(lint_markdown_paths([_p(x) for x in args.paths]))
 
     if args.cmd == "bundle":
-        out = write_review_bundle(_p(args.review_dir), _p(args.out))
-        print(str(out))
+        print(str(write_review_bundle(_p(args.review_dir), _p(args.out))))
         return 0
 
     if args.cmd == "compare":
         outputs = write_comparison(_p(args.path), _p(args.out))
         print(str(outputs["markdown"]))
         print(str(outputs["json"]))
+        return 0
+
+    if args.cmd == "governance-validate":
+        result = validate_governance_dir(_p(args.path))
+        if result.ok and args.verify_manifest:
+            result = verify_evidence_manifest(_p(args.path))
+        return _print_result(result)
+
+    if args.cmd == "governance-manifest":
+        try:
+            out = write_evidence_manifest(
+                _p(args.path),
+                _p(args.out) if args.out else None,
+            )
+        except ValueError as exc:
+            print(f"FAILED\n- {exc}")
+            return 1
+        print(str(out))
         return 0
 
     return 2
