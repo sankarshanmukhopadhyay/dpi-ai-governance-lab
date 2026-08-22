@@ -1,0 +1,29 @@
+case_id: DS-BENEFIT-CLOSURE-001
+scope: synthetic-jurisdiction-neutral
+source_corpus: digital-statecraft-dpi-2026-wave1
+artifacts_registry:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  registry_version: 0.5.0
+  source_commit: c4784e7c445ead3c27ca6347201d5d5ff383b95d
+scenario:
+  programme: household-support-benefit
+  applicant_ref: person:123
+  decision_type: benefit-eligibility
+  payment_effect: payment:BEN-001
+policy:
+  rulebook_id: BENEFIT-ELIGIBILITY
+  version: 2.0.0
+  rule: Household income below threshold and no disqualifying risk condition qualifies, subject to human review for borderline inference values.
+authority:
+  accountable_authority: benefits-agency
+  registrar: employment-registry
+  delegated_operator: eligibility-agent
+  appellate_authority: appeals-office
+  audit_authority: assurance-office
+selected_capabilities:
+  - CAP-AUTHORITY-BOUNDED-DELEGATION
+  - CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+  - CAP-INFERENCE-TRACEABILITY
+  - CAP-REDRESS-APPEAL
+  - CAP-CORRECTION-PROPAGATION
+  - CAP-EVIDENCE-CLOSURE

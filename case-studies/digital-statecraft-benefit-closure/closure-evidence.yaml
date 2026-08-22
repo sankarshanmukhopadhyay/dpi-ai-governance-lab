@@ -1,0 +1,55 @@
+closure_id: DS-CLOSURE-001
+case_id: DS-BENEFIT-CLOSURE-001
+scope: synthetic-fixture-only
+status: closed
+source_baseline:
+  path: baselines/digital-statecraft-dpi-2026/capability-coverage.yaml
+  historical_standardized_coverage: 0.5263
+current_artifacts_registry:
+  version: 0.5.0
+  commit: c4784e7c445ead3c27ca6347201d5d5ff383b95d
+selected_gap_classes:
+  - bounded_runtime_authority
+  - undefined_downstream_admissibility
+  - unbound_automated_inference
+  - non_executable_redress
+  - non_executable_correction_propagation
+  - unverifiable_governance_closure
+capabilities:
+  - capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+    result: pass
+    evidence: [DEL-BEN-001, AUTHZ-BEN-001, delegated-action-out-of-scope, delegation-revoked]
+  - capability_id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    result: pass
+    evidence: [ADM-BEN-001, REL-BEN-001, authentic-but-inadmissible]
+  - capability_id: CAP-INFERENCE-TRACEABILITY
+    result: pass
+    evidence: [INF-BEN-001, model-version-mismatch, threshold-mismatch]
+  - capability_id: CAP-REDRESS-APPEAL
+    result: pass
+    evidence: [REDRESS-BEN-001, unavailable-redress]
+  - capability_id: CAP-CORRECTION-PROPAGATION
+    result: pass
+    evidence: [COR-BEN-001, correction-partial-failure]
+  - capability_id: CAP-EVIDENCE-CLOSURE
+    result: pass
+    evidence: [EVID-DS-BEN-001, effect-authorization-broken]
+acceptance_criteria:
+  - criterion: Valid consequential execution is bound to accountable authority, admissible evidence, traceable inference, normative rule and runtime authorization.
+    result: pass
+  - criterion: Out-of-scope or revoked delegation is denied before effect.
+    result: pass
+  - criterion: Authentic but inadmissible evidence is not used for the consequential decision.
+    result: pass
+  - criterion: Model version and decision-relevant threshold are immutable/reconstructable.
+    result: pass
+  - criterion: Adverse decisions retain an executable redress route.
+    result: pass
+  - criterion: Successful correction propagates to all mandatory dependent targets or remains visibly partial.
+    result: pass
+  - criterion: Effects and closure claims remain correlated to governing decisions and evidence.
+    result: pass
+residual_limitations:
+  - Synthetic fixture; no claim about production deployment, legal compliance or certification.
+  - Simplified risk inference and eligibility policy are illustrative, not policy recommendations.
+  - Cryptographic verification is represented by stable evidence references rather than production key material.

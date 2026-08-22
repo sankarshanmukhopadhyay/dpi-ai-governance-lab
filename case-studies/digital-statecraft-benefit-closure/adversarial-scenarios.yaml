@@ -1,0 +1,46 @@
+version: 1
+scenarios:
+  - id: happy-path
+    capability: integrated
+    expected: allow
+    inputs: {delegation_status: active, action: determine-benefit-eligibility, purpose: benefit-administration, evidence_authentic: true, evidence_admissible: true, model_version: 4.1.0, threshold: 0.65, redress_available: true, effect_correlation: true}
+  - id: delegated-action-out-of-scope
+    capability: CAP-AUTHORITY-BOUNDED-DELEGATION
+    expected: deny
+    reason: action_out_of_scope
+    inputs: {delegation_status: active, action: suspend-benefit, purpose: benefit-administration}
+  - id: delegation-revoked
+    capability: CAP-AUTHORITY-BOUNDED-DELEGATION
+    expected: deny
+    reason: delegation_revoked
+    inputs: {delegation_status: revoked, action: determine-benefit-eligibility, purpose: benefit-administration}
+  - id: authentic-but-inadmissible
+    capability: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    expected: deny
+    reason: purpose_not_admissible
+    inputs: {evidence_authentic: true, evidence_admissible: false, purpose: marketing}
+  - id: model-version-mismatch
+    capability: CAP-INFERENCE-TRACEABILITY
+    expected: deny
+    reason: inference_version_mismatch
+    inputs: {model_version: 4.2.0, expected_model_version: 4.1.0}
+  - id: threshold-mismatch
+    capability: CAP-INFERENCE-TRACEABILITY
+    expected: deny
+    reason: threshold_mismatch
+    inputs: {threshold: 0.75, expected_threshold: 0.65}
+  - id: unavailable-redress
+    capability: CAP-REDRESS-APPEAL
+    expected: fail
+    reason: redress_unavailable
+    inputs: {redress_available: false}
+  - id: correction-partial-failure
+    capability: CAP-CORRECTION-PROPAGATION
+    expected: partial
+    reason: mandatory_target_failed
+    inputs: {mandatory_targets: 2, completed_targets: 1}
+  - id: effect-authorization-broken
+    capability: CAP-EVIDENCE-CLOSURE
+    expected: fail
+    reason: effect_correlation_missing
+    inputs: {effect_correlation: false}

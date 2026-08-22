@@ -1,0 +1,108 @@
+delegation:
+  delegation_id: DEL-BEN-001
+  authority_ref: benefits-agency
+  delegate: eligibility-agent
+  scope:
+    actions: [determine-benefit-eligibility]
+    resources: [programme:household-support]
+    purposes: [benefit-administration]
+  validity:
+    not_before: 2026-01-01T00:00:00Z
+    not_after: 2026-12-31T23:59:59Z
+  status: active
+
+admissibility:
+  profile_id: ADM-BEN-001
+  upstream_authority: employment-registry
+  output_type: employment-income-credential
+  relying_institution: benefits-agency
+  downstream_decision: benefit-eligibility
+  purpose: determine-income-eligibility
+  jurisdiction: EXAMPLE
+  validity:
+    not_before: 2026-01-01T00:00:00Z
+    not_after: 2026-12-31T23:59:59Z
+  status: active
+  conditions: [issuer-assurance-high]
+  recourse: appeals-office
+
+inference_trace:
+  trace_id: INF-BEN-001
+  decision_ref: DEC-BEN-001
+  inference:
+    id: HOUSEHOLD-RISK-MODEL
+    version: 4.1.0
+    artifact_digest: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  input_snapshot:
+    income_ref: credential:income:123
+    income_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  thresholds:
+    manual_review_above: 0.65
+    disqualify_above: 0.85
+  output:
+    risk_score: 0.42
+  normative_role: risk_input
+  rulebook:
+    id: BENEFIT-ELIGIBILITY
+    version: 2.0.0
+
+runtime_authorization:
+  authorization_id: AUTHZ-BEN-001
+  decision_ref: DEC-BEN-001
+  delegation_ref: DEL-BEN-001
+  decision: allow
+  reason_codes: [delegation_valid, admissible_evidence, policy_satisfied]
+  effect_ref: payment:BEN-001
+
+decision_receipt:
+  receipt_id: DEC-BEN-001
+  authority_ref: benefits-agency
+  rulebook_id: BENEFIT-ELIGIBILITY
+  rulebook_version: 2.0.0
+  input_refs: [credential:income:123]
+  inference_trace_ref: INF-BEN-001
+  reliance_decision_ref: REL-BEN-001
+  runtime_authorization_ref: AUTHZ-BEN-001
+  outcome: approved
+  reason_codes: [income_below_threshold, risk_below_review_threshold]
+  appeal_ref: REDRESS-BEN-001
+
+redress:
+  workflow_ref: REDRESS-BEN-001
+  authority_ref: appeals-office
+  adverse_case: DEC-BEN-002
+  disposition: upheld-applicant
+  correction_ref: COR-BEN-001
+  remedy_ref: payment:COMP-BEN-001
+
+correction:
+  order_id: COR-BEN-001
+  source_ref: credential:income:123-old
+  corrected_source_ref: credential:income:123-corrected
+  targets:
+    - target_id: DEC-BEN-002
+      action: recompute
+      mandatory: true
+    - target_id: PAYMENT-DENIAL-BEN-002
+      action: compensate
+      mandatory: true
+  execution_receipt:
+    status: complete
+    results:
+      - target_id: DEC-BEN-002
+        status: completed
+        result_ref: DEC-BEN-003
+        supersedes_ref: DEC-BEN-002
+      - target_id: PAYMENT-DENIAL-BEN-002
+        status: completed
+        result_ref: payment:COMP-BEN-001
+
+evidence_closure:
+  bundle_id: EVID-DS-BEN-001
+  capabilities:
+    CAP-AUTHORITY-BOUNDED-DELEGATION: pass
+    CAP-INTERINSTITUTIONAL-ADMISSIBILITY: pass
+    CAP-INFERENCE-TRACEABILITY: pass
+    CAP-REDRESS-APPEAL: pass
+    CAP-CORRECTION-PROPAGATION: pass
+    CAP-EVIDENCE-CLOSURE: pass
