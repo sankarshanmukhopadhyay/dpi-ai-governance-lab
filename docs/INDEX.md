@@ -14,6 +14,7 @@ Last reviewed: 2026-08-22
 ### Tier 0
 - `README.md` — project overview and quickstart
 - `docs/overview.md` — conceptual overview
+- `docs/operator-improvement-loop.md` — mission, Lab ↔ Artifacts handoff, operator lifecycle, utility metrics and PR mission gate
 - `reviews/examples-batch/` — runnable paper-review examples
 - `case-studies/executable-governance-entitlement-agent/` — executable-governance preview case
 
@@ -21,6 +22,8 @@ Last reviewed: 2026-08-22
 - `docs/methodology.md` — TRACE-driven review method
 - `docs/executable-governance.md` — executable governance evaluation contract, authority discipline, adversarial vectors and evidence workflow
 - `docs/contracts/lab-artifacts-interface.md` — Lab ↔ Artifacts contract
+- `schemas/findings/governance-gaps.schema.json` — canonical evaluation-to-remediation handoff schema
+- `calibration/mission-loop/example-governance-gaps.yaml` — operator-oriented gap register calibration fixture
 - `schemas/` — review and validation schemas
 - `schemas/executable-governance/governance-model.schema.json` — public executable-governance schema
 - `tools/` — lightweight operational validation helpers
