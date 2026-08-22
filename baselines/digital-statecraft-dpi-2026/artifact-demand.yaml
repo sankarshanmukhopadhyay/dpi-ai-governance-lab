@@ -1,0 +1,62 @@
+baseline_id: digital-statecraft-dpi-2026-wave1
+created_on: 2026-08-22
+authority:
+  normative: false
+  statement: Artifact demand is a TRACE repository-planning signal. It does not bind adopting organizations or transfer publication authority.
+demands:
+  - capability_id: CAP-INFERENCE-TRACEABILITY
+    recurrence:
+      reviews_with_gap: 4
+      reviews_total: 6
+      gap_count: 4
+    current_registered_coverage: none
+    contributing_reviews: [DS-TRACE-002, DS-TRACE-003, DS-TRACE-004, DS-TRACE-005]
+    recurring_gap_class: unbound_automated_inference
+    adjacent_assets:
+      - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+        path: schemas/decision-receipt.schema.json
+        limitation: Decision receipt binds rules and input references but has no first-class inference/model identity, immutable version, threshold/parameter and output role contract.
+    proposed_reusable_capability: Portable inference traceability profile bound to consequential decision evidence while preserving the distinction between model output and normative rule.
+    evidence_gate:
+      - schema-valid inference trace
+      - rule-vs-inference separation test
+      - version/threshold mutation negative test
+      - decision receipt correlation
+
+  - capability_id: CAP-CORRECTION-PROPAGATION
+    recurrence:
+      reviews_with_gap: 3
+      reviews_total: 6
+      gap_count: 3
+    current_registered_coverage: none
+    contributing_reviews: [DS-TRACE-002, DS-TRACE-005, DS-TRACE-006]
+    recurring_gap_class: non_executable_correction_propagation
+    adjacent_assets:
+      - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+        path: schemas/registry-correction-request.schema.json
+        limitation: Captures correction request but not downstream dependency execution.
+      - repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+        path: schemas/registry-correction-response.schema.json
+        limitation: Captures source-registry response but not downstream invalidation, recomputation, acknowledgement or partial failure.
+    proposed_reusable_capability: Correction order and execution-receipt lifecycle across dependent decisions/effects with deterministic propagation and partial-failure evidence.
+    evidence_gate:
+      - dependency discovery vector
+      - correction execution receipt
+      - downstream recomputation test
+      - partial propagation failure test
+
+  - capability_id: CAP-INTERINSTITUTIONAL-ADMISSIBILITY
+    recurrence:
+      reviews_with_gap: 2
+      reviews_total: 6
+      gap_count: 2
+    current_registered_coverage: none
+    contributing_reviews: [DS-TRACE-001, DS-TRACE-006]
+    recurring_gap_class: undefined_downstream_admissibility
+    adjacent_assets: []
+    proposed_reusable_capability: Machine-readable admissibility/reliance profile binding upstream authority and evidence to a specific downstream decision, purpose, jurisdiction, conditions, validity, recourse and revocation state.
+    evidence_gate:
+      - admissibility profile schema
+      - authentic-but-inadmissible negative vector
+      - expired/revoked reliance negative vector
+      - relying-party decision record

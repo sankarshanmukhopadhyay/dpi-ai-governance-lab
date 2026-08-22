@@ -61,6 +61,10 @@ jobs:
             dpi-lab gaps-validate "$f" --summary
           done
 
+      - name: Validate Digital Statecraft synthesis baseline
+        run: |
+          python tools/validate_digital_statecraft_baseline.py
+
       - name: Validate executable governance case
         run: |
           CASE=case-studies/executable-governance-entitlement-agent
