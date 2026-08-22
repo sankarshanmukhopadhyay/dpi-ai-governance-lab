@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sankarshanmukhopadhyay.github.io/dpi-ai-governance-lab/schemas/governance-model.schema.json",
+  "title": "TRACE Executable Governance Evaluation Model",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evaluation_id", "maturity", "governance_claims", "authority", "actors", "actions", "decision_points", "evidence_requirements", "revocation", "redress", "assurance_claims"],
+  "properties": {
+    "evaluation_id": {"type": "string", "minLength": 1},
+    "maturity": {"enum": ["experimental", "candidate", "stable"]},
+    "governance_claims": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["id", "statement", "claim_authority"], "properties": {"id": {"type": "string", "minLength": 1}, "statement": {"type": "string", "minLength": 1}, "claim_authority": {"enum": ["upstream", "evaluator", "inferred"]}, "source": {"type": "string"}}}
+    },
+    "authority": {"$ref": "#/$defs/idItems"},
+    "delegations": {
+      "type": "array", "default": [],
+      "items": {"type": "object", "additionalProperties": false, "required": ["id", "authority_ref", "delegator", "delegate", "scope", "status"], "properties": {"id": {"type": "string"}, "authority_ref": {"type": "string"}, "delegator": {"type": "string"}, "delegate": {"type": "string"}, "scope": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "status": {"enum": ["active", "suspended", "revoked", "expired"]}}}
+    },
+    "actors": {"$ref": "#/$defs/idItems"},
+    "actions": {"$ref": "#/$defs/idItems"},
+    "decision_points": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["id", "action_ref", "policy", "evidence_refs", "fail_mode"], "properties": {"id": {"type": "string"}, "action_ref": {"type": "string"}, "policy": {"type": "string"}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "fail_mode": {"enum": ["closed", "open"]}}}
+    },
+    "evidence_requirements": {"$ref": "#/$defs/idItems"},
+    "revocation": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "redress": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "assurance_claims": {"$ref": "#/$defs/idItems"}
+  },
+  "$defs": {"idItems": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string", "minLength": 1}}}}}
+}

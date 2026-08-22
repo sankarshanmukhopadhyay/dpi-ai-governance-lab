@@ -15,7 +15,7 @@ jobs:
           args: >-
             --verbose
             --no-progress
-            --accept 200,206,429
+            --accept 200,206,403,429
             --exclude-path ./node_modules
             --exclude-path ./dist
             --exclude-path ./build
@@ -23,6 +23,6 @@ jobs:
             --exclude-path ./_site
             --exclude-path ./vendor
             --exclude-path ./reviews/run
-            ./README.md ./docs ./annexes ./artifacts ./controlled ./conformance ./controls
+            ./README.md ./docs ./annexes ./artifacts ./case-studies ./methodology
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

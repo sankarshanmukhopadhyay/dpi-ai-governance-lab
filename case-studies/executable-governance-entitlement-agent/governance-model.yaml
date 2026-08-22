@@ -1,0 +1,86 @@
+evaluation_id: EG-ENTITLEMENT-AGENT-001
+maturity: experimental
+
+governance_claims:
+  - id: CLAIM-UP-001
+    statement: Eligibility policy remains authoritative outside this evaluation.
+    claim_authority: upstream
+    source: jurisdictional eligibility policy
+  - id: CLAIM-EV-001
+    statement: An automated agent may initiate an entitlement payment only after a valid runtime authorization decision.
+    claim_authority: evaluator
+  - id: CLAIM-INF-001
+    statement: Portable evidence can support later assurance without transferring payment authority to the evidence producer.
+    claim_authority: inferred
+
+authority:
+  - id: AUTH-ELIGIBILITY
+    description: Authority to determine whether eligibility conditions are satisfied.
+  - id: AUTH-PAYMENT
+    description: Authority to authorize a payment effect within bounded policy.
+
+delegations:
+  - id: DEL-PAYMENT-AGENT
+    authority_ref: AUTH-PAYMENT
+    delegator: programme-authority
+    delegate: service-agent
+    scope:
+      - initiate-payment-up-to-policy-limit
+    status: active
+
+actors:
+  - id: applicant
+    role: affected person
+  - id: service-agent
+    role: delegated automated actor
+  - id: eligibility-service
+    role: evidence producer
+  - id: policy-decision-point
+    role: runtime authorization authority
+  - id: payment-service
+    role: effect executor
+  - id: appeals-office
+    role: redress authority
+
+actions:
+  - id: ACTION-ELIGIBILITY-CHECK
+    description: Evaluate eligibility evidence.
+  - id: ACTION-PAYMENT-INITIATE
+    description: Initiate the governed payment effect.
+
+evidence_requirements:
+  - id: EVID-ELIGIBILITY
+    description: Fresh eligibility determination bound to the applicant and programme.
+  - id: EVID-DELEGATION
+    description: Active delegation proving the agent is authorized for the requested scope.
+  - id: EVID-AUTHZ
+    description: Runtime authorization decision bound to the requested effect.
+
+decision_points:
+  - id: DP-PAYMENT
+    action_ref: ACTION-PAYMENT-INITIATE
+    policy: Eligibility, delegation, scope, freshness and runtime authorization MUST all succeed before effect.
+    evidence_refs:
+      - EVID-ELIGIBILITY
+      - EVID-DELEGATION
+      - EVID-AUTHZ
+    fail_mode: closed
+
+revocation:
+  - id: REV-001
+    target: DEL-PAYMENT-AGENT
+    effect: A revoked or expired delegation invalidates any not-yet-executed payment authorization.
+
+redress:
+  - id: REDRESS-001
+    authority: appeals-office
+    trigger: adverse or disputed entitlement decision
+    outcome: review, correction and where applicable reversal or compensating remedy
+
+assurance_claims:
+  - id: ASSURE-001
+    statement: Payment execution is correlated to a valid runtime authorization decision.
+  - id: ASSURE-002
+    statement: Revocation before effect causes denial.
+  - id: ASSURE-003
+    statement: Affected persons retain a discoverable redress path.
