@@ -6,11 +6,11 @@
 - NIST — AI Risk Management Framework (AI RMF 1.0, AI 100-1) (Jan 2023)
   https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
 
-- NIST — Cyber AI Profile (IR 8596) (preliminary draft, Dec 2025)
-  https://csrc.nist.gov/pubs/ir/8596/pd
+- NIST — Cyber AI Profile (IR 8596) (Initial Preliminary Draft, Dec 2025)
+  https://csrc.nist.gov/pubs/ir/8596/iprd
 
 - UC Berkeley Center for Long-Term Cybersecurity (CLTC) — Agentic AI Risk-Management Standards Profile
-  https://cltc.berkeley.edu/projects/agentic-ai-risk-management-standards-profile/
+  https://cltc.berkeley.edu/wp-content/uploads/2026/02/Agentic-AI-Risk-Management-Standards-Profile.pdf
 
 - ISO/IEC 42001:2023 — Artificial intelligence management system
   https://www.iso.org/standard/81230.html
