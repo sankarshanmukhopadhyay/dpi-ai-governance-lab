@@ -9,7 +9,9 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "schemas" / "harms" / "harm-chain.schema.json"
-EXAMPLES = [ROOT / "templates" / "harm-chain.example.yaml"]
+EXAMPLES = [ROOT / "templates" / "harm-chain.example.yaml"] + sorted(
+    (ROOT / "case-studies" / "harm-chain-pressure-tests").glob("*.yaml")
+)
 
 
 def main() -> int:
@@ -31,6 +33,8 @@ def main() -> int:
 
     print("OK")
     print(f"Validated harm chains: {len(EXAMPLES)}")
+    for path in EXAMPLES:
+        print(f"- {path.relative_to(ROOT)}")
     return 0
 
 
