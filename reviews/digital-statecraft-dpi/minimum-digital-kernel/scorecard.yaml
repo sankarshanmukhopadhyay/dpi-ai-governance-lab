@@ -1,0 +1,13 @@
+version: '0.1'
+paper:
+  title: The Minimum Digital Kernel of an Unbundled State
+  year: 2026
+scores:
+  tiering_completeness: 4
+  accountability_plumbing: 4
+  data_governance: 4
+  redress: 4
+  sovereignty: 3
+notes:
+  - Scores are 0–5 and represent implementation readiness under TRACE, not editorial quality.
+  - The essay is close to a proto-specification; remaining distance is concentrated in executable lifecycle and inference semantics.
