@@ -1,0 +1,37 @@
+harm_id: HARM-EXAMPLE-001
+title: Replace with a concise harm-chain title
+harm_class: other
+affected_parties:
+  - party: affected person or organization
+    exposure: describe the material consequence
+    vulnerability_factors: []
+initiating_condition: Describe the condition that makes harm possible.
+mechanism: Describe how the technical and institutional system turns the condition into a consequential outcome.
+authority_failure:
+  present: false
+  description: State whether authority, delegation, reliance or redress authority contributes to the failure.
+immediate_outcome: Describe the immediate system decision or effect.
+experienced_harm: Describe the adverse effect borne by the affected party.
+propagation:
+  downstream_effects: []
+  aggregate_effect: Describe population-scale or cross-service effects if any.
+  feedback_loop: Describe reinforcement or repeated-use effects if any.
+signals:
+  - signal: Define an observable indicator.
+    evidence_source: Name the record, log, receipt, audit output or other evidence source.
+    threshold_or_trigger: State the adopted trigger if one exists.
+controls:
+  preventive: []
+  detective: []
+  corrective: []
+  candidate_capabilities: []
+redress:
+  available: false
+  authority: Name the authority able to review or remedy the outcome.
+  remedy: Describe the remedy required if the harm occurs.
+  time_constraint: State an adopted SLA or other timing requirement if applicable.
+residual_risk: State what harm can remain after the primary controls and remedy operate.
+closure_evidence:
+  - List the evidence that would demonstrate mitigation, correction or remedy.
+source_refs: []
+notes: Record assumptions, limitations and non-claims.
