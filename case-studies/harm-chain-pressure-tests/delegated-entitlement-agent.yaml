@@ -1,0 +1,67 @@
+harm_id: HARM-DELEGATED-ENTITLEMENT-001
+title: Delegated agent executes payment outside valid authority
+harm_class: authority_delegation_abuse
+affected_parties:
+  - party: programme beneficiary
+    exposure: incorrect or unauthorized payment effect attributed to the public programme
+    vulnerability_factors:
+      - limited visibility into automated delegation and runtime authorization
+  - party: programme authority
+    exposure: legal, financial and operational liability for an effect executed outside valid delegated scope
+initiating_condition: An automated service agent attempts to initiate a payment when delegation is revoked, expired, out of scope, or not correlated to a valid runtime authorization.
+mechanism: The effect executor accepts an agent request without fail-closed verification of delegation state, requested scope and decision-bound authorization evidence.
+authority_failure:
+  present: true
+  description: Technical possession of a service credential is treated as sufficient authority despite invalid or absent delegated authority for the requested effect.
+  authority_ref: AUTH-PAYMENT
+  delegation_ref: DEL-PAYMENT-AGENT
+immediate_outcome: A payment effect is attempted or executed without a valid authority chain.
+experienced_harm: A beneficiary may receive an erroneous payment or face later recovery, account disruption or dispute; the programme incurs unauthorized expenditure and accountability uncertainty.
+propagation:
+  downstream_effects:
+    - payment records can be treated as valid programme outcomes by accounting or eligibility systems
+    - recovery actions can impose secondary harm on beneficiaries
+  aggregate_effect: Repeated authorization bypass can create systemic financial leakage and undermine trust in automated programme operations.
+  feedback_loop: If unauthorized effects are not distinguishable in evidence, later assurance may incorrectly normalize them as legitimate historical behavior.
+signals:
+  - signal: effect record lacks a valid runtime authorization correlation
+    evidence_source: payment effect and authorization logs
+    threshold_or_trigger: any unmatched consequential effect is an assurance failure
+  - signal: agent request falls outside active delegation scope or lifecycle
+    evidence_source: delegation registry and authorization request
+    threshold_or_trigger: any revoked, expired or out-of-scope request must fail closed
+  - signal: adverse or disputed effect has no discoverable redress path
+    evidence_source: decision/effect receipt and service notice
+    threshold_or_trigger: any consequential effect without a resolvable appeal/remedy route is a governance failure
+controls:
+  preventive:
+    - verify active bounded delegation before effect
+    - enforce action, resource, purpose, time and revocation constraints at runtime
+    - require authorization evidence bound to the exact requested payment effect
+  detective:
+    - reconcile all consequential effects against runtime authorization records
+    - monitor attempted use of revoked, expired or out-of-scope delegations
+  corrective:
+    - stop or reverse unauthorized effects where operationally possible
+    - preserve evidence of the failed authority chain
+    - provide beneficiary-facing correction and remedy for downstream consequences
+  candidate_capabilities:
+    - CAP-AUTHORITY-BOUNDED-DELEGATION
+    - CAP-EVIDENCE-CLOSURE
+    - CAP-REDRESS-APPEAL
+redress:
+  available: true
+  authority: appeals-office
+  remedy: investigate the authority failure, correct or reverse the effect where appropriate, resolve beneficiary consequences and preserve an auditable outcome
+  time_constraint: redress must be available before recovery or other downstream adverse action becomes irreversible
+residual_risk: Some payment networks or downstream systems may make effect reversal incomplete; the programme must define compensating remedy and residual-risk acceptance for irreversible effects.
+closure_evidence:
+  - negative test proving revoked delegation cannot authorize a payment
+  - negative test proving out-of-scope requests fail closed
+  - reconciliation showing every allowed payment effect maps to a valid runtime authorization
+  - evidence that unmatched effects trigger assurance failure and incident handling
+  - discoverable redress path and completed remedy record for a disputed effect
+source_refs:
+  - case-studies/executable-governance-entitlement-agent/governance-model.yaml
+  - case-studies/executable-governance-entitlement-agent/scenarios.yaml
+notes: This pressure test distinguishes service identity from delegated authority and requires effect-time enforcement.
