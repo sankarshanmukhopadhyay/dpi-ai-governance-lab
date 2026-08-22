@@ -1,0 +1,66 @@
+harm_id: HARM-WELFARE-FRAUD-FP-001
+title: False-positive fraud signal produces benefit suspension
+harm_class: exclusion_wrongful_denial
+affected_parties:
+  - party: benefit claimant
+    exposure: suspension or delay of subsistence benefit after a false-positive fraud signal
+    vulnerability_factors:
+      - dependence on time-sensitive public benefit
+      - limited ability to absorb payment interruption
+initiating_condition: A model-assisted fraud detector produces a high-risk signal from incomplete, stale or misleading indicators.
+mechanism: A caseworker or workflow treats the risk signal as sufficient for suspension rather than as triage evidence requiring an independently authorized determination.
+authority_failure:
+  present: true
+  description: Triage or investigative authority is allowed to collapse into final adverse-decision authority without a separately evidenced mandate and decision record.
+  authority_ref: AUTH-BENEFIT-DETERMINATION
+immediate_outcome: The claimant's benefit is suspended or materially delayed.
+experienced_harm: The claimant loses or delays access to subsistence support despite no valid fraud determination.
+propagation:
+  downstream_effects:
+    - adverse status may be reused by other programme workflows
+    - delayed appeal can extend financial harm beyond the original decision window
+  aggregate_effect: Locality or proxy-correlated false positives can produce concentrated exclusion across a population segment.
+  feedback_loop: Unreviewed historical suspension labels can reinforce later model or caseworker suspicion.
+signals:
+  - signal: false-positive or reversal rate materially exceeds declared operating tolerance
+    evidence_source: decision receipts and appeal outcomes
+    threshold_or_trigger: trigger review when reversal or confirmed false-positive rate exceeds the programme-approved threshold
+  - signal: suspension rate clusters by locality or demographic proxy
+    evidence_source: aggregate decision and complaint telemetry
+    threshold_or_trigger: trigger disparity review on statistically or operationally material concentration
+  - signal: caseworkers rarely override high-risk model outputs
+    evidence_source: model output and human decision correlation logs
+    threshold_or_trigger: investigate unusually low independent-review variance
+controls:
+  preventive:
+    - separate fraud triage from final suspension authority
+    - require current evidence and rule-bound decision criteria before an adverse effect
+    - bind model identity, version, inputs and thresholds to consequential decisions
+  detective:
+    - monitor reversal, override, locality and complaint patterns
+    - sample adverse decisions for evidence completeness and authority validity
+  corrective:
+    - restore benefits when the adverse determination is invalidated
+    - propagate corrected facts and supersession to downstream users
+    - provide compensating remedy where delay itself caused harm
+  candidate_capabilities:
+    - CAP-INFERENCE-TRACEABILITY
+    - CAP-EVIDENCE-CLOSURE
+    - CAP-REDRESS-APPEAL
+    - CAP-CORRECTION-PROPAGATION
+redress:
+  available: true
+  authority: benefits appeals authority
+  remedy: review the adverse determination, correct facts, restore entitlement where appropriate, propagate correction and provide compensating remedy where required
+  time_constraint: appeal and emergency review timelines must be short enough to prevent remedy from becoming nominal
+residual_risk: Even with controls, evidentiary uncertainty and time-to-review can still cause temporary harm; residual risk must be measured and explicitly accepted by the accountable authority.
+closure_evidence:
+  - test showing model output alone cannot suspend a benefit
+  - decision receipt identifying accountable adverse-decision authority and governing rule
+  - inference trace for model-assisted decisions
+  - sampled evidence showing adverse decisions satisfy evidence requirements
+  - appeal and reversal metrics with remedy completion timestamps
+  - correction-propagation evidence for reversed or corrected decisions
+source_refs:
+  - case-studies/welfare-fraud-detection.md
+notes: This pressure test treats fraud detection as triage evidence, not as final adjudication authority.
