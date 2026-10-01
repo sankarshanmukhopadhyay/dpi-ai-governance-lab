@@ -55,6 +55,15 @@ def main() -> int:
             errors.append(f"{path.name}: capability/profile mismatch")
         if assessment["artifact_baseline"]["commit"] != snapshot["source"]["commit"]:
             errors.append(f"{path.name}: artifact baseline commit mismatch")
+        evidence_ids = {item["id"] for item in assessment["evidence"]}
+        for result in assessment["requirement_results"]:
+            missing_refs = set(result["evidence"]) - evidence_ids
+            if missing_refs:
+                errors.append(f"{path.name}: unresolved evidence ids {sorted(missing_refs)}")
+        for item in assessment["evidence"]:
+            evidence_path = item["ref"].split("#", 1)[0]
+            if not (ROOT / evidence_path).exists():
+                errors.append(f"{path.name}: missing evidence ref {evidence_path}")
         expected = derive(profile, assessment)
         if assessment["overall"] != expected:
             errors.append(f"{path.name}: overall={assessment['overall']} derived={expected}")
@@ -63,6 +72,7 @@ def main() -> int:
         "assessment-pass.yaml": "pass",
         "assessment-missing-evidence.yaml": "indeterminate",
         "assessment-failed-requirement.yaml": "fail",
+        "assessment-correction-pass.yaml": "pass",
     }
     for name, state in expected_states.items():
         data = load(CASE / name)
