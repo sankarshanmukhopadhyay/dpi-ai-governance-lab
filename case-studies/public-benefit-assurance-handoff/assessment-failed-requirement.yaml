@@ -1,0 +1,25 @@
+assessment_id: ASMT-PUBLIC-BENEFIT-ABD-FAIL
+subject:
+  implementation: public-benefit-eligibility-service
+  capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+  profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+  scope: synthetic eligibility authorization with revoked-delegation enforcement failure
+artifact_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 9dfc73e451a56283211674b5c874ae382ead53f8
+  interface_version: "1.0"
+evaluated_at: "2026-10-01T13:00:00Z"
+requirement_results:
+  - {requirement_id: ABD-001, result: pass, evidence: [EV-AUTH]}
+  - {requirement_id: ABD-002, result: pass, evidence: [EV-DELEG]}
+  - {requirement_id: ABD-003, result: fail, evidence: [EV-NEG]}
+  - {requirement_id: ABD-004, result: pass, evidence: [EV-AUTHZ, EV-CORR]}
+evidence:
+  - {id: EV-AUTH, class: authority_map, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#authority_map}
+  - {id: EV-DELEG, class: delegation_record, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#delegation_record}
+  - {id: EV-AUTHZ, class: runtime_authorization_record, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#runtime_authorization_record}
+  - {id: EV-CORR, class: effect_authorization_correlation, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#effect_authorization_correlation}
+  - {id: EV-NEG, class: negative_test_results, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#negative_test_results}
+overall: fail
+residual_risk:
+  - Revoked-delegation negative path failed in this deliberately adverse assessment.
