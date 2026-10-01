@@ -9,9 +9,9 @@ import yaml
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
-CASE = ROOT / "case-studies" / "public-benefit-assurance-handoff"
+CASES_ROOT = ROOT / "case-studies"
 SCHEMA = ROOT / "schemas" / "assurance" / "assessment-continuity.schema.json"
-PROFILE_SNAPSHOT = CASE / "continuity-profile-snapshot.yaml"
+REQUIRED_STATES = {"valid", "superseded", "reassessment_required", "invalidated", "indeterminate"}
 
 
 def load(path: Path):
@@ -66,72 +66,101 @@ def derive(profile: dict, continuity: dict) -> str:
     return "valid"
 
 
+def discover_cases() -> list[Path]:
+    return sorted(
+        path for path in CASES_ROOT.iterdir()
+        if path.is_dir()
+        and any(
+            p.name not in {"continuity-profile-snapshot.yaml"}
+            for p in path.glob("continuity-*.yaml")
+        )
+    )
+
+
+def snapshot_for(case: Path) -> Path | None:
+    dedicated = case / "continuity-profile-snapshot.yaml"
+    if dedicated.exists():
+        return dedicated
+    shared = case / "profile-snapshot.yaml"
+    if shared.exists():
+        return shared
+    return None
+
+
 def main() -> int:
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
-    snapshot = load(PROFILE_SNAPSHOT)
-    profiles = {item["profile_id"]: item for item in snapshot["profiles"]}
     errors: list[str] = []
+    total = 0
+    tested_cases = 0
 
-    paths = sorted(
-        path for path in CASE.glob("continuity-*.yaml")
-        if path.name != PROFILE_SNAPSHOT.name
-    )
-
-    for path in paths:
-        continuity = load(path)
-        for error in validator.iter_errors(continuity):
-            errors.append(f"{path.name}: schema: {error.message}")
-
-        prior_ref = resolve_ref(continuity["prior_assessment"]["ref"])
-        if not prior_ref.exists():
-            errors.append(f"{path.name}: prior assessment ref does not exist")
+    for case in discover_cases():
+        snapshot_path = snapshot_for(case)
+        if snapshot_path is None:
+            errors.append(f"{case.name}: continuity fixtures have no profile snapshot")
             continue
-        prior = load(prior_ref)
-        if prior.get("assessment_id") != continuity["prior_assessment"]["assessment_id"]:
-            errors.append(f"{path.name}: prior assessment id/ref mismatch")
 
-        profile = profiles.get(continuity["profile_baseline"]["profile_id"])
-        if not profile:
-            errors.append(f"{path.name}: unknown profile")
-            continue
-        if prior.get("subject", {}).get("profile_id") != profile["profile_id"]:
-            errors.append(f"{path.name}: prior assessment/profile mismatch")
-        if continuity["profile_baseline"]["commit"] != snapshot["source"]["commit"]:
-            errors.append(f"{path.name}: continuity profile commit mismatch")
-        if continuity["profile_baseline"]["interface_version"] != snapshot["source"]["interface_version"]:
-            errors.append(f"{path.name}: continuity interface version mismatch")
-        if parse_time(continuity["evaluated_at"]) < parse_time(prior["evaluated_at"]):
-            errors.append(f"{path.name}: continuity evaluation predates prior assessment")
+        snapshot = load(snapshot_path)
+        profiles = {item["profile_id"]: item for item in snapshot["profiles"]}
+        paths = sorted(
+            path for path in case.glob("continuity-*.yaml")
+            if path.name != "continuity-profile-snapshot.yaml"
+        )
+        observed_states: set[str] = set()
 
-        expected = derive(profile, continuity)
-        if continuity["state"] != expected:
-            errors.append(f"{path.name}: state={continuity['state']} derived={expected}")
+        for path in paths:
+            total += 1
+            continuity = load(path)
+            observed_states.add(continuity.get("state"))
+            for error in validator.iter_errors(continuity):
+                errors.append(f"{case.name}/{path.name}: schema: {error.message}")
 
-        replacement_ref = continuity.get("superseded_by_assessment")
-        if replacement_ref:
-            target = resolve_ref(replacement_ref["ref"])
-            if target.exists():
-                replacement = load(target)
-                if replacement.get("assessment_id") != replacement_ref["assessment_id"]:
-                    errors.append(f"{path.name}: replacement assessment id/ref mismatch")
-                if replacement.get("subject", {}).get("capability_id") != prior.get("subject", {}).get("capability_id"):
-                    errors.append(f"{path.name}: replacement capability mismatch")
-                if parse_time(replacement["evaluated_at"]) <= parse_time(prior["evaluated_at"]):
-                    errors.append(f"{path.name}: replacement assessment must be later than prior assessment")
+            prior_ref = resolve_ref(continuity["prior_assessment"]["ref"])
+            if not prior_ref.exists():
+                errors.append(f"{case.name}/{path.name}: prior assessment ref does not exist")
+                continue
+            prior = load(prior_ref)
+            if prior.get("assessment_id") != continuity["prior_assessment"]["assessment_id"]:
+                errors.append(f"{case.name}/{path.name}: prior assessment id/ref mismatch")
 
-    expected_states = {
-        "continuity-valid.yaml": "valid",
-        "continuity-invalidated.yaml": "invalidated",
-        "continuity-reassessment.yaml": "reassessment_required",
-        "continuity-superseded.yaml": "superseded",
-        "continuity-indeterminate.yaml": "indeterminate",
-        "continuity-missing-evidence.yaml": "indeterminate",
-    }
-    for name, expected in expected_states.items():
-        actual = load(CASE / name)["state"]
-        if actual != expected:
-            errors.append(f"{name}: expected fixture state {expected}, found {actual}")
+            profile = profiles.get(continuity["profile_baseline"]["profile_id"])
+            if not profile:
+                errors.append(f"{case.name}/{path.name}: unknown profile")
+                continue
+            if prior.get("subject", {}).get("profile_id") != profile["profile_id"]:
+                errors.append(f"{case.name}/{path.name}: prior assessment/profile mismatch")
+            if continuity["profile_baseline"]["commit"] != snapshot["source"]["commit"]:
+                errors.append(f"{case.name}/{path.name}: continuity profile commit mismatch")
+            if continuity["profile_baseline"]["interface_version"] != snapshot["source"]["interface_version"]:
+                errors.append(f"{case.name}/{path.name}: continuity interface version mismatch")
+            if parse_time(continuity["evaluated_at"]) < parse_time(prior["evaluated_at"]):
+                errors.append(f"{case.name}/{path.name}: continuity evaluation predates prior assessment")
+
+            expected = derive(profile, continuity)
+            if continuity["state"] != expected:
+                errors.append(
+                    f"{case.name}/{path.name}: state={continuity['state']} derived={expected}"
+                )
+
+            replacement_ref = continuity.get("superseded_by_assessment")
+            if replacement_ref:
+                target = resolve_ref(replacement_ref["ref"])
+                if target.exists():
+                    replacement = load(target)
+                    if replacement.get("assessment_id") != replacement_ref["assessment_id"]:
+                        errors.append(f"{case.name}/{path.name}: replacement assessment id/ref mismatch")
+                    if replacement.get("subject", {}).get("capability_id") != prior.get("subject", {}).get("capability_id"):
+                        errors.append(f"{case.name}/{path.name}: replacement capability mismatch")
+                    if parse_time(replacement["evaluated_at"]) <= parse_time(prior["evaluated_at"]):
+                        errors.append(f"{case.name}/{path.name}: replacement assessment must be later than prior assessment")
+
+        if REQUIRED_STATES.issubset(observed_states):
+            tested_cases += 1
+        else:
+            errors.append(
+                f"{case.name}: continuity pressure suite does not cover all five states; "
+                f"observed={sorted(observed_states)}"
+            )
 
     if errors:
         print("FAILED")
@@ -139,9 +168,8 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Assessment continuity OK: {len(paths)} cases")
-    print("States verified: valid, superseded, reassessment_required, invalidated, indeterminate")
-    print("Unknown and missing-evidence changes remain INDETERMINATE")
+    print(f"Assessment continuity OK: {total} cases across {tested_cases} full five-state suites")
+    print("One derivation function handled every discovered continuity case")
     return 0
 
 
