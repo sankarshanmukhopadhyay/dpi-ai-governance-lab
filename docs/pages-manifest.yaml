@@ -9,6 +9,7 @@ pages:
   - docs/operator-metrics.md
   - docs/executable-governance.md
   - docs/capability-assurance-handoff.md
+  - docs/assurance-continuity.md
   - docs/threat-models/operational-ai-harms.md
   - docs/information-architecture.md
   - docs/pages-theme.md
