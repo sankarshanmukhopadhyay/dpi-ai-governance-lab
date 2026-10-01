@@ -1,0 +1,37 @@
+source:
+  repository: sankarshanmukhopadhyay/tswg-trust-registry-protocol
+  commit: 009c589ffa4e3098c7700a19b007505d6a29c30a
+  status: downstream-informative-plus-v2-core
+artifacts:
+  - path: schema/trqp_authorization_request.schema.json
+    blob_sha: 516d8c17043e136788967fa0aa4b0b9762e1804b
+    used_for:
+      - context-time-query-input
+  - path: schema/trqp_authorization_response.schema.json
+    blob_sha: ba0701d676bade714c20d214e231130b26cb6225
+    used_for:
+      - time_requested
+      - time_evaluated
+      - authorization-result
+  - path: specification/v2/core/api.md
+    blob_sha: 9f681181078217a31cda2c8f09e8fad5514fb1e9
+    used_for:
+      - authorization-query-semantics
+      - request-response-time-example
+  - path: review-process/authority-at-commitment-resolution.md
+    blob_sha: c81b26d7956a9e0a6e9c857c0a5181a3baf788a5
+    used_for:
+      - current-vs-historical-distinction
+      - historical-capability-gap
+      - source-authority-boundary
+  - path: review-process/authority-at-commitment-resolution.json
+    blob_sha: 2b8a70613c828a13480456a3538c86c2bf57cbf6
+    used_for:
+      - current-state-is-not-historical-state
+      - missing-capability-is-not-pass
+      - historical-as-of-authority-gap
+claim_boundary: >-
+  The source supports TRQP request/response time semantics and a downstream assessment
+  that distinguishes current from historical authority questions. It does not establish
+  that every deployment can reconstruct historical state or that TRQP itself decides
+  present reliance on a historical answer.
