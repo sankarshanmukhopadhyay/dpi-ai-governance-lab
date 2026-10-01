@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - VERSION
+      - pyproject.toml
+      - CHANGELOG.md
+      - CITATION.cff
+      - TRACE_COMPATIBILITY.json
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Validate release metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '[:space:]' < VERSION)"
+          test "$VERSION" = "0.10.0"
+          grep -Fq 'version = "0.10.0"' pyproject.toml
+          grep -Eq '^version:[[:space:]]*["'\'' ]?0\.10\.0["'\'' ]?$' CITATION.cff
+          grep -Fq '## [0.10.0] - 2026-10-01' CHANGELOG.md
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("TRACE_COMPATIBILITY.json").read_text())
+          assert data["lab"]["version"] == "0.10.0"
+          assert data["artifacts"]["version"] == "1.2.0"
+          assert any(
+              x["lab"] == "0.10.0"
+              and x["artifacts"] == "1.2.0"
+              and x["status"] == "supported"
+              for x in data["compatibility"]
+          )
+          assert data["interfaces"]["capability_conformance"] == "1.1"
+          assert data["interfaces"]["capability_assessment"] == "1.0"
+          assert data["interfaces"]["assessment_continuity"] == "1.0"
+          PY
+
+      - name: Validate assurance contracts
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+          python tools/validate_capability_assurance.py
+          python tools/validate_assessment_continuity.py
+          dpi-lab --version
+
+      - name: Build release notes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          version = Path("VERSION").read_text().strip()
+          text = Path("CHANGELOG.md").read_text()
+          start = text.index(f"## [{version}]")
+          rest = text[start:]
+          next_heading = rest.find("\n## [", 1)
+          section = rest if next_heading < 0 else rest[:next_heading]
+          Path("release-notes.md").write_text(section.strip() + "\n")
+          PY
+
+      - name: Publish release and mark latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '[:space:]' < VERSION)"
+          TAG="v${VERSION}"
+          TITLE="DPI AI Governance Lab ${TAG} — Evidence-Bound Assurance Continuity"
+
+          git fetch --tags --force
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            TAG_SHA="$(git rev-list -n 1 "$TAG")"
+            test "$TAG_SHA" = "$GITHUB_SHA"
+          fi
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes-file release-notes.md --latest
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes-file release-notes.md --latest
+          fi

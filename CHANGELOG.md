@@ -2,6 +2,57 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-10-01
+
+### Summary
+
+Evidence-bound assurance-continuity release. This version extends the TRACE improvement loop from static closure assessment to a versioned lifecycle model in which historical assessment results remain immutable while present reliance changes in response to later evidence, authority, policy, implementation, or reconstructability conditions.
+
+### Added
+
+- Machine-readable capability-assessment schema binding an implementation to:
+  - capability and conformance profile;
+  - immutable Artifacts commit;
+  - requirement-level results;
+  - evidence identifiers and classes;
+  - overall assurance outcome and residual risk.
+- Machine-readable assessment-continuity schema with five present-reliance states:
+  - `valid`;
+  - `superseded`;
+  - `reassessment_required`;
+  - `invalidated`;
+  - `indeterminate`.
+- Deterministic continuity derivation with explicit precedence and evidence checks.
+- Independent public-benefit assurance handoff fixture covering PASS, FAIL, missing-evidence INDETERMINATE, and all five continuity states.
+- ARA cross-system pressure test using immutable external source evidence and bounded evidence mapping.
+- TRQP temporal-state pressure test distinguishing `time_requested`, `time_evaluated`, historical effective state, and present determination about historical state.
+- Generic multi-case discovery in assurance and continuity validators so new compatible cases are data/configuration rather than domain-specific controller code.
+
+### Changed
+
+- The Lab ↔ Artifacts contract now includes `capability_conformance`, `capability_assessment`, and `assessment_continuity` interfaces.
+- Historical assessment results are explicitly preserved rather than rewritten after later events.
+- Missing or unclassifiable material change cannot silently preserve current validity.
+- Documentation now distinguishes historical observation, historical effective state, and present reliance determination.
+- `TRACE_COMPATIBILITY.json` declares Lab `0.10.0` / Artifacts `1.2.0` as the current supported release pair.
+
+### Stabilization evidence
+
+The same continuity controller was exercised without domain-specific state changes across:
+
+- public-benefit decision governance;
+- ARA agent relationship and authority lifecycle evidence;
+- TRQP temporal/historical-state evidence.
+
+The five-state vocabulary survived all three pressure domains. In particular, inability to reconstruct historical effective state maps to `indeterminate` without rewriting the historical assessment record.
+
+### Assurance boundary
+
+- A capability assessment is a scoped technical assurance result, not certification.
+- A continuity state is a derived present-reliance state, not a legal or institutional validity judgment.
+- Operators and adopting institutions remain responsible for observing real-world changes and deciding their legal, policy, deployment, delegation, correction, and approval consequences.
+- TRACE method version remains `0.1.0`.
+
 ## [0.9.0] - 2026-08-22
 
 ### Summary

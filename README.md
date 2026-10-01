@@ -1,6 +1,7 @@
 # DPI AI Governance Lab
 
 ![CI](https://github.com/sankarshanmukhopadhyay/dpi-ai-governance-lab/actions/workflows/ci.yml/badge.svg)
+![Release](https://img.shields.io/badge/release-v0.10.0-green)
 ![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)
 
 The DPI AI Governance Lab is a **governance evaluation and implementation-readiness workbench** for DPI, AI, agentic systems and consequential digital services.
@@ -11,6 +12,14 @@ It can begin from either:
 - a service, product, agent, workflow or deployment that somebody intends to build or improve.
 
 The Lab turns those inputs into **evidence-backed findings, normalized governance gaps, required capabilities, testable closure criteria and re-evaluation evidence**.
+
+## New in v0.10.0
+
+The Lab now treats assurance as a lifecycle rather than a timeless PASS/FAIL statement. A capability assessment is bound to an immutable conformance profile and evidence set, while a separate continuity result expresses whether that historical assessment remains usable for present reliance.
+
+The five continuity states are `valid`, `superseded`, `reassessment_required`, `invalidated`, and `indeterminate`. The same controller has been pressure-tested across public-benefit governance, ARA authority/lifecycle evidence, and TRQP temporal/historical-state evidence without domain-specific controller branches.
+
+The current supported release pair is **Lab v0.10.0 + Artifacts v1.2.0**.
 
 ## Start here
 
