@@ -22,6 +22,7 @@ pages:
   - case-studies/harm-chain-pressure-tests/README.md
   - case-studies/public-benefit-assurance-handoff/README.md
   - case-studies/ara-continuity-pressure/README.md
+  - case-studies/trqp-temporal-continuity-pressure/README.md
   - corpora/digital-statecraft-dpi/README.md
   - reviews/digital-statecraft-dpi/README.md
   - baselines/digital-statecraft-dpi-2026/README.md
