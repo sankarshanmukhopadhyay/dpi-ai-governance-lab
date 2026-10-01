@@ -1,0 +1,30 @@
+capability_id: CAP-EVIDENCE-CLOSURE
+profile_id: CAP-EVIDENCE-CLOSURE-1
+mapping_status: bounded-pressure-test
+requirements:
+  EVC-001:
+    proposition: Temporal claims are bound to versioned source artifacts and an immutable TRQP baseline.
+    source_evidence:
+      - source-baseline.yaml
+      - trqp_authorization_request.schema.json#context.time
+      - trqp_authorization_response.schema.json#time_requested
+      - trqp_authorization_response.schema.json#time_evaluated
+  EVC-002:
+    proposition: Source provenance and integrity are preserved by repository commit and blob identifiers.
+    source_evidence:
+      - source-baseline.yaml#source.commit
+      - source-baseline.yaml#artifacts.blob_sha
+  EVC-003:
+    proposition: The mapping distinguishes current query semantics from historical reconstruction claims.
+    source_evidence:
+      - authority-at-commitment-resolution.md#Current-vs-historical-questions
+      - authority-at-commitment-resolution.json#current-state-is-not-historical-state
+  EVC-004:
+    proposition: The verification result distinguishes supported evidence from historical-capability gaps and indeterminate reconstruction.
+    source_evidence:
+      - authority-at-commitment-resolution.json#historical-as-of-authority
+      - authority-at-commitment-resolution.json#missing-capability-is-not-pass
+limitations:
+  - time_requested states the time to which a response applies; it does not by itself prove historical reconstruction completeness.
+  - time_evaluated records when the endpoint executed the query; it is not the historical effective-state time.
+  - the downstream authority-at-commitment assessment is informative and does not amend the TRQP specification.
