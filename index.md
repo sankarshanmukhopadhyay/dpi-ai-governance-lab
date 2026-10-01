@@ -11,9 +11,16 @@ nav_order: 0
 The Lab is a TRACE workbench for people who design, procure, implement, operate, and assure DPI/AI systems. It turns publications and deployment propositions into evidence-backed findings, normalized governance gaps, remediation requirements, and closure tests.
 
 {: .note }
+New to the method? Start with the canonical [TRACE — Trust, Risk, Architecture & Conformance Evaluation](docs/trace/README.md) page for a self-contained explanation of what TRACE is, how it is implemented, what it produces, and where it creates operational value.
+
+{: .note }
 The Lab is deliberately paired with the companion **DPI–AI Governance Artifacts** repository. The Lab identifies and normalizes the problem; the Artifacts repository supplies reusable implementation assets and evidence requirements.
 
 ## Choose your path
+
+### Understand TRACE
+
+Read the [canonical TRACE overview](docs/trace/README.md). It explains the four lenses, evidence discipline, implementation paths, business/operational value, authority boundaries, and relationship to TSAM.
 
 ### Evaluate a publication
 
@@ -54,11 +61,12 @@ dpi-lab governance-validate case-studies/executable-governance-entitlement-agent
 
 ## Documentation architecture
 
+- [TRACE](docs/trace/README.md) — canonical method, implementation, value, evidence and boundaries
 - [Start here](docs/start-here.md) — task routing and concepts
 - [Operator playbook](docs/operator-playbook.md) — implementation lifecycle
 - [Evaluations](docs/evaluations.md) — reviews, baselines, recurring gaps, re-evaluation
 - [TRACE Operator Improvement Loop](docs/operator-improvement-loop.md) — mission and cross-repo contract
-- [Methodology](methodology/README.md) — evaluation method and scoring
+- [Methodology](methodology/README.md) — stable evaluation method and scoring
 - [Evidence discipline](docs/evidence-and-citation-discipline.md) — provenance and auditability
 - [Executable governance](docs/executable-governance.md) — runtime verification preview
 

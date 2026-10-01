@@ -11,13 +11,15 @@ The Pages site is organized around the improvement loop rather than the reposito
 ## Use the workbench
 
 - [Start here](start-here.md)
+- [TRACE — canonical method overview](trace/README.md)
 - [Operator playbook](operator-playbook.md)
 - [Evaluations](evaluations.md)
 - [TRACE Operator Improvement Loop](operator-improvement-loop.md)
 
 ## Method and evidence
 
-- [TRACE methodology](../methodology/README.md)
+- [TRACE — what it is, how to implement it, and why it matters](trace/README.md)
+- [Stable TRACE methodology](../methodology/README.md)
 - [Evidence and citation discipline](evidence-and-citation-discipline.md)
 - [Comparative analysis](comparative-analysis.md)
 - [Lab ↔ Artifacts interface](contracts/lab-artifacts-interface.md)
@@ -25,6 +27,7 @@ The Pages site is organized around the improvement loop rather than the reposito
 ## Verification and assurance
 
 - [Executable governance](executable-governance.md)
+- [TRACE ↔ TSAM](trace/TRACE-TSAM.md)
 - [Threat models](threat-models/)
 - [Reference governance architecture](architecture/reference-governance-architecture.md)
 
