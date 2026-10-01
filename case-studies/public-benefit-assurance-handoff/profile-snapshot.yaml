@@ -1,0 +1,21 @@
+source:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 9dfc73e451a56283211674b5c874ae382ead53f8
+  interface_version: "1.0"
+profiles:
+  - profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+    capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+    requirements:
+      - {id: ABD-001, mandatory: true}
+      - {id: ABD-002, mandatory: true}
+      - {id: ABD-003, mandatory: true}
+      - {id: ABD-004, mandatory: true}
+    required_evidence: [authority_map, delegation_record, runtime_authorization_record, effect_authorization_correlation, negative_test_results]
+  - profile_id: CAP-CORRECTION-PROPAGATION-1
+    capability_id: CAP-CORRECTION-PROPAGATION
+    requirements:
+      - {id: CORR-001, mandatory: true}
+      - {id: CORR-002, mandatory: true}
+      - {id: CORR-003, mandatory: true}
+      - {id: CORR-004, mandatory: true}
+    required_evidence: [correction_order, dependency_set, correction_execution_receipt, downstream_recomputation_result, partial_failure_test]

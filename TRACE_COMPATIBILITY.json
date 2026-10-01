@@ -32,5 +32,11 @@
       "artifacts": "1.1.0",
       "status": "supported"
     }
-  ]
+  ],
+  "interfaces": {
+    "governance_gap": "1.0",
+    "remediation_registry": "0.5",
+    "capability_conformance": "1.0",
+    "capability_assessment": "1.0"
+  }
 }

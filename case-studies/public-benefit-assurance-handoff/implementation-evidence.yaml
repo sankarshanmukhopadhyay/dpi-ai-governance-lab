@@ -1,0 +1,29 @@
+fixture: public-benefit-eligibility-service
+authority_map:
+  accountable_authority: benefit-agency
+delegation_record:
+  delegate: eligibility-automation
+  purpose: determine-benefit-eligibility
+  status: active
+runtime_authorization_record:
+  decision: allow
+  checked_before_effect: true
+effect_authorization_correlation:
+  authorization_ref: AUTHZ-001
+  effect_ref: BENEFIT-001
+negative_test_results:
+  revoked_delegation: deny
+  expired_delegation: deny
+  out_of_scope: deny
+correction_order:
+  issuer: benefit-agency
+  target: source-income-record
+dependency_set:
+  mandatory_targets: [eligibility-decision, benefit-payment]
+correction_execution_receipt:
+  state: completed
+downstream_recomputation_result:
+  eligibility_decision: superseded
+  benefit_payment: compensated
+partial_failure_test:
+  unresolved_mandatory_target: incomplete

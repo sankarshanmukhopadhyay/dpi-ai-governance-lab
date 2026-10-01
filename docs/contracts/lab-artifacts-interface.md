@@ -42,6 +42,13 @@ Pack selectors **SHOULD** be driven by:
 
 Compatibility is tracked in `TRACE_COMPATIBILITY.json` and must remain consistent across both repos.
 
+The executable assurance handoff adds two versioned interfaces:
+
+- `capability_conformance`: Artifacts-owned requirements, evidence classes, and negative cases for a CAP-*;
+- `capability_assessment`: Lab-owned derived result binding an implementation to an immutable Artifacts profile baseline.
+
+A PASS assessment requires positive evidence for every mandatory proposition and all required evidence classes. Missing evidence is INDETERMINATE, not PASS.
+
 ## Non-goals
 
 - This contract does not publish a threat model.
