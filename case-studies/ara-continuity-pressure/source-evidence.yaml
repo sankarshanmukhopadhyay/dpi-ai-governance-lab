@@ -1,0 +1,28 @@
+authority_map:
+  source: invariants.yaml
+  refs: [ARA-I02-IDENTITY-NOT-AUTHORITY, ARA-I05-CAPABILITY-NOT-LEGITIMATE-AUTHORITY]
+delegation_record:
+  source: phase8-lifecycle-continuity-judgment.md
+  assertion: Persistent Role Record and Agreement state are distinct from Live Agent memory and capability possession.
+runtime_authorization_record:
+  source: authority-at-commitment-vectors.json
+  refs: [AAC-PERMIT-001, AAC-DENY-REVOKED, AAC-DENY-SCOPE, AAC-INDETERMINATE-STATUS]
+effect_authorization_correlation:
+  source: invariants.yaml
+  refs: [ARA-I08-PROTECTED-SIGNING-CONTEXT-BOUND, ARA-I14-EXECUTION-EFFECT-CORRELATED]
+negative_test_results:
+  source: invariants.yaml
+  refs: [ARA-I05-CAPABILITY-NOT-LEGITIMATE-AUTHORITY, ARA-I09-CURRENT-DEFENSIBLE-ROLE-STATE, ARA-I16-INDETERMINATE-NOT-PASS]
+change_events:
+  authority_revoked:
+    source: authority-at-commitment-vectors.json
+    ref: AAC-DENY-REVOKED
+  delegation_scope_changed:
+    source: invariants.yaml
+    ref: ARA-I09-CURRENT-DEFENSIBLE-ROLE-STATE
+  authority_status_unavailable:
+    source: authority-at-commitment-vectors.json
+    ref: AAC-INDETERMINATE-STATUS
+historical_semantics:
+  source: invariants.yaml
+  ref: ARA-I19-CURRENT-STATE-NOT-HISTORICAL-REWRITE
