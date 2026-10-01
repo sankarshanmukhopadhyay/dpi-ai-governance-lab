@@ -8,6 +8,7 @@ pages:
   - docs/evaluations.md
   - docs/operator-metrics.md
   - docs/executable-governance.md
+  - docs/capability-assurance-handoff.md
   - docs/threat-models/operational-ai-harms.md
   - docs/information-architecture.md
   - docs/pages-theme.md
@@ -18,6 +19,7 @@ pages:
   - case-studies/delegated-entitlement-closure/README.md
   - case-studies/executable-governance-entitlement-agent/README.md
   - case-studies/harm-chain-pressure-tests/README.md
+  - case-studies/public-benefit-assurance-handoff/README.md
   - corpora/digital-statecraft-dpi/README.md
   - reviews/digital-statecraft-dpi/README.md
   - baselines/digital-statecraft-dpi-2026/README.md
