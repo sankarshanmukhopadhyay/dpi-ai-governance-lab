@@ -1,0 +1,19 @@
+continuity_id: CONT-PUBLIC-BENEFIT-REASSESS
+prior_assessment:
+  assessment_id: ASMT-PUBLIC-BENEFIT-ABD-PASS
+  ref: case-studies/public-benefit-assurance-handoff/assessment-pass.yaml
+profile_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 2ee7b803c1ee8a9000e329e9ee25262b1be32fa8
+  interface_version: "1.1"
+  profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+evaluated_at: "2026-10-02T09:05:00Z"
+events:
+  - id: EVT-IMPLEMENTATION-CHANGED
+    event_type: implementation_changed
+    observed_at: "2026-10-02T09:00:00Z"
+    evidence:
+      - case-studies/public-benefit-assurance-handoff/change-evidence.yaml#implementation_change
+state: reassessment_required
+residual_risk:
+  - The previous PASS remains historical evidence but is insufficient for present reliance after implementation change.

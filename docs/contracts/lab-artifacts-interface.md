@@ -45,9 +45,12 @@ Compatibility is tracked in `TRACE_COMPATIBILITY.json` and must remain consisten
 The executable assurance handoff adds two versioned interfaces:
 
 - `capability_conformance`: Artifacts-owned requirements, evidence classes, and negative cases for a CAP-*;
-- `capability_assessment`: Lab-owned derived result binding an implementation to an immutable Artifacts profile baseline.
+- `capability_assessment`: Lab-owned derived result binding an implementation to an immutable Artifacts profile baseline;
+- `assessment_continuity`: Lab-owned derived present-reliance state binding a historical assessment to observed change evidence and Artifacts-owned continuity triggers.
 
 A PASS assessment requires positive evidence for every mandatory proposition and all required evidence classes. Missing evidence is INDETERMINATE, not PASS.
+
+A later change does not rewrite the historical assessment. Artifacts declares the technical effect of classified change types; the Lab derives a separate continuity state. Unknown or insufficiently evidenced change cannot preserve current validity.
 
 ## Non-goals
 

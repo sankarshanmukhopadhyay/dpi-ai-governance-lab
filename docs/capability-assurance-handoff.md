@@ -30,6 +30,12 @@ A capability assessment supports:
 
 Missing evidence never becomes PASS.
 
+## Continuity after assessment
+
+The assessment result is historical evidence and is not rewritten after later events. Present reliance after authority, policy, implementation, evidence, or profile change is represented separately through an assessment-continuity result.
+
+See [Assurance continuity](assurance-continuity.md) for the lifecycle state model and deterministic change handling.
+
 ## Version binding
 
 Every assessment identifies the Artifacts repository, immutable commit, interface version, capability ID and profile ID used for evaluation. This allows a future reviewer to reconstruct which technical contract governed the assessment.
