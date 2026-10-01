@@ -1,0 +1,14 @@
+continuity_id: CONT-ARA-VALID
+prior_assessment:
+  assessment_id: ASMT-ARA-BOUNDARY-PASS
+  ref: case-studies/ara-continuity-pressure/assessment-pass.yaml
+profile_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 2ee7b803c1ee8a9000e329e9ee25262b1be32fa8
+  interface_version: "1.1"
+  profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+evaluated_at: "2026-10-01T13:25:00Z"
+events: []
+state: valid
+residual_risk:
+  - Validity is bounded to the pinned ARA evidence epoch and mapped propositions.

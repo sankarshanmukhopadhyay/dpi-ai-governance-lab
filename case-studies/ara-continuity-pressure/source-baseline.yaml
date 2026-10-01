@@ -1,0 +1,34 @@
+source:
+  repository: sankarshanmukhopadhyay/trust-protocol-interop-lab
+  commit: 8e50e48cf6ec14526a72e13850020a981866eb83
+  case_id: IC-ARA-REL-001
+  status: interoperability-tested
+artifacts:
+  - path: cases/ara-minimum-executable-relationship/invariants.yaml
+    blob_sha: aad8422a737a229dd94aa49b42720b4f9aa5b0eb
+    used_for:
+      - ARA-I05-CAPABILITY-NOT-LEGITIMATE-AUTHORITY
+      - ARA-I09-CURRENT-DEFENSIBLE-ROLE-STATE
+      - ARA-I10-HISTORY-PRESERVED
+      - ARA-I16-INDETERMINATE-NOT-PASS
+      - ARA-I19-CURRENT-STATE-NOT-HISTORICAL-REWRITE
+  - path: cases/ara-minimum-executable-relationship/authority-at-commitment-vectors.json
+    blob_sha: b92bf672bb287d9924e07388d437b4273d2459b4
+    used_for:
+      - AAC-PERMIT-001
+      - AAC-DENY-REVOKED
+      - AAC-DENY-SCOPE
+      - AAC-INDETERMINATE-STATUS
+  - path: cases/ara-minimum-executable-relationship/phase8-lifecycle-continuity-judgment.md
+    blob_sha: 218c4e02d5cba6a078d79958cb9d5cb266661880
+    used_for:
+      - historical-validity-current-authority-separation
+      - fresh-authorization-after-revocation
+  - path: evidence/ara-minimum-executable-relationship/evidence-manifest.json
+    blob_sha: 31ada5731c417fddc2d01339fb0d378ca87fdb24
+    used_for:
+      - bounded-evidence-result
+claim_boundary: >-
+  The source case establishes only its documented bounded executable semantic-composition
+  evidence. This pressure test does not upgrade it to DPI/AI Governance conformance,
+  certification, legal validity, or production assurance.

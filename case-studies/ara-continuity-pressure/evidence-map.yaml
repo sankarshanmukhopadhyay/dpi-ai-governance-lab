@@ -1,0 +1,30 @@
+capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+mapping_status: bounded-pressure-test
+requirements:
+  ABD-001:
+    proposition: Accountable authority and bounded delegation are separately represented.
+    source_evidence:
+      - invariants.yaml#ARA-I02-IDENTITY-NOT-AUTHORITY
+      - invariants.yaml#ARA-I05-CAPABILITY-NOT-LEGITIMATE-AUTHORITY
+  ABD-002:
+    proposition: Current scope and authority state are evaluated before material commitment.
+    source_evidence:
+      - authority-at-commitment-vectors.json#AAC-PERMIT-001
+      - authority-at-commitment-vectors.json#AAC-DENY-SCOPE
+      - invariants.yaml#ARA-I09-CURRENT-DEFENSIBLE-ROLE-STATE
+  ABD-003:
+    proposition: Revoked or unavailable authority is not silently accepted.
+    source_evidence:
+      - authority-at-commitment-vectors.json#AAC-DENY-REVOKED
+      - authority-at-commitment-vectors.json#AAC-INDETERMINATE-STATUS
+      - invariants.yaml#ARA-I16-INDETERMINATE-NOT-PASS
+  ABD-004:
+    proposition: Authorization is bound to the exact material act and current relationship state.
+    source_evidence:
+      - invariants.yaml#ARA-I08-PROTECTED-SIGNING-CONTEXT-BOUND
+      - invariants.yaml#ARA-I14-EXECUTION-EFFECT-CORRELATED
+limitations:
+  - The ARA case uses its own semantic ownership model and does not implement the DPI/AI Governance capability profile.
+  - The mapping demonstrates evidence compatibility for a pressure test, not protocol equivalence.
+  - ARA's historical-state semantics remain authoritative only within its own case boundary.

@@ -1,0 +1,26 @@
+assessment_id: ASMT-ARA-BOUNDARY-PASS
+subject:
+  implementation: IC-ARA-REL-001-bounded-evidence-surface
+  capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+  profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+  scope: bounded pressure mapping of ARA authority-at-commitment and lifecycle evidence
+artifact_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 2ee7b803c1ee8a9000e329e9ee25262b1be32fa8
+  interface_version: "1.1"
+evaluated_at: "2026-10-01T13:20:00Z"
+requirement_results:
+  - {requirement_id: ABD-001, result: pass, evidence: [ARA-AUTH]}
+  - {requirement_id: ABD-002, result: pass, evidence: [ARA-DELEG, ARA-AUTHZ]}
+  - {requirement_id: ABD-003, result: pass, evidence: [ARA-NEG]}
+  - {requirement_id: ABD-004, result: pass, evidence: [ARA-AUTHZ, ARA-CORR]}
+evidence:
+  - {id: ARA-AUTH, class: authority_map, ref: case-studies/ara-continuity-pressure/source-evidence.yaml#authority_map}
+  - {id: ARA-DELEG, class: delegation_record, ref: case-studies/ara-continuity-pressure/source-evidence.yaml#delegation_record}
+  - {id: ARA-AUTHZ, class: runtime_authorization_record, ref: case-studies/ara-continuity-pressure/source-evidence.yaml#runtime_authorization_record}
+  - {id: ARA-CORR, class: effect_authorization_correlation, ref: case-studies/ara-continuity-pressure/source-evidence.yaml#effect_authorization_correlation}
+  - {id: ARA-NEG, class: negative_test_results, ref: case-studies/ara-continuity-pressure/source-evidence.yaml#negative_test_results}
+overall: pass
+residual_risk:
+  - This PASS is a bounded cross-system evidence-mapping result, not ARA certification or protocol equivalence.
+  - External source semantics remain owned by the Trust Protocol Interop Lab case.
