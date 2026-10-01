@@ -1,0 +1,14 @@
+continuity_id: CONT-TRQP-VALID
+prior_assessment:
+  assessment_id: ASMT-TRQP-TEMPORAL-PASS
+  ref: case-studies/trqp-temporal-continuity-pressure/assessment-pass.yaml
+profile_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: cef606a7c20ec8b4a4bf79eb946f2c42caab7585
+  interface_version: "1.1"
+  profile_id: CAP-EVIDENCE-CLOSURE-1
+evaluated_at: "2026-10-01T13:45:00Z"
+events: []
+state: valid
+residual_risk:
+  - Validity is bounded to the pinned evidence package and does not guarantee future historical reconstructability.
