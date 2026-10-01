@@ -1,0 +1,25 @@
+assessment_id: ASMT-PUBLIC-BENEFIT-CORR-PASS
+subject:
+  implementation: public-benefit-eligibility-service
+  capability_id: CAP-CORRECTION-PROPAGATION
+  profile_id: CAP-CORRECTION-PROPAGATION-1
+  scope: synthetic source-fact correction through eligibility recomputation and benefit compensation
+artifact_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 9dfc73e451a56283211674b5c874ae382ead53f8
+  interface_version: "1.0"
+evaluated_at: "2026-10-01T13:00:00Z"
+requirement_results:
+  - {requirement_id: CORR-001, result: pass, evidence: [EV-ORDER]}
+  - {requirement_id: CORR-002, result: pass, evidence: [EV-DEP]}
+  - {requirement_id: CORR-003, result: pass, evidence: [EV-RECEIPT, EV-PARTIAL]}
+  - {requirement_id: CORR-004, result: pass, evidence: [EV-RECOMP]}
+evidence:
+  - {id: EV-ORDER, class: correction_order, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#correction_order}
+  - {id: EV-DEP, class: dependency_set, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#dependency_set}
+  - {id: EV-RECEIPT, class: correction_execution_receipt, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#correction_execution_receipt}
+  - {id: EV-RECOMP, class: downstream_recomputation_result, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#downstream_recomputation_result}
+  - {id: EV-PARTIAL, class: partial_failure_test, ref: case-studies/public-benefit-assurance-handoff/implementation-evidence.yaml#partial_failure_test}
+overall: pass
+residual_risk:
+  - Synthetic fixture does not establish real-world correction authority or deployment closure.
