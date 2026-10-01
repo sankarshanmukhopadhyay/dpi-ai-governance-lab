@@ -1,0 +1,24 @@
+assessment_id: ASMT-TRQP-TEMPORAL-PASS-V2
+subject:
+  implementation: trqp-temporal-evidence-package
+  capability_id: CAP-EVIDENCE-CLOSURE
+  profile_id: CAP-EVIDENCE-CLOSURE-1
+  scope: bounded refreshed evidence closure after later material evidence
+artifact_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: cef606a7c20ec8b4a4bf79eb946f2c42caab7585
+  interface_version: "1.1"
+evaluated_at: "2026-10-01T15:00:00Z"
+requirement_results:
+  - {requirement_id: EVC-001, result: pass, evidence: [EV-BUNDLE]}
+  - {requirement_id: EVC-002, result: pass, evidence: [EV-HASH]}
+  - {requirement_id: EVC-003, result: pass, evidence: [EV-MAP]}
+  - {requirement_id: EVC-004, result: pass, evidence: [EV-VERIFY]}
+evidence:
+  - {id: EV-BUNDLE, class: evidence_bundle_manifest, ref: case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#evidence_bundle_manifest}
+  - {id: EV-HASH, class: artifact_hashes, ref: case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#artifact_hashes}
+  - {id: EV-MAP, class: control_to_evidence_mapping, ref: case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#control_to_evidence_mapping}
+  - {id: EV-VERIFY, class: verification_result, ref: case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#verification_result}
+overall: pass
+residual_risk:
+  - Replacement assessment exists only to exercise explicit supersession.
