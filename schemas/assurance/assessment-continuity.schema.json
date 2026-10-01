@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sankarshanmukhopadhyay.github.io/dpi-ai-governance-lab/schemas/assurance/assessment-continuity.schema.json",
+  "title": "TRACE Assessment Continuity Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["continuity_id", "prior_assessment", "profile_baseline", "evaluated_at", "events", "state", "residual_risk"],
+  "properties": {
+    "continuity_id": {"type": "string", "pattern": "^CONT-[A-Z0-9-]+$"},
+    "prior_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assessment_id", "ref"],
+      "properties": {
+        "assessment_id": {"type": "string", "pattern": "^ASMT-[A-Z0-9-]+$"},
+        "ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "profile_baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "interface_version", "profile_id"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "interface_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+$"},
+        "profile_id": {"type": "string", "pattern": "^CAP-[A-Z0-9-]+-[0-9]+$"}
+      }
+    },
+    "evaluated_at": {"type": "string", "format": "date-time"},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "event_type", "observed_at", "evidence"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^EVT-[A-Z0-9-]+$"},
+          "event_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "observed_at": {"type": "string", "format": "date-time"},
+          "evidence": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+        }
+      }
+    },
+    "superseded_by_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assessment_id", "ref"],
+      "properties": {
+        "assessment_id": {"type": "string", "pattern": "^ASMT-[A-Z0-9-]+$"},
+        "ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "state": {"enum": ["valid", "superseded", "reassessment_required", "invalidated", "indeterminate"]},
+    "residual_risk": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"const": "superseded"}}},
+      "then": {"required": ["superseded_by_assessment"]}
+    }
+  ]
+}
