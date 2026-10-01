@@ -2,6 +2,7 @@ version: 1
 pages:
   - index.md
   - docs/start-here.md
+  - docs/trace/README.md
   - docs/operator-playbook.md
   - docs/implementation-first.md
   - docs/evaluations.md
