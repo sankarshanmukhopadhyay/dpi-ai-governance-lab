@@ -1,0 +1,19 @@
+continuity_id: CONT-TRQP-INDETERMINATE
+prior_assessment:
+  assessment_id: ASMT-TRQP-TEMPORAL-PASS
+  ref: case-studies/trqp-temporal-continuity-pressure/assessment-pass.yaml
+profile_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: cef606a7c20ec8b4a4bf79eb946f2c42caab7585
+  interface_version: "1.1"
+  profile_id: CAP-EVIDENCE-CLOSURE-1
+evaluated_at: "2026-10-01T14:20:00Z"
+events:
+  - id: EVT-TRQP-HISTORICAL-RECONSTRUCTION-UNAVAILABLE
+    event_type: historical_reconstruction_unavailable
+    observed_at: "2026-10-01T14:19:00Z"
+    evidence:
+      - case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#events.historical_reconstruction_unavailable
+state: indeterminate
+residual_risk:
+  - The requested historical effective state cannot be established from the available source evidence.

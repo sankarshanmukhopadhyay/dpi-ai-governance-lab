@@ -1,0 +1,35 @@
+evidence_bundle_manifest:
+  source_commit: 009c589ffa4e3098c7700a19b007505d6a29c30a
+  source_repository: sankarshanmukhopadhyay/tswg-trust-registry-protocol
+  temporal_claims:
+    - current-query-semantics
+    - requested-time-semantics
+    - evaluated-time-semantics
+    - historical-reconstruction-gap
+artifact_hashes:
+  authorization_request_schema: 516d8c17043e136788967fa0aa4b0b9762e1804b
+  authorization_response_schema: ba0701d676bade714c20d214e231130b26cb6225
+  api: 9f681181078217a31cda2c8f09e8fad5514fb1e9
+  downstream_assessment: c81b26d7956a9e0a6e9c857c0a5181a3baf788a5
+  downstream_assessment_json: 2b8a70613c828a13480456a3538c86c2bf57cbf6
+control_to_evidence_mapping:
+  EVC-001: source-baseline.yaml
+  EVC-002: source-baseline.yaml
+  EVC-003: evidence-map.yaml
+  EVC-004: evidence-map.yaml
+verification_result:
+  status: pass
+  statement: >-
+    The bounded evidence package is sufficient to distinguish current/request-time
+    semantics from unsupported historical reconstruction claims.
+events:
+  evidence_set_changed:
+    description: A later evidence package adds material source-state information not present in the original bundle.
+  governing_rule_changed:
+    description: The policy or rule used to interpret the TRQP result materially changes.
+  required_evidence_contradicted:
+    description: Later authoritative evidence contradicts a mandatory proposition relied on by the prior closure.
+  historical_reconstruction_unavailable:
+    description: >-
+      A historical question is posed, but the authoritative source cannot provide evidence
+      sufficient to reconstruct the applicable state at the requested time.

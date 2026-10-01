@@ -1,0 +1,19 @@
+continuity_id: CONT-TRQP-REASSESS
+prior_assessment:
+  assessment_id: ASMT-TRQP-TEMPORAL-PASS
+  ref: case-studies/trqp-temporal-continuity-pressure/assessment-pass.yaml
+profile_baseline:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: cef606a7c20ec8b4a4bf79eb946f2c42caab7585
+  interface_version: "1.1"
+  profile_id: CAP-EVIDENCE-CLOSURE-1
+evaluated_at: "2026-10-01T14:00:00Z"
+events:
+  - id: EVT-TRQP-GOVERNING-RULE-CHANGED
+    event_type: governing_rule_changed
+    observed_at: "2026-10-01T13:59:00Z"
+    evidence:
+      - case-studies/trqp-temporal-continuity-pressure/source-evidence.yaml#events.governing_rule_changed
+state: reassessment_required
+residual_risk:
+  - The earlier evidence package remains historical evidence but current reliance must use the changed governing rule.
