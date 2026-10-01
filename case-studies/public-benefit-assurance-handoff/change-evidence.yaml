@@ -1,0 +1,13 @@
+delegation_revocation:
+  authority: benefit-agency
+  delegation: eligibility-automation
+  effective_at: "2026-10-02T08:00:00Z"
+implementation_change:
+  component: eligibility-authorization-enforcer
+  previous_version: "1.0"
+  current_version: "1.1"
+  deployed_at: "2026-10-02T09:00:00Z"
+unclassified_runtime_change:
+  component: eligibility-service
+  observation: Runtime behavior changed, but the change has not yet been mapped to a declared continuity trigger.
+  observed_at: "2026-10-02T10:00:00Z"
