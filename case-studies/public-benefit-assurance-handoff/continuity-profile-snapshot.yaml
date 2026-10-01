@@ -1,0 +1,26 @@
+source:
+  repository: sankarshanmukhopadhyay/dpi-ai-governance-artifacts
+  commit: 2ee7b803c1ee8a9000e329e9ee25262b1be32fa8
+  interface_version: "1.1"
+profiles:
+  - profile_id: CAP-AUTHORITY-BOUNDED-DELEGATION-1
+    capability_id: CAP-AUTHORITY-BOUNDED-DELEGATION
+    continuity:
+      rules:
+        - {event_type: authority_revoked, effect: invalidates}
+        - {event_type: delegation_revoked, effect: invalidates}
+        - {event_type: delegation_scope_changed, effect: reassessment_required}
+        - {event_type: policy_rule_changed, effect: reassessment_required}
+        - {event_type: implementation_changed, effect: reassessment_required}
+        - {event_type: required_evidence_contradicted, effect: invalidates}
+        - {event_type: profile_contract_changed, effect: reassessment_required}
+  - profile_id: CAP-CORRECTION-PROPAGATION-1
+    capability_id: CAP-CORRECTION-PROPAGATION
+    continuity:
+      rules:
+        - {event_type: correction_authority_revoked, effect: invalidates}
+        - {event_type: dependency_model_changed, effect: reassessment_required}
+        - {event_type: correction_policy_changed, effect: reassessment_required}
+        - {event_type: implementation_changed, effect: reassessment_required}
+        - {event_type: required_evidence_contradicted, effect: invalidates}
+        - {event_type: profile_contract_changed, effect: reassessment_required}
